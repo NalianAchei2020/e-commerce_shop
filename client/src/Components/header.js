@@ -6,29 +6,36 @@ import { Badge, IconButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import { Tooltip } from '@mui/material';
+import Searchbar from './search';
 
 function Header() {
   return (
     <section>
       <header>
-        <div className="d-flex flex-row">
+        <div className="header-head">
           <ul>
             <li>
               <h5>Free shipping on all Central Africa orders $50+</h5>
             </li>
           </ul>
-          <ul>
-            <li>English</li>
-            <li>Français</li>
-          </ul>
-          <ul>
-            <li> FRANC CFA</li>
-            <li>USD</li>
-            <li>EURO</li>
+          <ul className="d-flex flex-row ">
+            <li>
+              <select className="language-dropdown">
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+              </select>
+            </li>
+            <li>
+              <select className="language-dropdown">
+                <option value="franc">FRANC CFA</option>
+                <option value="usd">USD</option>
+                <option value="euro">EURO</option>
+              </select>
+            </li>
           </ul>
         </div>
         <nav className=" nav">
-          <h1>SHOPEE</h1>
+          <h1 className="logo">SHOPEE</h1>
           <ul className=" list">
             <li className="nav-item active">
               <Link className="nav-link" to="/">
@@ -40,14 +47,14 @@ function Header() {
                 SHOP
               </Link>
             </li>
-            <li className="nav-item nav-dropdown">
+            <li className="nav-item dropdown">
               <Link className="nav-link" to="/pages">
                 PAGES
               </Link>
-              <div className="dropdown">
-                <ul className="nav-item drop">
+              <div className="dropdown-content">
+                <ul className="nav-item">
                   <li className="nav-item">
-                    <Link className="nav-link drop-link" to="/pages/about">
+                    <Link className="nav-link" to="/pages/about">
                       About
                     </Link>
                   </li>
@@ -125,6 +132,7 @@ function Header() {
               </Link>{' '}
             </li>
           </ul>
+          <Searchbar className="searcher" />
         </nav>
       </header>
     </section>
