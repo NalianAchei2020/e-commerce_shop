@@ -32,3 +32,23 @@ nav {
     font-size: 2rem;
   }
 }
+.nav-dropdown {
+  position: relative;
+}
+
+.drop {
+  background-color: #fff;
+  border: 1.5px solid #dddcdc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .nav-item {
+    color: red;
+  }
+}
+
+li {
+  list-style-type: none;
+}

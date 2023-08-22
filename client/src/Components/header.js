@@ -40,10 +40,29 @@ function Header() {
                 SHOP
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item nav-dropdown">
               <Link className="nav-link" to="/pages">
                 PAGES
               </Link>
+              <div className="dropdown">
+                <ul className="nav-item drop">
+                  <li className="nav-item">
+                    <Link className="nav-link drop-link" to="/pages/about">
+                      About
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/pages/contact">
+                      Contact
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/pages/blog">
+                      Blog
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/Women">
@@ -53,11 +72,6 @@ function Header() {
             <li>
               <Link className="nav-link" to="/men">
                 MEN
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/blog">
-                BLOG
               </Link>
             </li>
           </ul>
@@ -73,15 +87,17 @@ function Header() {
             </li>
             <li className="nav-item">
               <Link to="/cart" className="icon-link">
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <Badge color="primary" badgeContent="cart">
-                    <ShoppingCartIcon />
-                  </Badge>
-                </IconButton>
+                <Tooltip title="Cart">
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                  >
+                    <Badge color="primary" badgeContent="cart">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
               </Link>{' '}
             </li>
             <li className="nav-item">
