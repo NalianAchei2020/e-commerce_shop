@@ -1,14 +1,38 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink, useMatch } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Badge, IconButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import ClearIcon from '@mui/icons-material/Clear';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Tooltip } from '@mui/material';
 import Searchbar from './search';
 
 function Header() {
+  const [showSearchbar, setShowSearchbar] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [pages, setPages] = useState(false);
+  const handleSearch = () => {
+    setShowSearchbar(true);
+  };
+
+  const handleclicked = () => {
+    setIsClicked(true);
+  };
+  const handleClose = () => {
+    setIsClicked(false);
+  };
+
+  const showPages = () => {
+    setPages(true);
+  };
+
+  const isActive = useMatch({
+    path: '/',
+  });
   return (
     <section>
       <header>
@@ -35,22 +59,62 @@ function Header() {
           </ul>
         </div>
         <nav className=" nav">
-          <h1 className="logo">SHOPEE</h1>
-          <ul className=" list">
+          <div className="menu-icons">
+            <button type="button" onClick={handleclicked} className="btn-menu">
+              <IconButton color="inherit" className="menu">
+                <MenuIcon className="menu" />
+              </IconButton>
+            </button>
+            <h1 className="logo">SHOPEE</h1>
+          </div>
+          <ul className={isClicked ? ' no-list' : 'list'}>
+            <li className="btn-clear " onClick={handleClose}>
+              <IconButton color="inherit" className="menu">
+                <ClearIcon className="clear" />
+              </IconButton>
+              <span>Close</span>
+            </li>
             <li className="nav-item active">
-              <Link className="nav-link" to="/">
+              <NavLink className={isActive ? 'active-link' : 'nav-link'} to="/">
                 HOME
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/shop">
+              <NavLink
+                className={useMatch('/shop') ? 'active-link' : 'nav-link'}
+                to="/shop"
+              >
                 SHOP
-              </Link>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className={useMatch('/Women') ? 'active-link' : 'nav-link'}
+                to="/Women"
+              >
+                WOMEN
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={useMatch('/men') ? 'active-link' : 'nav-link'}
+                to="/men"
+              >
+                MEN
+              </NavLink>
             </li>
             <li className="nav-item dropdown">
-              <Link className="nav-link" to="/pages">
-                PAGES
-              </Link>
+              <div className=" pages">
+                <NavLink
+                  className={useMatch('/pages') ? 'active-link' : 'nav-link'}
+                  to="/pages"
+                >
+                  PAGES
+                </NavLink>
+                <IconButton color="inherit" className="menu">
+                  <ExpandMoreIcon className="cheron" />
+                </IconButton>
+              </div>
               <div className="dropdown-content">
                 <ul className="nav-item">
                   <li className="nav-item">
@@ -71,26 +135,36 @@ function Header() {
                 </ul>
               </div>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/Women">
-                WOMEN
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-link" to="/men">
-                MEN
-              </Link>
-            </li>
+            <ul className="list-2">
+              <li>
+                <Link className="nav-link" to="/signin">
+                  SignIn
+                </Link>
+              </li>
+              <li>
+                <Link className="nav-link" to="/register">
+                  Register
+                </Link>
+              </li>
+              <li>
+                <Link className="nav-link" to="/cart">
+                  View Cart
+                </Link>
+              </li>
+              <li>
+                <Link className="nav-link" to="/wishlist">
+                  Wishlist
+                </Link>
+              </li>
+            </ul>
           </ul>
           <ul className="icons">
             <li className="nav-item">
-              <Link to="/cart" className="icon-link">
-                <Tooltip title="Search">
-                  <IconButton color="inherit">
-                    <SearchIcon />
-                  </IconButton>
-                </Tooltip>
-              </Link>{' '}
+              <Tooltip title="Search">
+                <IconButton color="inherit">
+                  <SearchIcon onClick={handleSearch} />
+                </IconButton>
+              </Tooltip>
             </li>
             <li className="nav-item">
               <Link to="/cart" className="icon-link">
@@ -108,7 +182,7 @@ function Header() {
               </Link>{' '}
             </li>
             <li className="nav-item">
-              <Link to="/cart" className="icon-link">
+              <Link to="/wishlist" className="icon-link">
                 <Tooltip title="Favorites">
                   <IconButton
                     size="large"
@@ -123,7 +197,7 @@ function Header() {
               </Link>{' '}
             </li>
             <li className="nav-item">
-              <Link to="/cart" className="icon-link">
+              <Link to="/profile" className="icon-link none">
                 <Tooltip title="Login/Register" placement="bottom">
                   <IconButton color="inherit">
                     <AccountCircleIcon />
@@ -132,7 +206,7 @@ function Header() {
               </Link>{' '}
             </li>
           </ul>
-          <Searchbar className="searcher" />
+          {showSearchbar && <Searchbar />}
         </nav>
       </header>
     </section>
