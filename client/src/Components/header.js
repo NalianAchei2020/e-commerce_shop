@@ -12,27 +12,37 @@ import { Tooltip } from '@mui/material';
 import Searchbar from './search';
 
 function Header() {
+  // State variables
   const [showSearchbar, setShowSearchbar] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [pages, setPages] = useState(false);
+
+  // Event handlers
   const handleSearch = () => {
     setShowSearchbar(true);
   };
 
-  const handleclicked = () => {
+  const hideSearch = () => {
+    setShowSearchbar(false);
+  };
+
+  const handleClicked = () => {
     setIsClicked(true);
   };
+
   const handleClose = () => {
     setIsClicked(false);
   };
 
   const showPages = () => {
-    setPages(true);
+    setPages(!pages);
   };
 
+  // Check if current route is active
   const isActive = useMatch({
     path: '/',
   });
+
   return (
     <section>
       <header>
@@ -58,17 +68,17 @@ function Header() {
             </li>
           </ul>
         </div>
-        <nav className=" nav">
+        <nav className="nav">
           <div className="menu-icons">
-            <button type="button" onClick={handleclicked} className="btn-menu">
+            <button type="button" onClick={handleClicked} className="btn-menu">
               <IconButton color="inherit" className="menu">
                 <MenuIcon className="menu" />
               </IconButton>
             </button>
             <h1 className="logo">SHOPEE</h1>
           </div>
-          <ul className={isClicked ? ' no-list' : 'list'}>
-            <li className="btn-clear " onClick={handleClose}>
+          <ul className={isClicked ? 'no-list' : 'list'}>
+            <li className="btn-clear" onClick={handleClose}>
               <IconButton color="inherit" className="menu">
                 <ClearIcon className="clear" />
               </IconButton>
@@ -104,7 +114,7 @@ function Header() {
               </NavLink>
             </li>
             <li className="nav-item dropdown">
-              <div className=" pages">
+              <div className="pages" onClick={showPages}>
                 <NavLink
                   className={useMatch('/pages') ? 'active-link' : 'nav-link'}
                   to="/pages"
@@ -115,7 +125,7 @@ function Header() {
                   <ExpandMoreIcon className="cheron" />
                 </IconButton>
               </div>
-              <div className="dropdown-content">
+              <div className={pages ? 'no-content' : 'dropdown-content'}>
                 <ul className="nav-item">
                   <li className="nav-item">
                     <Link className="nav-link" to="/pages/about">
@@ -179,10 +189,10 @@ function Header() {
                     </Badge>
                   </IconButton>
                 </Tooltip>
-              </Link>{' '}
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/wishlist" className="icon-link">
+              <Link to="/wishlist" className="icon-link none">
                 <Tooltip title="Favorites">
                   <IconButton
                     size="large"
@@ -194,7 +204,7 @@ function Header() {
                     </Badge>
                   </IconButton>
                 </Tooltip>
-              </Link>{' '}
+              </Link>
             </li>
             <li className="nav-item">
               <Link to="/profile" className="icon-link none">
@@ -203,10 +213,10 @@ function Header() {
                     <AccountCircleIcon />
                   </IconButton>
                 </Tooltip>
-              </Link>{' '}
+              </Link>
             </li>
           </ul>
-          {showSearchbar && <Searchbar />}
+          {showSearchbar && <Searchbar hideSearch={hideSearch} />}
         </nav>
       </header>
     </section>
