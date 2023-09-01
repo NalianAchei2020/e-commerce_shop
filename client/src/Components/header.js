@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useMatch } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -16,12 +16,15 @@ function Header() {
   const [showSearchbar, setShowSearchbar] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [pages, setPages] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Event handlers
   const handleSearch = () => {
     setShowSearchbar(true);
   };
-
+  const checkMobileScreen = () => {
+    setIsMobile(window.innerWidth <= 920);
+  };
   const hideSearch = () => {
     setShowSearchbar(false);
   };
@@ -35,9 +38,17 @@ function Header() {
   };
 
   const showPages = () => {
-    setPages(!pages);
+    if (isMobile) {
+      setPages(!pages);
+    }
   };
-
+  useEffect(() => {
+    window.addEventListener('resize', checkMobileScreen);
+    checkMobileScreen(); // Check the initial screen width
+    return () => {
+      window.removeEventListener('resize', checkMobileScreen);
+    };
+  }, []);
   // Check if current route is active
   const isActive = useMatch({
     path: '/',
@@ -125,7 +136,11 @@ function Header() {
                   <ExpandMoreIcon className="cheron" />
                 </IconButton>
               </div>
-              <div className={pages ? 'no-content' : 'dropdown-content'}>
+              <div
+                className={
+                  isMobile && pages ? 'no-content' : 'dropdown-content'
+                }
+              >
                 <ul className="nav-item">
                   <li className="nav-item">
                     <Link className="nav-link" to="/pages/about">
