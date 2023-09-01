@@ -58,6 +58,8 @@ nav {
     .list {
       display: flex;
       flex-direction: row;
+      justify-content: center;
+      align-items: center;
       gap: 2em;
       position: relative;
       z-index: 0;
@@ -199,7 +201,7 @@ li {
     font-weight: 800;
     position: relative;
     text-align: center;
-    top: 25%;
+    top: 0;
   }
 }
 
@@ -230,7 +232,7 @@ li {
 
   @media (min-width: 57.5em) {
     margin-left: 0;
-    display: block;
+    display: flex;
     .cheron {
       display: none;
     }
