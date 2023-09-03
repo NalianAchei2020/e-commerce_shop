@@ -7,17 +7,14 @@ const images = [
   {
     url: 'Images/banner/banner-3.jpg',
     text: 'Men Footwear shoes',
-    buttonLabel: 'Shop Now ',
   },
   {
     url: 'Images/banner/banner-1.jpg',
     text: 'Women Fashion. High Heels Closeup',
-    buttonLabel: 'Shop Now',
   },
   {
     url: 'Images/banner/banner-1.jpg',
     text: 'Best Shoes For Kids',
-    buttonLabel: 'Shop Now',
   },
 ];
 
@@ -96,7 +93,7 @@ const Slider = () => {
           <br />
           <br />
           <Button variant="contained" color="primary" className="btn-slider">
-            {images[currentImageIndex].buttonLabel}
+            Shop Now
           </Button>
         </div>
       </Box>
