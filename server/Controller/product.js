@@ -1,5 +1,14 @@
 import Product from '../Models/productModel.js';
-import { cloudinary } from '../utils/cloudinary.js';
+import { v2 as cloudinary } from 'cloudinary';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 
 // create a product
 export const createProduct = async (req, res, next) => {
@@ -19,7 +28,8 @@ export const createProduct = async (req, res, next) => {
     newArrival,
   } = req.body;
   try {
-    const photo = await cloudinary.uploader.upload(image, {
+    const result = await cloudinary.uploader.upload(image, {
+      resource_type: 'auto',
       folder: 'products',
     });
     const product = new Product({
@@ -29,8 +39,8 @@ export const createProduct = async (req, res, next) => {
       description,
       countInStock,
       image: {
-        public_id: photo.public_id,
-        url: photo.secure_url,
+        public_id: result.public_id,
+        url: result.secure_url,
       },
       subcategory,
       rating,
