@@ -35,9 +35,9 @@ function Home() {
       {/*beastSeller */}
       <section className="best-seller container-fluid">
         <h1>Best Seller</h1>
-        <div className="row mb-4">
+        <div className="row">
           {bestSeller.map((item) => (
-            <div className="col-md-3 col-sm-6 col-xs-12" key={item.id}>
+            <div className="col" key={item.id}>
               <div className="card">
                 <img src={item.image} alt={item.name} />
                 <div className="card-body">
