@@ -5,15 +5,15 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const images = [
   {
-    url: 'Images/banner/banner-3.jpg',
+    url: 'Images/banner/banner-3.png',
     text: 'Men Footwear shoes',
   },
   {
-    url: 'Images/banner/banner-1.jpg',
+    url: 'Images/banner/banner-1.png',
     text: 'Women Fashion. High Heels Closeup',
   },
   {
-    url: 'Images/banner/banner-1.jpg',
+    url: 'Images/banner/banner-2.png',
     text: 'Best Shoes For Kids',
   },
 ];

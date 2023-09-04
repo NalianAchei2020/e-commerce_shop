@@ -1,14 +1,44 @@
 import Product from '../Models/productModel.js';
+import { cloudinary } from '../utils/cloudinary.js';
 
 // create a product
 export const createProduct = async (req, res, next) => {
+  const {
+    name,
+    category,
+    price,
+    description,
+    countInStock,
+    image,
+    subcategory,
+    rating,
+    numReview,
+    brand,
+    bestSeller,
+    trending,
+    newArrival,
+  } = req.body;
   try {
+    const photo = await cloudinary.uploader.upload(image, {
+      folder: 'products',
+    });
     const product = new Product({
-      name: 'sample product',
-      description: 'sample desc',
-      category: 'sample category',
-      brand: 'sample brand',
-      image: 'Images/img1.jpg',
+      name,
+      category,
+      price,
+      description,
+      countInStock,
+      image: {
+        public_id: photo.public_id,
+        url: photo.secure_url,
+      },
+      subcategory,
+      rating,
+      numReview,
+      brand,
+      bestSeller,
+      trending,
+      newArrival,
     });
     const createdProduct = await product.save();
     if (createdProduct) {
