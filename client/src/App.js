@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Home from './Pages/home';
 import Header from './Components/header';
+import Upload from './Pages/upload';
 import './Sass/index.scss';
 
 function App() {
@@ -10,8 +11,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/upload" element={<Upload />} />
         </Routes>
       </Router>
+      <a href="/upload">Upload</a>
     </div>
   );
 }
