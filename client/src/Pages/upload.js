@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import FormGroup from '@mui/material/FormGroup';
@@ -19,22 +19,33 @@ function Upload() {
     watch,
     formState: { errors },
   } = form;
+  const [imageString, setImageString] = useState('');
 
-  const handleUpload = (data) => {
+  const handleUpload = async (data) => {
     try {
-      const response = axios.post('http://localhost:8000/api/products', data);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageString(reader.result);
+      };
+      reader.readAsDataURL(data.image[0]);
+      const formData = { ...data, image: imageString };
+
+      const response = await axios.post(
+        'http://localhost:8000/api/products',
+        formData
+      );
       const result = response.data;
       console.log(result);
-      console.log(result.message);
+      console.log(formData);
     } catch (error) {
       throw new Error(error);
     }
-    console.log(data);
+    console.log(imageString);
   };
-  const bestSellerChecked = watch('bestSeller'); // Get the value of the 'bestSeller' checkbox
-  const newArrivalChecked = watch('newArrival'); // Get the value of the 'newArrival' checkbox
-  const trendingChecked = watch('trending'); // Get the value of the 'trending' checkbox
-
+  const formData = watch(); // Get all form data
+  const bestSellerChecked = formData.bestSeller; // Get the value of the 'bestSeller' checkbox
+  const newArrivalChecked = formData.newArrival; // Get the value of the 'newArrival' checkbox
+  const trendingChecked = formData.trending;
   // Custom validation rule to check if at least one checkbox is checked
   const validateCheckbox = () => {
     const isBestSellerChecked = !!bestSellerChecked;

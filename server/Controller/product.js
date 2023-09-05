@@ -28,10 +28,16 @@ export const createProduct = async (req, res, next) => {
     newArrival,
   } = req.body;
   try {
-    const result = await cloudinary.uploader.upload(image, {
+    const opts = {
+      overwrite: true,
+      invalidate: true,
       resource_type: 'auto',
+    };
+    const result = await cloudinary.uploader.upload_large(image, {
+      opts,
       folder: 'products',
     });
+    console.log(result);
     const product = new Product({
       name,
       category,
