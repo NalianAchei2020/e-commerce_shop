@@ -2,6 +2,7 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import Slider from '../Components/image-slider';
 import BestSeller from '../Components/bestSeller';
+import CallToAction from '../Components/callToAction';
 function Home() {
   return (
     <section className="slider-container">
@@ -30,11 +31,8 @@ function Home() {
       </section>
       {/*beastSeller */}
       <BestSeller />
-      <section className='trending container-fliud'>
-        <h1>Trending</h1>
-        <h5>TOP WISHES OF THIS WEEK
-</h5>
-      </section>
+      {/* call to action */}
+      <CallToAction/>
     </section>
   );
 }
