@@ -10,7 +10,7 @@ import data from '../../data';
 
 function BestSeller() {
   const [section, setSection] = useState('bestSeller-men');
-  const [click, setIsClicked] = useState(false);
+
   const product = data.product;
   const bestSeller = product.filter(
     (item) => item.bestSeller === true && item.category === 'women'
@@ -21,26 +21,25 @@ function BestSeller() {
   const trending = product.filter((item) => item.trending === true);
   const handleSection = (selected) => {
     setSection(selected);
-    setIsClicked(true);
   };
   return (
     <section className="best-seller container-fluid">
       <h1 className="text-center fw-bold mt-5 mb-4">Best Seller</h1>
       <div className="nav-bar">
         <Link
-          className={click ? 'active' : 'link'}
+          className={section === 'bestSeller-men' ? 'active' : 'link'}
           onClick={() => handleSection('bestSeller-men')}
         >
           Men
         </Link>
         <Link
-          className={click ? 'active' : 'link'}
+          className={section === 'bestSeller-women' ? 'active' : 'link'}
           onClick={() => handleSection('bestSeller-women')}
         >
           Women
         </Link>
         <Link
-          className={click ? 'active' : 'link'}
+          className={section === 'bestSeller-trending' ? 'active' : 'link'}
           onClick={() => handleSection('bestSeller-trending')}
         >
           Trending
