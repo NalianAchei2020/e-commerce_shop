@@ -6,7 +6,7 @@ import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 
 function FashionNews() {
   return (
-    <section className="container-fluid">
+    <section className="container-fluid news">
       <h1 className="text-center fw-bold mt-5 ">Fashion News</h1>
       <h6 className="text-center mb-5">
         The latest fashion news, celebrity style, fashion week updates
@@ -78,31 +78,44 @@ function FashionNews() {
           </div>
         </Link>
       </section>
+      <br />
+      <br />
       <section className="support-container">
         <Link to="/" className="link">
           <div className="support">
-            <LocalShippingIcon />
+            <LocalShippingIcon
+              className="support-icons"
+              style={{ fontSize: '4rem' }}
+            />
             <div>
               <h5>Return Shipping</h5>
-              <span>On order over $150</span>
+              <span className="support-span">On order over $150</span>
             </div>
           </div>
         </Link>
         <Link to="/" className="link">
           <div className="support">
-            <SupportAgentIcon />
+            <SupportAgentIcon
+              className="support-icons"
+              style={{ fontSize: '4rem' }}
+            />
             <div>
               <h5>Support 24/7</h5>
-              <span>Contact us 24 hours a day, 7 days a week</span>
+              <span className="support-span">
+                Contact us 24 hours a day, 7 days a week
+              </span>
             </div>
           </div>
         </Link>
         <Link to="/" className="link">
           <div className="support">
-            <AssignmentReturnIcon />
+            <AssignmentReturnIcon
+              className="support-icons"
+              style={{ fontSize: '4rem' }}
+            />
             <div>
               <h5>30 days return</h5>
-              <span>
+              <span className="support-span">
                 Simply return it within 30 days of purchase for an exhange
               </span>
             </div>

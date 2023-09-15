@@ -48,13 +48,15 @@ function Footer() {
               </Tooltip>
             </Link>
           </div>
+          <br />
           <Link to="tel:+400252346753" className="link">
             <div className="calls d-flex flex-row gap-4">
               <CallIcon />
               <h6>Call us:(+400) 2523 465 376</h6>
             </div>
           </Link>
-          <Link to="tel:+400252346753" className="link">
+          <br />
+          <Link to="#" className="link">
             <div className="emails d-flex flex-row gap-4">
               <MarkEmailReadIcon />
               <h6>shopee@company.com</h6>

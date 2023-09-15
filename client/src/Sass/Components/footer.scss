@@ -18,11 +18,9 @@
 }
 .copywrite-icons {
   cursor: pointer;
-}
-.footer-logo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
+  img {
+    object-fit: contain;
+  }
 }
 
 .copywrite-container {

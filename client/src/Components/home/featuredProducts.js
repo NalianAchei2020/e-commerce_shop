@@ -41,9 +41,9 @@ function FeaturedProducts() {
     />
   ));
   return (
-    <section className="container-fluid">
+    <section className="container-fluid feature">
       <h1 className="text-center fw-bold mt-5 mb-4">Featured Collection</h1>
-      <h6>Top Highlight this season</h6>
+      <h6 className="text2">Top Highlight this season</h6>
       <Carousel
         swipeable={true}
         draggable={true}
@@ -57,7 +57,6 @@ function FeaturedProducts() {
       >
         {product}
       </Carousel>
-      <hr />
     </section>
   );
 }

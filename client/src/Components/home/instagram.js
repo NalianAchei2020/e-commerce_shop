@@ -3,7 +3,7 @@ import React from 'react';
 function Instagram() {
   return (
     <section className="container-fluid">
-      <h1 className="text-center fw-bold mt-5 ">@ Follows Us On</h1>
+      <h2 className="text-center fw-bold mt-5 ">@ Follows Us On</h2>
       <h6 className="text-center mb-5 ">INSTAGRAM</h6>
       <section className="instagram-container">
         <img

@@ -34,7 +34,10 @@ function CallToAction() {
   }, []);
 
   return (
-    <section className="container-fluid mt-4">
+    <section
+      className="container-fluid mt-4 calltoAction"
+      style={{ padding: '1em' }}
+    >
       <Box
         sx={{
           width: '100%',
