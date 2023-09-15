@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import data from '../data';
+import data from '../../data';
 import CarouselProduct from './carousel';
 
 function FeaturedProducts() {
@@ -57,6 +57,7 @@ function FeaturedProducts() {
       >
         {product}
       </Carousel>
+      <hr />
     </section>
   );
 }

@@ -7,7 +7,7 @@ import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 
-const CarouselProduct = ({
+function CarouselProduct({
   image,
   brand,
   name,
@@ -16,7 +16,7 @@ const CarouselProduct = ({
   alt,
   numReview,
   rating,
-}) => {
+}) {
   return (
     <div className="card-container" key={key}>
       <Link to="/" className="product-link">
@@ -60,6 +60,6 @@ const CarouselProduct = ({
       </Link>
     </div>
   );
-};
+}
 
 export default CarouselProduct;

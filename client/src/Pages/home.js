@@ -1,9 +1,10 @@
 import React from 'react';
 import Card from '@mui/material/Card';
-import Slider from '../Components/image-slider';
-import BestSeller from '../Components/bestSeller';
-import CallToAction from '../Components/callToAction';
-import FeaturedProducts from '../Components/featuredProducts';
+import Slider from '../Components/home/image-slider';
+import BestSeller from '../Components/home/bestSeller';
+import CallToAction from '../Components/home/callToAction';
+import FeaturedProducts from '../Components/home/featuredProducts';
+import NewArrivals from '../Components/home/newArrivals';
 function Home() {
   return (
     <section className="slider-container">
@@ -36,6 +37,8 @@ function Home() {
       <CallToAction />
       {/* featured products */}
       <FeaturedProducts />
+      {/* New arrivals products */}
+      <NewArrivals />
     </section>
   );
 }

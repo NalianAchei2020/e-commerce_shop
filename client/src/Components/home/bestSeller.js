@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
-import data from '../data';
+import data from '../../data';
 
 function BestSeller() {
   const [section, setSection] = useState('bestSeller-men');
@@ -25,7 +25,7 @@ function BestSeller() {
   };
   return (
     <section className="best-seller container-fluid">
-      <h1 className="text-center mt-5">Best Seller</h1>
+      <h1 className="text-center fw-bold mt-5 mb-4">Best Seller</h1>
       <div className="nav-bar">
         <Link
           className={click ? 'active' : 'link'}
