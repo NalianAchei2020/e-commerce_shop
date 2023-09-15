@@ -51,9 +51,9 @@ function FeaturedProducts() {
         autoPlaySpeed={1000}
         keyBoardControl={true}
         dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
+        itemClass="carousel-item-padding"
+        containerClass="carousel-container"
         responsive={responsive}
-        className="container-fluid "
       >
         {product}
       </Carousel>
