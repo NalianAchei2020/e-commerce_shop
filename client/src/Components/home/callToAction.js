@@ -4,6 +4,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 function CallToAction() {
+  const windowWidth = window.innerWidth;
   const images = [
     {
       url: 'Images/women/heels/heels05.png',
@@ -57,7 +58,7 @@ function CallToAction() {
           }}
           onClick={handlePrevImage}
         >
-          <NavigateBeforeIcon />
+          {windowWidth > 900 && <NavigateBeforeIcon />}
         </IconButton>
 
         <IconButton
@@ -71,7 +72,7 @@ function CallToAction() {
           }}
           onClick={handleNextImage}
         >
-          <NavigateNextIcon />
+          {windowWidth > 900 && <NavigateNextIcon />}
         </IconButton>
 
         <Box>
