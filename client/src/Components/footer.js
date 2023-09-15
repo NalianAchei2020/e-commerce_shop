@@ -163,7 +163,7 @@ function Footer() {
           </ul>
         </div>
       </section>
-      <div className="copywrite-container d-flex flex-row justify-content-between mt-5">
+      <div className="copywrite-container d-flex flex-row flex-wrap justify-content-between  mt-5">
         <p>© 2023 Copyright By Shopee</p>
         <ul className="d-flex flex-row  gap-4 copywrite-icons">
           <li>
