@@ -5,6 +5,7 @@ import BestSeller from '../Components/home/bestSeller';
 import CallToAction from '../Components/home/callToAction';
 import FeaturedProducts from '../Components/home/featuredProducts';
 import NewArrivals from '../Components/home/newArrivals';
+import FashionNews from '../Components/home/fashionNews';
 function Home() {
   return (
     <section className="slider-container">
@@ -39,6 +40,8 @@ function Home() {
       <FeaturedProducts />
       {/* New arrivals products */}
       <NewArrivals />
+      {/* Fashion news */}
+      <FashionNews />
     </section>
   );
 }
