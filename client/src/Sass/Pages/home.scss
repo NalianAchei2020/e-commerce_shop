@@ -212,3 +212,23 @@
 .custom-dot-list-style {
   color: #2b2bb3;
 }
+
+.new-main-container {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 1em;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+.support-container {
+  display: flex;
+  gap: 1em;
+}
+.support {
+  display: flex;
+  gap: 2em;
+  margin-block: 2em;
+}
