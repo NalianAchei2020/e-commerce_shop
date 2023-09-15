@@ -3,6 +3,7 @@ import Home from './Pages/home';
 import Header from './Components/header/header';
 import Upload from './Pages/upload';
 import './Sass/index.scss';
+import Footer from './Components/footer';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/upload" element={<Upload />} />
         </Routes>
+        <Footer />
       </Router>
       <a href="/upload">Upload</a>
     </div>
