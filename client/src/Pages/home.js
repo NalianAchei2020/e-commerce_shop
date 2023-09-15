@@ -1,5 +1,4 @@
 import React from 'react';
-import Card from '@mui/material/Card';
 import Slider from '../Components/home/image-slider';
 import BestSeller from '../Components/home/bestSeller';
 import CallToAction from '../Components/home/callToAction';
@@ -14,7 +13,7 @@ function Home() {
         <Slider />
       </section>
       <section className="hero-sec2">
-        <Card sx={{ height: 500 }} className="best-card">
+        <div className="best-card card">
           <div className="hero-beastSeller">
             <img src="Images/banner/best-img.png" alt="best-seller" />
             <div className="best-text">
@@ -22,8 +21,8 @@ function Home() {
               <button className="btn-best">Shop Now</button>
             </div>
           </div>
-        </Card>
-        <Card sx={{ height: 500 }} className="best-card">
+        </div>
+        <div className="best-card card">
           <div className="hero-beastSeller">
             <img src="Images/banner/images.png" alt="best-seller2" />
             <div className="best-text">
@@ -31,7 +30,7 @@ function Home() {
               <button className="btn-best">Shop Now</button>
             </div>
           </div>
-        </Card>
+        </div>
       </section>
       {/*beastSeller */}
       <BestSeller />
