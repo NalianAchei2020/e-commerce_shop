@@ -10,7 +10,7 @@ function CallToAction() {
       text: '50%',
     },
     {
-      url: 'Images/women/heels/nike01.png',
+      url: 'Images/women/heels/nike04.png',
       text: '30%',
     },
   ];
