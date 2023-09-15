@@ -6,6 +6,7 @@ import CallToAction from '../Components/home/callToAction';
 import FeaturedProducts from '../Components/home/featuredProducts';
 import NewArrivals from '../Components/home/newArrivals';
 import FashionNews from '../Components/home/fashionNews';
+import Instagram from '../Components/home/instagram';
 function Home() {
   return (
     <section className="slider-container">
@@ -42,6 +43,8 @@ function Home() {
       <NewArrivals />
       {/* Fashion news */}
       <FashionNews />
+      {/* Instagram post */}
+      <Instagram />
     </section>
   );
 }
