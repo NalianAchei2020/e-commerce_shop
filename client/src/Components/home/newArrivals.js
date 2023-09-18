@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 function NewArrivals() {
   const { product } = useSelector((state) => state.product);
   const newArrival = product.filter((item) => item.newArrival === true);
-  console.log(newArrival);
   return (
     <section className="container-fluid mt-5">
       <h1 className="text-center fw-bold mt-5 mb-4">New Arrivals</h1>
