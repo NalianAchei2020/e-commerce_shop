@@ -304,3 +304,38 @@
   display: flex;
   padding-inline: 2em;
 }
+
+//preview shopping card
+.perviewCart-container {
+  background-color: #f0ebeb;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 200;
+  width: 50%;
+  height: 100%;
+  padding: 2em;
+}
+.previewCart-image {
+  width: 200px;
+  padding-inline: 3em;
+}
+.previewCart-image image {
+  height: 350px;
+  width: 100%;
+}
+.previewCart-details {
+  padding: 1em;
+  position: relative;
+}
+.previewCart {
+  display: flex;
+  gap: 1em;
+  border-bottom: 1px solid #fff;
+  margin-top: 2em;
+}
+.delete {
+  position: absolute;
+  bottom: 2%;
+  right: -50%;
+}

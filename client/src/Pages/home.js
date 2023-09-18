@@ -6,6 +6,7 @@ import FeaturedProducts from '../Components/home/featuredProducts';
 import NewArrivals from '../Components/home/newArrivals';
 import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
+import ShoppingCart from '../Components/home/ShoppingCart';
 function Home() {
   return (
     <section className="slider-container">
@@ -44,6 +45,8 @@ function Home() {
       <FashionNews />
       {/* Instagram post */}
       <Instagram />
+      {/* Preview ShoppingCart post */}
+      <ShoppingCart />
     </section>
   );
 }

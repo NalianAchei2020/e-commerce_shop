@@ -12,7 +12,7 @@ export const fetchProduct = createAsyncThunk(
   'products/fetchProduct',
   async () => {
     try {
-      const response = await axios.get('/api/products');
+      const response = await axios.get('http://localhost:8000/api/products');
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch product data');
@@ -22,9 +22,41 @@ export const fetchProduct = createAsyncThunk(
 const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducer: {
+  reducers: {
     addToCart: (state, action) => {
-      state.cart.push(action.payload);
+      const existed = state.cart.find(
+        (product) => product.id === action.payload.id
+      );
+      if (existed) {
+        state.cart.forEach((product) => {
+          if (product.id === action.payload.id) {
+            product.quantity += 1;
+          }
+        });
+      } else {
+        state.cart.push({ ...action.payload, quantity: 1 });
+      }
+
+      return state;
+    },
+    removeFromCart: (state, action) => {
+      const existed = state.cart.find(
+        (product) => product.id === action.payload.id
+      );
+      if (existed === 1) {
+        state.cart = state.cart.filter(
+          (product) => product.id !== action.payload.id
+        );
+      } else {
+        state.cart.map((item) =>
+          item.id === action.payload.id ? (item.quantity -= 1) : item
+        );
+      }
+    },
+    removeItem: (state, action) => {
+      state.cart = state.cart.filter(
+        (product) => product.id !== action.payload.id
+      );
     },
   },
   extraReducers: (builder) => {
@@ -42,5 +74,5 @@ const productsSlice = createSlice({
   },
 });
 
-export const { addToCart } = productsSlice.actions;
+export const { addToCart, removeFromCart, removeItem } = productsSlice.actions;
 export default productsSlice.reducer;

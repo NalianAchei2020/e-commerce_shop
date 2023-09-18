@@ -30,7 +30,6 @@ function BestSeller() {
   }
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
-    console.log(item);
   };
   return (
     <section className="best-seller container-fluid">
