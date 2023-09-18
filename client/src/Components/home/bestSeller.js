@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
-import data from '../../data';
+import data from '../../../../server/data';
 
 function BestSeller() {
   const [section, setSection] = useState('bestSeller-men');
