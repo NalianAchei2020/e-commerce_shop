@@ -6,8 +6,11 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/productSlice';
+
 function BestSeller() {
+  const dispatch = useDispatch();
   const [section, setSection] = useState('bestSeller-men');
   const { product } = useSelector((state) => state.product);
 
@@ -20,6 +23,14 @@ function BestSeller() {
   const trending = product.filter((item) => item.trending === true);
   const handleSection = (selected) => {
     setSection(selected);
+  };
+
+  if (product.isLoading) {
+    return <p>...Loading</p>;
+  }
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+    console.log(item);
   };
   return (
     <section className="best-seller container-fluid">
@@ -71,7 +82,11 @@ function BestSeller() {
                       </Stack>
                       <br />
                       <div className="bttons">
-                        <Button variant="contained" color="primary">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleAddToCart(item)}
+                        >
                           ADD TO CARD
                         </Button>
                         <Tooltip title="Wishlist" placement="bottom">
@@ -130,7 +145,11 @@ function BestSeller() {
                       </Stack>
                       <br />
                       <div className="bttons">
-                        <Button variant="contained" color="primary">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleAddToCart(item)}
+                        >
                           ADD TO CARD
                         </Button>
                         <Tooltip title="Wishlist" placement="bottom">
@@ -189,7 +208,11 @@ function BestSeller() {
                       </Stack>
                       <br />
                       <div className="bttons">
-                        <Button variant="contained" color="primary">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleAddToCart(item)}
+                        >
                           ADD TO CARD
                         </Button>
                         <Tooltip title="Wishlist" placement="bottom">
