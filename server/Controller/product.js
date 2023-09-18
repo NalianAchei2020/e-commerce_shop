@@ -152,7 +152,7 @@ export const getProduct = async (req, res, next) => {
 
 // get all products
 export const getAllProducts = async (req, res, next) => {
-  const products = (await Product.find()) || data.products;
+  const products = data.products;
   res.send(products);
 };
 
