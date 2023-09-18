@@ -9,9 +9,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ClearIcon from '@mui/icons-material/Clear';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Tooltip } from '@mui/material';
+import { useSelector } from 'react-redux';
 import Searchbar from './search';
 
 function Header() {
+  const { cart } = useSelector((state) => state.product);
+  console.log(cart);
+
   // State variables
   const [showSearchbar, setShowSearchbar] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
@@ -199,7 +203,7 @@ function Header() {
                     aria-label="show 4 new mails"
                     color="inherit"
                   >
-                    <Badge color="primary" badgeContent="cart">
+                    <Badge color="primary" badgeContent={cart.length}>
                       <ShoppingCartIcon />
                     </Badge>
                   </IconButton>
