@@ -4,6 +4,7 @@ import Header from './Components/header/header';
 import Upload from './Pages/upload';
 import './Sass/index.scss';
 import Footer from './Components/footer';
+import Cart from './Pages/cart';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/upload" element={<Upload />} />
         </Routes>
         <Footer />
