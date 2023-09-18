@@ -6,12 +6,11 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
-import data from '../../../../server/data';
-
+import { useSelector } from 'react-redux';
 function BestSeller() {
   const [section, setSection] = useState('bestSeller-men');
+  const { product } = useSelector((state) => state.product);
 
-  const product = data.product;
   const bestSeller = product.filter(
     (item) => item.bestSeller === true && item.category === 'women'
   );

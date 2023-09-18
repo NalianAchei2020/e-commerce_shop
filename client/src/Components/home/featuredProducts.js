@@ -1,11 +1,11 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import data from '../../../../server/data';
+import { useSelector } from 'react-redux';
 import CarouselProduct from './carousel';
 
 function FeaturedProducts() {
-  const products = data.product;
+  const { products } = useSelector((state) => state.product);
   const featuredProducts = products.filter((product) => product.featured);
 
   const responsive = {

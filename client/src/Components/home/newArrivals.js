@@ -6,10 +6,11 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
-import data from '../../../../server/data';
+import { useSelector } from 'react-redux';
 
 function NewArrivals() {
-  const newArrival = data.product.filter((item) => item.newArrival === true);
+  const { product } = useSelector((state) => state.product);
+  const newArrival = product.filter((item) => item.newArrival === true);
   console.log(newArrival);
   return (
     <section className="container-fluid mt-5">

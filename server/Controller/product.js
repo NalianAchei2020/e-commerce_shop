@@ -1,6 +1,7 @@
 import Product from '../Models/productModel.js';
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
+import data from '../data.js';
 
 dotenv.config();
 
@@ -150,7 +151,10 @@ export const getProduct = async (req, res, next) => {
 };
 
 // get all products
-export const getAllProducts = async (req, res, next) => {};
+export const getAllProducts = async (req, res, next) => {
+  const products = (await Product.find()) || data.products;
+  res.send(products);
+};
 
 //post a review
 export const postReview = async (req, res, next) => {
