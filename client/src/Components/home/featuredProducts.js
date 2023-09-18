@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import CarouselProduct from './carousel';
 
 function FeaturedProducts() {
-  const { products } = useSelector((state) => state.product);
-  const featuredProducts = products.filter((product) => product.featured);
+  const { product } = useSelector((state) => state.product);
+  const featuredProducts = product.filter((item) => item.featured === true);
 
   const responsive = {
     superLargeDesktop: {
@@ -28,7 +28,7 @@ function FeaturedProducts() {
     },
   };
 
-  const product = featuredProducts.map((item) => (
+  const products = featuredProducts.map((item) => (
     <CarouselProduct
       image={item.image}
       brand={item.brand}
@@ -55,7 +55,7 @@ function FeaturedProducts() {
         containerClass="carousel-container"
         responsive={responsive}
       >
-        {product}
+        {products}
       </Carousel>
     </section>
   );
