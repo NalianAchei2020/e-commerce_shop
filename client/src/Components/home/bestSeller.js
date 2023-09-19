@@ -6,11 +6,9 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from '../../redux/productSlice';
+import { useSelector } from 'react-redux';
 
-function BestSeller() {
-  const dispatch = useDispatch();
+function BestSeller({ handleAddToCart }) {
   const [section, setSection] = useState('bestSeller-men');
   const { product } = useSelector((state) => state.product);
 
@@ -28,9 +26,7 @@ function BestSeller() {
   if (product.isLoading) {
     return <p>...Loading</p>;
   }
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
-  };
+
   return (
     <section className="best-seller container-fluid">
       <h1 className="text-center fw-bold mt-5 mb-4">Best Seller</h1>
