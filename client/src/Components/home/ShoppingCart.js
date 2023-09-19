@@ -10,7 +10,14 @@ import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import Confetti from 'react-confetti';
-import ProgressBar from '@ramonak/react-progress-bar';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import PercentIcon from '@mui/icons-material/Percent';
+import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
+import { Tooltip } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import { useForm } from 'react-hook-form';
+import SelectCountry from './select';
+
 import {
   addToCart,
   removeFromCart,
@@ -18,9 +25,25 @@ import {
 } from '../../redux/productSlice';
 
 function ShoppingCart({ popup, handleClosePopup }) {
+  const form = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = form;
   const { cart } = useSelector((state) => state.product);
   const dispatch = useDispatch();
+  //alert
   const [open, setOpen] = useState(true);
+  //tabs
+  const [openTab, setOpenTab] = useState(null);
+  const habdleTab = (value) => {
+    setOpenTab(value);
+  };
+  const handleCloseTab = () => {
+    setOpenTab(null);
+  };
   //free shipping
   const freeShippingValue = 200000;
   const currentValue = cart.reduce((a, c) => a + c.price * c.quantity, 0);
@@ -37,6 +60,7 @@ function ShoppingCart({ popup, handleClosePopup }) {
   const handleDeleteItem2 = (item) => {
     dispatch(removeItem(item));
   };
+
   //close the popup container when the cursor is clicked outside of it
   /*useEffect(() => {
     const handleClickOutside = (event) => {
@@ -106,6 +130,8 @@ function ShoppingCart({ popup, handleClosePopup }) {
                   height={window.innerHeight}
                 />
                 <Alert
+                  variant="filled"
+                  severity="success"
                   action={
                     <IconButton
                       aria-label="close"
@@ -118,7 +144,7 @@ function ShoppingCart({ popup, handleClosePopup }) {
                       <CloseIcon fontSize="inherit" />
                     </IconButton>
                   }
-                  sx={{ mb: 2 }}
+                  sx={{ mb: 2, backgroundColor: '#1976d2' }}
                 >
                   Congratulations you got free shipping!
                 </Alert>
@@ -126,37 +152,126 @@ function ShoppingCart({ popup, handleClosePopup }) {
             </Box>
           ) : (
             <div>
-              <div class="progress">
-                <div
-                  className="progress-bar"
-                  role="progressbar"
-                  style={{
-                    width: `${(currentValue / freeShippingValue) * 100}%`,
-                    backgroundColor:
-                      currentValue < freeShippingValue ? '#1976d2' : 'red',
-                    color: '#fff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    padding: '1em',
-                  }}
-                  aria-valuenow={currentValue}
-                  aria-valuemin="0"
-                  aria-valuemax={freeShippingValue}
-                >
-                  <span> {balance} FCFA more to get free shipping</span>
+              <div className="progress-bar-container">
+                <div className="Progress-Bar">
+                  <div
+                    className="Progress"
+                    style={{
+                      width: `${(currentValue / freeShippingValue) * 100}%`,
+                    }}
+                  ></div>
+                </div>
+                <div className="progress-bar-text">
+                  {balance} FCFA more to get free shipping
                 </div>
               </div>
-              <ProgressBar
-                completed={80}
-                customLabel={`${balance} FCFA more to get free shipping`}
-                labelSize="10px"
-                labelAlignment="center"
-                width="100%"
-              />
             </div>
           )}
+        </div>
+        <div className="tabs-container">
+          <ul className="d-flex flex-row justify-content-between  gap-4 tab-list">
+            <li>
+              <Tooltip title="Add Note" placement="top">
+                <NoteAltIcon
+                  onClick={() => habdleTab('addNote')}
+                  sx={{ fontSize: '1.8em' }}
+                />
+              </Tooltip>
+            </li>
+            <li className="v-line"></li>
+            <li>
+              <Tooltip title="Add Coupon" placement="top">
+                <PercentIcon
+                  onClick={() => habdleTab('percent')}
+                  sx={{ fontSize: '1.8em' }}
+                />
+              </Tooltip>
+            </li>
+            <li className="v-line"></li>
+            <li>
+              <Tooltip title="Estimate Shipping" placement="top">
+                <AirportShuttleIcon
+                  onClick={() => habdleTab('shipping')}
+                  sx={{ fontSize: '1.8em' }}
+                />
+              </Tooltip>
+            </li>
+          </ul>
+          <div>
+            {openTab === 'addNote' && (
+              <div>
+                <h5>Note</h5>
+                <textarea
+                  type="text"
+                  name="description"
+                  cols={40}
+                  rows={4}
+                  {...register('description')}
+                />
+                <div className="d-flex flex-row justify-content-between mb-5">
+                  <button className="save-btn checkout-btn">Save</button>
+                  <button
+                    className="cancel-btn btn-best"
+                    onClick={handleCloseTab}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+            {openTab === 'percent' && (
+              <div>
+                <h5>Add A Coupon</h5>
+                <TextField
+                  type="text"
+                  label="Coupon Code"
+                  sx={{ width: '100%' }}
+                  name="description"
+                  {...register('description')}
+                />
+                <div className="d-flex flex-row justify-content-between mb-5">
+                  <button className="save-btn checkout-btn">Save</button>
+                  <button
+                    className="cancel-btn btn-best"
+                    onClick={handleCloseTab}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+            {openTab === 'shipping' && (
+              <div>
+                <h5>Get shipping estimates</h5>
+                <SelectCountry />
+                <div className="d-flex flex-row gap-4 mt-3">
+                  <TextField
+                    type="text"
+                    label="Zip Code"
+                    //sx={{ width: '100%' }}
+                    name="description"
+                    {...register('description')}
+                  />
+                  <TextField
+                    type="text"
+                    label="City"
+                    //sx={{ width: '100%' }}
+                    name="description"
+                    {...register('description')}
+                  />
+                </div>
+                <div className="d-flex flex-row justify-content-between mb-5">
+                  <button className="save-btn checkout-btn">Save</button>
+                  <button
+                    className="cancel-btn btn-best"
+                    onClick={handleCloseTab}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <ul className="d-flex flex-row justify-content-between mt-4">
           <li>
