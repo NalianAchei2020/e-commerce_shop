@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/productSlice';
 import Slider from '../Components/home/image-slider';
 import BestSeller from '../Components/home/bestSeller';
 import CallToAction from '../Components/home/callToAction';
@@ -8,6 +10,19 @@ import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
 import ShoppingCart from '../Components/home/ShoppingCart';
 function Home() {
+  const dispatch = useDispatch();
+  const [popup, setPopup] = useState(false);
+  console.log('popup: ' + popup);
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+    setPopup(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const handleClosePopup = () => {
+    setPopup(false);
+    document.body.style.overflow = 'auto';
+  };
   return (
     <section className="slider-container">
       <section>
@@ -34,7 +49,7 @@ function Home() {
         </div>
       </section>
       {/*beastSeller */}
-      <BestSeller />
+      <BestSeller handleAddToCart={handleAddToCart} />
       {/* call to action */}
       <CallToAction />
       {/* featured products */}
@@ -46,7 +61,7 @@ function Home() {
       {/* Instagram post */}
       <Instagram />
       {/* Preview ShoppingCart post */}
-      <ShoppingCart />
+      <ShoppingCart handleClosePopup={handleClosePopup} popup={popup} />
     </section>
   );
 }
