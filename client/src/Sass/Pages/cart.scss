@@ -1,3 +1,46 @@
 .cart-container {
   padding: 2em 3.5em;
+  width: 100%;
+}
+
+.summary-table {
+  display: flex;
+  gap: 2em;
+  width: 100%;
+}
+.table-container {
+  flex: 1;
+}
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cart-text {
+  font-size: 1.1rem;
+  color: black;
+}
+.btn-apply {
+  font-size: 1rem !important;
+}
+.cart-price-border {
+  border-bottom: 1px solid #e4e2e2;
+  border-top: 1px solid #e4e2e2;
+  padding-block: 8px;
+}
+.text-taxes {
+  border-bottom: 1px solid #e4e2e2;
+  padding-bottom: 8px;
+}
+.cart-heading2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.cart-heading2::after {
+  content: '';
+  display: block;
+  width: 200px;
+  height: 2px;
+  background-color: #000;
 }
