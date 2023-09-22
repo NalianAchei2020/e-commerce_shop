@@ -12,13 +12,12 @@ function CarouselProduct({
   brand,
   name,
   price,
-  key,
   alt,
   numReview,
   rating,
 }) {
   return (
-    <div className="card-container" key={key}>
+    <div className="card-container">
       <Link to="/" className="product-link">
         <div className="card">
           <div className="card-image">
