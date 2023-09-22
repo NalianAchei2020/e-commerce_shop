@@ -7,7 +7,6 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import { Tooltip } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
-import AppleIcon from '@mui/icons-material/Apple';
 
 function Footer() {
   return (
