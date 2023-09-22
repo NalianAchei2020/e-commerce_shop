@@ -59,9 +59,9 @@ function Home() {
       {/* call to action */}
       <CallToAction />
       {/* featured products */}
-      <FeaturedProducts />
+      <FeaturedProducts handleAddToCart={handleAddToCart} />
       {/* New arrivals products */}
-      <NewArrivals />
+      <NewArrivals handleAddToCart={handleAddToCart} />
       {/* Fashion news */}
       <FashionNews />
       {/* Instagram post */}
