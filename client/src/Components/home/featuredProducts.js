@@ -4,7 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { useSelector } from 'react-redux';
 import CarouselProduct from './carousel';
 
-function FeaturedProducts() {
+function FeaturedProducts({ handleAddToCart }) {
   const { product } = useSelector((state) => state.product);
   const featuredProducts = product.filter((item) => item.featured === true);
 
@@ -38,6 +38,8 @@ function FeaturedProducts() {
         rating={item.rating}
         numReview={item.numReview}
         alt={item.name}
+        item={item}
+        handleAddToCart={handleAddToCart}
       />
     </div>
   ));
