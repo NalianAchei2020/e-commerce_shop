@@ -8,12 +8,13 @@ import './Sass/index.scss';
 import Footer from './Components/footer';
 import Cart from './Pages/cart';
 import { fetchProduct } from './redux/productSlice';
+import Product from './Pages/product';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProduct());
-  }, dispatch);
+  }, [dispatch]);
   return (
     <div className="App">
       <Router>
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/product/:slug" element={<Product />} />
         </Routes>
         <Footer />
       </Router>
