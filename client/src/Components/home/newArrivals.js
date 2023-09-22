@@ -8,7 +8,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function NewArrivals() {
+function NewArrivals({ handleAddToCart }) {
   const { product } = useSelector((state) => state.product);
   const newArrival = product.filter((item) => item.newArrival === true);
   return (
@@ -39,7 +39,13 @@ function NewArrivals() {
                   </Stack>
                   <br />
                   <div className="bttons">
-                    <Button variant="contained" color="primary">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        handleAddToCart(item);
+                      }}
+                    >
                       ADD TO CARD
                     </Button>
                     <Tooltip title="Wishlist" placement="bottom">
