@@ -55,49 +55,49 @@ function BestSeller({ handleAddToCart }) {
           <div className="row-container">
             {bestSeller.map((item) => (
               <div className="card-container" key={item.id}>
-                <Link to={`/product/${item.name}`} className="product-link">
-                  <div className="card">
-                    <div className="card-image">
+                <div className="card">
+                  <div className="card-image">
+                    <Link to={`/product/${item.name}`} className="product-link">
                       <img src={item.image} alt={item.name} />
-                    </div>
-                    <div className="card-body">
-                      <span>{item.brand}</span>
-                      <h5 className="card-title">{item.name}</h5>
-                      <span className="text-center">{item.price} FCFA</span>
-                      <Stack spacing={2}>
-                        <div className="rating">
-                          <Rating
-                            name="size-large"
-                            defaultValue={item.rating}
-                            precision={0.5}
-                            readOnly
-                          />
-                          <span>{item.numReview} Reviews</span>
-                        </div>
-                      </Stack>
-                      <br />
-                      <div className="bttons">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={() => handleAddToCart(item)}
-                        >
-                          ADD TO CARD
-                        </Button>
-                        <Tooltip title="Wishlist" placement="bottom">
-                          <IconButton className="whistlist">
-                            <FavoriteIcon className="whistlist" />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Quick View" placement="bottom">
-                          <IconButton className="whistlist">
-                            <VisibilityIcon className="whistlist" />
-                          </IconButton>
-                        </Tooltip>
+                    </Link>
+                  </div>
+                  <div className="card-body">
+                    <span>{item.brand}</span>
+                    <h5 className="card-title">{item.name}</h5>
+                    <span className="text-center">{item.price} FCFA</span>
+                    <Stack spacing={2}>
+                      <div className="rating">
+                        <Rating
+                          name="size-large"
+                          defaultValue={item.rating}
+                          precision={0.5}
+                          readOnly
+                        />
+                        <span>{item.numReview} Reviews</span>
                       </div>
+                    </Stack>
+                    <br />
+                    <div className="bttons">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleAddToCart(item)}
+                      >
+                        ADD TO CARD
+                      </Button>
+                      <Tooltip title="Wishlist" placement="bottom">
+                        <IconButton className="whistlist">
+                          <FavoriteIcon className="whistlist" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Quick View" placement="bottom">
+                        <IconButton className="whistlist">
+                          <VisibilityIcon className="whistlist" />
+                        </IconButton>
+                      </Tooltip>
                     </div>
                   </div>
-                </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -118,49 +118,49 @@ function BestSeller({ handleAddToCart }) {
           <div className="row-container">
             {bestSellermen.map((item) => (
               <div className="card-container" key={item.id}>
-                <Link to="/" className="product-link">
-                  <div className="card">
-                    <div className="card-image">
+                <div className="card">
+                  <div className="card-image">
+                    <Link to={`/product/${item.name}`} className="product-link">
                       <img src={item.image} alt={item.name} />
-                    </div>
-                    <div className="card-body">
-                      <span>{item.brand}</span>
-                      <h5 className="card-title">{item.name}</h5>
-                      <span className="text-center">{item.price} FCFA</span>
-                      <Stack spacing={2}>
-                        <div className="rating">
-                          <Rating
-                            name="size-large"
-                            defaultValue={item.rating}
-                            precision={0.5}
-                            readOnly
-                          />
-                          <span>{item.numReview} Reviews</span>
-                        </div>
-                      </Stack>
-                      <br />
-                      <div className="bttons">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={() => handleAddToCart(item)}
-                        >
-                          ADD TO CARD
-                        </Button>
-                        <Tooltip title="Wishlist" placement="bottom">
-                          <IconButton className="whistlist">
-                            <FavoriteIcon className="whistlist" />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Quick View" placement="bottom">
-                          <IconButton className="whistlist">
-                            <VisibilityIcon className="whistlist" />
-                          </IconButton>
-                        </Tooltip>
+                    </Link>
+                  </div>
+                  <div className="card-body">
+                    <span>{item.brand}</span>
+                    <h5 className="card-title">{item.name}</h5>
+                    <span className="text-center">{item.price} FCFA</span>
+                    <Stack spacing={2}>
+                      <div className="rating">
+                        <Rating
+                          name="size-large"
+                          defaultValue={item.rating}
+                          precision={0.5}
+                          readOnly
+                        />
+                        <span>{item.numReview} Reviews</span>
                       </div>
+                    </Stack>
+                    <br />
+                    <div className="bttons">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleAddToCart(item)}
+                      >
+                        ADD TO CARD
+                      </Button>
+                      <Tooltip title="Wishlist" placement="bottom">
+                        <IconButton className="whistlist">
+                          <FavoriteIcon className="whistlist" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Quick View" placement="bottom">
+                        <IconButton className="whistlist">
+                          <VisibilityIcon className="whistlist" />
+                        </IconButton>
+                      </Tooltip>
                     </div>
                   </div>
-                </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -181,49 +181,49 @@ function BestSeller({ handleAddToCart }) {
           <div className="row-container">
             {trending.map((item) => (
               <div className="card-container" key={item.id}>
-                <Link to="/" className="product-link">
-                  <div className="card">
-                    <div className="card-image">
+                <div className="card">
+                  <div className="card-image">
+                    <Link to={`/product/${item.name}`} className="product-link">
                       <img src={item.image} alt={item.name} />
-                    </div>
-                    <div className="card-body">
-                      <span>{item.brand}</span>
-                      <h5 className="card-title">{item.name}</h5>
-                      <span className="text-center">{item.price} FCFA</span>
-                      <Stack spacing={2}>
-                        <div className="rating">
-                          <Rating
-                            name="size-large"
-                            defaultValue={item.rating}
-                            precision={0.5}
-                            readOnly
-                          />
-                          <span>{item.numReview} Reviews</span>
-                        </div>
-                      </Stack>
-                      <br />
-                      <div className="bttons">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={() => handleAddToCart(item)}
-                        >
-                          ADD TO CARD
-                        </Button>
-                        <Tooltip title="Wishlist" placement="bottom">
-                          <IconButton className="whistlist">
-                            <FavoriteIcon className="whistlist" />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Quick View" placement="bottom">
-                          <IconButton className="whistlist">
-                            <VisibilityIcon className="whistlist" />
-                          </IconButton>
-                        </Tooltip>
+                    </Link>
+                  </div>
+                  <div className="card-body">
+                    <span>{item.brand}</span>
+                    <h5 className="card-title">{item.name}</h5>
+                    <span className="text-center">{item.price} FCFA</span>
+                    <Stack spacing={2}>
+                      <div className="rating">
+                        <Rating
+                          name="size-large"
+                          defaultValue={item.rating}
+                          precision={0.5}
+                          readOnly
+                        />
+                        <span>{item.numReview} Reviews</span>
                       </div>
+                    </Stack>
+                    <br />
+                    <div className="bttons">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleAddToCart(item)}
+                      >
+                        ADD TO CARD
+                      </Button>
+                      <Tooltip title="Wishlist" placement="bottom">
+                        <IconButton className="whistlist">
+                          <FavoriteIcon className="whistlist" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Quick View" placement="bottom">
+                        <IconButton className="whistlist">
+                          <VisibilityIcon className="whistlist" />
+                        </IconButton>
+                      </Tooltip>
                     </div>
                   </div>
-                </Link>
+                </div>
               </div>
             ))}
           </div>
