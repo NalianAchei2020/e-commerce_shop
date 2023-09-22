@@ -1,5 +1,4 @@
 .cart-container {
-  padding: 2em 3.5em;
   width: 100%;
 }
 
@@ -7,6 +6,13 @@
   display: flex;
   gap: 2em;
   width: 100%;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    gap: 0;
+  }
 }
 .table-container {
   flex: 1;
@@ -43,4 +49,10 @@
   width: 200px;
   height: 2px;
   background-color: #000;
+}
+.table {
+  display: block !important;
+  overflow-x: auto !important;
+  width: 100% !important;
+  color: red;
 }

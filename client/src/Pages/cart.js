@@ -22,7 +22,7 @@ function Cart() {
   };
   return (
     <section className="container-fluid cart-container p-5">
-      <div className="cart-heading d-flex flex-row justify-content-between mb-5">
+      <div className="cart-heading d-flex flex-row justify-content-between mb-3 container">
         <h2>My Cart</h2>
         <Link to="/" className="cart-text">
           Continue Shopping
@@ -31,9 +31,9 @@ function Cart() {
       {cart.length === 0 ? (
         <h4>Your cart is empty</h4>
       ) : (
-        <div className="summary-table">
-          <div className="table-container">
-            <table className="table mt-5">
+        <div className="summary-table container">
+          <div className="table-container table-responsive">
+            <table className="table mt-3">
               <thead>
                 <tr>
                   <th>Product</th>
@@ -44,7 +44,7 @@ function Cart() {
               </thead>
               <tbody>
                 {cart.map((item) => (
-                  <tr>
+                  <tr key={item.id}>
                     <td className="d-flex flex-row gap-4">
                       <DeleteIcon onClick={() => handleDeleteItem2(item)} />
                       <img
@@ -81,7 +81,7 @@ function Cart() {
               </tbody>
             </table>
           </div>
-          <div className="summary mt-5">
+          <div className="summary mt-3">
             <h4 className="cart-heading2">ORDER SUMMARY</h4>
             <h5 className="mb-4 cart-text">Get shipping estimates</h5>
             <SelectCountry />
@@ -103,7 +103,15 @@ function Cart() {
               Calculate Shipping
             </button>
             <h5 className="cart-text">Order special instructions</h5>
-            <textarea type="text" name="description" cols={40} rows={4} />
+            <TextField
+              variant="outlined"
+              type="text"
+              name="note"
+              label="Write a note"
+              multiline
+              rows={3}
+              sx={{ width: '100%' }}
+            />
             <h5 className="cart-text">Discount Code</h5>
             <TextField
               type="text"

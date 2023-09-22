@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -24,14 +24,9 @@ import {
   removeItem,
 } from '../../redux/productSlice';
 
-function ShoppingCart({ popup, handleClosePopup }) {
+function ShoppingCart({ popup, handleClosePopup, handleRouteToCart }) {
   const form = useForm();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = form;
+  const { register } = form;
   const { cart } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   //alert
@@ -60,21 +55,6 @@ function ShoppingCart({ popup, handleClosePopup }) {
   const handleDeleteItem2 = (item) => {
     dispatch(removeItem(item));
   };
-
-  //close the popup container when the cursor is clicked outside of it
-  /*useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
-        handleClosePopup();
-      }
-    };
-
-    window.addEventListener('click', handleClickOutside);
-
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, []);*/
   return (
     <section
       className={popup ? 'perviewCart-container' : 'null'}
@@ -201,12 +181,15 @@ function ShoppingCart({ popup, handleClosePopup }) {
             {openTab === 'addNote' && (
               <div>
                 <h5>Note</h5>
-                <textarea
+                <TextField
+                  variant="outlined"
                   type="text"
-                  name="description"
-                  cols={40}
-                  rows={4}
+                  name="note"
+                  label="Write a note"
+                  multiline
+                  rows={3}
                   {...register('description')}
+                  sx={{ width: '100%' }}
                 />
                 <div className="d-flex flex-row justify-content-between mb-5">
                   <button className="save-btn checkout-btn">Save</button>
@@ -285,7 +268,12 @@ function ShoppingCart({ popup, handleClosePopup }) {
         </ul>
         <div className="btn-cart d-flex flex-column gap-4 mt-4 ">
           <button className="checkout-btn">Checkout Now</button>
-          <button className="viewCart-btn btn-best ">View Cart</button>
+          <button
+            className="viewCart-btn btn-best "
+            onClick={handleRouteToCart}
+          >
+            View Cart
+          </button>
         </div>
       </section>
     </section>

@@ -29,16 +29,17 @@ function FeaturedProducts() {
   };
 
   const products = featuredProducts.map((item) => (
-    <CarouselProduct
-      image={item.image}
-      brand={item.brand}
-      name={item.name}
-      price={item.price}
-      rating={item.rating}
-      numReview={item.numReview}
-      alt={item.name}
-      key={item.id}
-    />
+    <div key={item.id}>
+      <CarouselProduct
+        image={item.image}
+        brand={item.brand}
+        name={item.name}
+        price={item.price}
+        rating={item.rating}
+        numReview={item.numReview}
+        alt={item.name}
+      />
+    </div>
   ));
   return (
     <section className="container-fluid feature">
