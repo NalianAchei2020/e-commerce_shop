@@ -8,17 +8,42 @@ const initialState = {
   error: null,
 };
 
+const baseURL = 'http://localhost:8000';
+
 export const fetchProduct = createAsyncThunk(
   'products/fetchProduct',
   async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/products');
+      const response = await axios.get(`${baseURL}/api/products`);
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch product data');
     }
   }
 );
+
+// product views
+export const viewProduct = createAsyncThunk(
+  'products/views',
+  async (productID) => {
+    try {
+      await axios.post(`${baseURL}/api/views/product/view`, {
+        id: productID,
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
+export const leaveProduct = createAsyncThunk('products/leave', async () => {
+  try {
+    await axios.post(`${baseURL}/api/views/product/leave`);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 const productsSlice = createSlice({
   name: 'products',
   initialState,
