@@ -14,7 +14,6 @@ import Searchbar from './search';
 
 function Header() {
   const { cart } = useSelector((state) => state.product);
-  console.log(cart);
 
   // State variables
   const [showSearchbar, setShowSearchbar] = useState(false);
@@ -85,11 +84,13 @@ function Header() {
         </div>
         <nav className="nav">
           <div className="menu-icons">
-            <button type="button" onClick={handleClicked} className="btn-menu">
-              <IconButton color="inherit" className="menu">
-                <MenuIcon className="menu" />
-              </IconButton>
-            </button>
+            <IconButton
+              color="inherit"
+              className="menu"
+              onClick={handleClicked}
+            >
+              <MenuIcon className="menu" />
+            </IconButton>
             <h1 className="logo">SHOPEE</h1>
           </div>
           <ul className={isClicked ? 'no-list' : 'list'}>
@@ -190,8 +191,8 @@ function Header() {
           <ul className="icons">
             <li className="nav-item">
               <Tooltip title="Search">
-                <IconButton color="inherit">
-                  <SearchIcon onClick={handleSearch} />
+                <IconButton color="inherit" onClick={handleSearch}>
+                  <SearchIcon />
                 </IconButton>
               </Tooltip>
             </li>
