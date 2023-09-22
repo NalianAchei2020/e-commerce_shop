@@ -12,8 +12,8 @@ function FashionNews() {
         The latest fashion news, celebrity style, fashion week updates
       </h6>
       <section className="new-main-container">
-        <Link to="/" className="link">
-          <div className="new-container">
+        <div className="new-container">
+          <Link to="/" className="link">
             <div className="new-image">
               <img src="Images/women/high-heels.jpg" alt="heels" />
             </div>
@@ -24,18 +24,16 @@ function FashionNews() {
                 The denim resurgence is the result of the long, secretive days
                 that people have to stay indoors. The era of spor...
               </p>
-              <p>
-                {' '}
-                <Link to="/" className="link discover">
-                  {' '}
-                  Discover
-                </Link>
-              </p>
             </div>
-          </div>
-        </Link>
-        <Link to="/" className="link">
-          <div className="new-container">
+          </Link>
+          <Link to="/" className="link discover">
+            {' '}
+            Discover
+          </Link>
+        </div>
+
+        <div className="new-container">
+          <Link to="/" className="link">
             <div className="new-image">
               <img src="Images/women/high-heels.jpg" alt="heels" />
             </div>
@@ -46,18 +44,16 @@ function FashionNews() {
                 The denim resurgence is the result of the long, secretive days
                 that people have to stay indoors. The era of spor...
               </p>
-              <p>
-                {' '}
-                <Link to="/" className="link discover">
-                  {' '}
-                  Discover
-                </Link>
-              </p>
             </div>
-          </div>
-        </Link>
-        <Link to="/" className="link">
-          <div className="new-container">
+          </Link>
+          <Link to="/" className="link discover">
+            {' '}
+            Discover
+          </Link>
+        </div>
+
+        <div className="new-container">
+          <Link to="/" className="link">
             <div className="new-image">
               <img src="Images/women/high-heels.jpg" alt="heels" />
             </div>
@@ -68,15 +64,12 @@ function FashionNews() {
                 The denim resurgence is the result of the long, secretive days
                 that people have to stay indoors. The era of spor...
               </p>
-              <p>
-                {' '}
-                <Link to="/" className="link discover">
-                  Discover
-                </Link>
-              </p>
             </div>
-          </div>
-        </Link>
+          </Link>
+          <Link to="/" className="link discover">
+            Discover
+          </Link>
+        </div>
       </section>
       <br />
       <br />
