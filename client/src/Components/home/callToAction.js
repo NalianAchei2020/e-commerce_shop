@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Box, IconButton, Button } from '@mui/material';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Box, IconButton } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
@@ -23,16 +23,16 @@ function CallToAction() {
     );
   };
 
-  const handleNextImage = () => {
+  const handleNextImage = useCallback(() => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
-  };
+  }, [images.length]);
 
   useEffect(() => {
     const interval = setInterval(handleNextImage, 3000); // Change image every 3 seconds
     return () => clearInterval(interval);
-  }, []);
+  }, [handleNextImage]);
 
   return (
     <section
