@@ -55,7 +55,7 @@ function BestSeller({ handleAddToCart }) {
           <div className="row-container">
             {bestSeller.map((item) => (
               <div className="card-container" key={item.id}>
-                <Link to="/" className="product-link">
+                <Link to={`/product/${item.name}`} className="product-link">
                   <div className="card">
                     <div className="card-image">
                       <img src={item.image} alt={item.name} />
