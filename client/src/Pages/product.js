@@ -6,6 +6,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IconButton } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
 import { addToCart, removeFromCart } from '../redux/productSlice';
 
 function Product() {
@@ -72,41 +74,60 @@ function Product() {
   return (
     <section>
       <h1>Product</h1>
-      <div className="description-container">
-        <div className="description-image">
-          <img src={selectedProduct.image} alt={selectedProduct.name} />
-        </div>
-        <div className="des-text">
-          <h2>{selectedProduct.name}</h2>
-          <div className="d-flex flex-row gap-4">
-            <IconButton>
-              <VisibilityIcon
-                sx={{ color: 'black', fontSize: '2rem', fontWeight: '800' }}
-              />
-            </IconButton>
-            <h6 className="mt-3">{usersCount} views</h6>
+      {selectedProduct && (
+        <div className="description-container container">
+          <div className="description-image container">
+            <img
+              src={selectedProduct.image}
+              alt={selectedProduct.name}
+              height={500}
+              width={300}
+            />
           </div>
-          <div className="d-flex flex-row gap-4">
-            <ul className="d-flex flex-row gap-3 justify-content-center align-center previewCart-list">
-              <li>
-                <RemoveIcon
-                  onClick={() => handleDeleteItem(selectedProduct)}
-                  className="previewCart-icon"
-                  style={{ fontSize: '16px' }}
+          <div className="des-text container">
+            <h2>{selectedProduct.name}</h2>
+            <Stack spacing={2}>
+              <div className="rating">
+                <Rating
+                  name="size-large"
+                  defaultValue={selectedProduct.rating}
+                  precision={0.5}
+                  readOnly
                 />
-              </li>
-              <li className="qty">{selectedProduct.quantity}</li>
-              <li>
-                <AddIcon
-                  onClick={() => handleAddToCart(selectedProduct)}
-                  className="previewCart-icon"
-                  style={{ fontSize: '16px' }}
+                <span>{selectedProduct.numReview} Reviews</span>
+              </div>
+            </Stack>
+            <div className="d-flex flex-row gap-4">
+              <IconButton>
+                <VisibilityIcon
+                  sx={{ color: 'black', fontSize: '2rem', fontWeight: '800' }}
                 />
-              </li>
-            </ul>
+              </IconButton>
+              <h6 className="mt-3">{usersCount} views</h6>
+            </div>
+            <h2>{selectedProduct.price} FCFA</h2>
+            <div className="d-flex flex-row gap-4">
+              <ul className="d-flex flex-row gap-3 justify-content-center align-center previewCart-list">
+                <li>
+                  <RemoveIcon
+                    onClick={() => handleDeleteItem(selectedProduct)}
+                    className="previewCart-icon"
+                    style={{ fontSize: '16px' }}
+                  />
+                </li>
+                <li className="qty">{selectedProduct.quantity}</li>
+                <li>
+                  <AddIcon
+                    onClick={() => handleAddToCart(selectedProduct)}
+                    className="previewCart-icon"
+                    style={{ fontSize: '16px' }}
+                  />
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }
