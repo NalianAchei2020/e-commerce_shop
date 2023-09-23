@@ -69,7 +69,12 @@ function ShoppingCart({ popup, handleClosePopup, handleRouteToCart }) {
           ? cart.map((item) => (
               <div key={item.id} className="previewCart">
                 <div className="previewCart-image">
-                  <img src={item.image} alt="cartImage" />
+                  <img
+                    src={item.image}
+                    alt="cartImage"
+                    width={120}
+                    height={100}
+                  />
                 </div>
                 <div className="previewCart-details">
                   <h5>{item.name}</h5>
