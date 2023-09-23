@@ -8,6 +8,8 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import { addToCart, removeFromCart } from '../redux/productSlice';
 
 function Product() {
@@ -73,13 +75,22 @@ function Product() {
 
   return (
     <section>
+      <div>
+        <img
+          src="Images/women/heels/heels03.png"
+          alt="product"
+          height={500}
+          width={300}
+        />
+      </div>
       <h1>Product</h1>
       {selectedProduct && (
         <div className="description-container container">
           <div className="description-image container">
+            <p>{selectedProduct.image ? 'image exist' : 'image not exist'}</p>
             <img
-              src={selectedProduct.image}
-              alt={selectedProduct.name}
+              src="Images/women/heels/heels03.png"
+              alt="product"
               height={500}
               width={300}
             />
@@ -124,10 +135,27 @@ function Product() {
                   />
                 </li>
               </ul>
+              <button className="checkout-btn">Checkout Now</button>
             </div>
+            <div className="des-terms">
+              <FormControlLabel
+                required
+                control={<Checkbox />}
+                label="I agree with Terms & Conditions"
+              />
+            </div>
+            <button className="viewCart-btn btn-best ">Buy it now</button>
           </div>
         </div>
       )}
+      <div>
+        <img
+          src="Images/women/heels/heels03.png"
+          alt="product"
+          height={500}
+          width={300}
+        />
+      </div>
     </section>
   );
 }
