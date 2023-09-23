@@ -13,15 +13,18 @@ import Checkbox from '@mui/material/Checkbox';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CompareIcon from '@mui/icons-material/Compare';
 import ShareIcon from '@mui/icons-material/Share';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { addToCart, removeFromCart } from '../redux/productSlice';
 
 function Product() {
   const dispatch = useDispatch();
   const [usersCount, setUsersCount] = useState(0);
   const [share, setShare] = useState(false);
+  const [shareClick, setShareClick] = useState(false);
   const [Wishlist, setWishlist] = useState(false);
   const [wishlistClick, setWishlistClick] = useState(false);
   const [compare, setCompare] = useState(false);
+  const [compareClick, setCompareClick] = useState(false);
 
   // Get the selected product from the URL params
   const { slug } = useParams();
@@ -91,12 +94,34 @@ function Product() {
   const handlewishlist = () => {
     setWishlist(!Wishlist);
     setWishlistClick(true);
+    setTimeout(() => {
+      setWishlistClick(false);
+    }, 1500);
   };
   const wishlistMessage = Wishlist ? (
-    <div>Product has been added to wishlist</div>
+    <p>Product has been added to wishlist</p>
   ) : (
-    <div>Product has been removed from wishlist</div>
+    <p>Product has been removed from wishlist</p>
   );
+  const handlecompare = () => {
+    setCompare(!compare);
+    setCompareClick(true);
+    setTimeout(() => {
+      setCompareClick(false);
+    }, 1500);
+  };
+  const compareMessage = compare ? (
+    <p>Product has been added to compare</p>
+  ) : (
+    <p>Product has been removed from compare</p>
+  );
+  const handleShare = () => {
+    setWishlist(!Wishlist);
+    setWishlistClick(true);
+    setTimeout(() => {
+      setWishlistClick(false);
+    }, 1000);
+  };
 
   return (
     <section>
@@ -180,6 +205,7 @@ function Product() {
                     fontWeight: '800',
                   }}
                   className="d-flex flex-row gap-2"
+                  onClick={handlecompare}
                 >
                   <CompareIcon />
                   <h6 className="activeIcon">Compare</h6>
@@ -198,10 +224,43 @@ function Product() {
                   <h6 className="activeIcon">Share</h6>
                 </IconButton>
               </li>
-              <li>{wishlistClick && wishlistMessage}</li>
+              <div>
+                <div>
+                  <h5>Share</h5>
+                  <IconButton
+                    sx={{
+                      color: 'black',
+                      fontSize: '1.5rem',
+                      fontWeight: '800',
+                      border: '1px solid #e4e2e2',
+                    }}
+                    className="d-flex flex-row gap-2"
+                  >
+                    <ContentCopyIcon />
+                  </IconButton>
+                </div>
+              </div>
             </ul>
-            <div class="element">
-              This element will disappear after a few seconds.
+            <div
+              className={
+                wishlistClick && wishlistMessage ? 'element' : 'element2'
+              }
+            >
+              {wishlistClick && wishlistMessage}
+            </div>
+            <div
+              className={
+                wishlistClick && wishlistMessage ? 'element' : 'element2'
+              }
+            >
+              {wishlistClick && wishlistMessage}
+            </div>
+            <div
+              className={
+                compareClick && compareMessage ? 'element' : 'element2'
+              }
+            >
+              {compareClick && compareMessage}
             </div>
           </div>
         </div>
