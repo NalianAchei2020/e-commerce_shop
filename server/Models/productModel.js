@@ -18,12 +18,24 @@ const reviewSchema = new mongoose.Schema(
 
 const productSchema = new mongoose.Schema(
   {
-    _id: { type: String },
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    category: { type: String, required: true },
+    name: { type: String, required: [true, 'Please add product name'] },
+    description: {
+      type: String,
+      required: [true, 'Please add product description'],
+    },
+    category: { type: String, required: [true, 'Please add product category'] },
+    subcategory: {
+      type: String,
+      required: [true, 'Please add product subcategory'],
+    },
+    bestSeller: { type: Boolean, default: false },
+    newArrival: { type: Boolean, default: false },
+    trending: { type: Boolean, default: false },
     brand: { type: String, required: true },
-    image: { type: String, required: true },
+    image: {
+      public_id: { type: String, required: [true, 'Image is required'] },
+      url: { type: String, required: true },
+    },
     price: { type: Number, default: 0.0, required: true },
     countInStock: { type: Number, default: 0, required: true },
     rating: { type: Number, default: 0.0, required: true },

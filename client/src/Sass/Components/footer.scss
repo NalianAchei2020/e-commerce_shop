@@ -1,0 +1,42 @@
+.footer-contianer {
+  display: grid;
+  grid-template-columns: auto;
+  padding-inline: 2rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: auto auto;
+    gap: 2em;
+  }
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  ul {
+    li {
+      padding-block: 0.3em;
+    }
+  }
+}
+.copywrite-icons {
+  cursor: pointer;
+  img {
+    object-fit: contain;
+  }
+}
+
+.copywrite-container {
+  padding-inline: 2em;
+  padding-top: 1em;
+  border-top: 2px solid #cec7c7;
+  box-shadow: 0px 5px 5px -5px #cec7c7;
+}
+
+.link2 {
+  font-size: 1rem;
+  text-decoration: none;
+  color: #000;
+}
+.link2:hover {
+  color: #1d1d75;
+  text-decoration: underline;
+  font-weight: 800;
+}

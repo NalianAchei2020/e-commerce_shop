@@ -1,14 +1,61 @@
 import Product from '../Models/productModel.js';
+import { v2 as cloudinary } from 'cloudinary';
+import dotenv from 'dotenv';
+import data from '../data.js';
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 
 // create a product
 export const createProduct = async (req, res, next) => {
+  const {
+    name,
+    category,
+    price,
+    description,
+    countInStock,
+    image,
+    subcategory,
+    rating,
+    numReview,
+    brand,
+    bestSeller,
+    trending,
+    newArrival,
+  } = req.body;
   try {
+    const opts = {
+      overwrite: true,
+      invalidate: true,
+      resource_type: 'auto',
+    };
+    const result = await cloudinary.uploader.upload_large(image, {
+      opts,
+      folder: 'products',
+    });
+    console.log(result);
     const product = new Product({
-      name: 'sample product',
-      description: 'sample desc',
-      category: 'sample category',
-      brand: 'sample brand',
-      image: 'Images/img1.jpg',
+      name,
+      category,
+      price,
+      description,
+      countInStock,
+      image: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
+      subcategory,
+      rating,
+      numReview,
+      brand,
+      bestSeller,
+      trending,
+      newArrival,
     });
     const createdProduct = await product.save();
     if (createdProduct) {
@@ -104,7 +151,10 @@ export const getProduct = async (req, res, next) => {
 };
 
 // get all products
-export const getAllProducts = async (req, res, next) => {};
+export const getAllProducts = async (req, res, next) => {
+  const products = data.products;
+  res.send(products);
+};
 
 //post a review
 export const postReview = async (req, res, next) => {

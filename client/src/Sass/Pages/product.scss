@@ -1,0 +1,50 @@
+.description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: space-between;
+  padding: 2em 1em;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.d-block {
+  padding: 0;
+  cursor: pointer;
+}
+
+.des-icon {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.activeIcon::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 0;
+  background-color: #000;
+}
+
+.activeIcon:hover::after {
+  width: 70px;
+  transition: width 0.5s ease;
+}
+.element {
+  background-color: #2b2929;
+  color: #fff;
+  padding: 0.5em;
+  width: 73%;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+
+  @media (min-width: 768px) {
+    width: 350px;
+    left: 50%;
+  }
+}

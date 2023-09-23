@@ -8,6 +8,7 @@ import authRouter from './routes/auth.js';
 import userRouter from './routes/user.js';
 import orderRouter from './routes/order.js';
 import productRouter from './routes/product.js';
+import viewsRouter from './routes/views.js';
 
 const app = express();
 //connecting to mongoDB database
@@ -51,6 +52,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/products', productRouter);
+app.use('/api/views', viewsRouter);
 
 app.listen(config.PORT, () => {
   console.log(`Server is running on port ${config.PORT}`);
