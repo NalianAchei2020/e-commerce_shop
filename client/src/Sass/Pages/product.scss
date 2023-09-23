@@ -1,8 +1,13 @@
 .description-container {
   display: flex;
+  flex-direction: column;
   gap: 1em;
   justify-content: space-between;
   padding: 2em 1em;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 }
 
 .d-block {
@@ -27,17 +32,19 @@
   width: 70px;
   transition: width 0.5s ease;
 }
-
 .element {
-  animation: disappear 5s forwards;
-}
+  background-color: #2b2929;
+  color: #fff;
+  padding: 0.5em;
+  width: 73%;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
 
-@keyframes disappear {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    display: none;
+  @media (min-width: 768px) {
+    width: 350px;
+    left: 50%;
   }
 }
