@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../redux/productSlice';
 import Slider from '../Components/home/image-slider';
 import BestSeller from '../Components/home/bestSeller';
@@ -12,7 +12,7 @@ import Instagram from '../Components/home/instagram';
 import ShoppingCart from '../Components/home/ShoppingCart';
 function Home() {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const navigate = useNavigate();
   const [popup, setPopup] = useState(false);
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
@@ -26,7 +26,7 @@ function Home() {
   };
   const handleRouteToCart = () => {
     setPopup(false);
-    location.pathname = './cart';
+    navigate('/cart');
     document.body.style.overflow = 'auto';
   };
   return (
