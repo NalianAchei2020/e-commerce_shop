@@ -48,3 +48,24 @@
     left: 50%;
   }
 }
+.desIcons-container {
+  position: relative;
+}
+.icon-text {
+  font-size: 1rem;
+  font-size: 500;
+}
+
+.copy-text {
+  background-color: #faf7f7;
+  padding: 5px;
+}
+
+.share-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: #64646f33 0 7px 29px;
+  padding: 2em;
+  position: absolute;
+  top: 90%;
+}

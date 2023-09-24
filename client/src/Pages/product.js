@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -14,9 +14,20 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CompareIcon from '@mui/icons-material/Compare';
 import ShareIcon from '@mui/icons-material/Share';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import { Tooltip } from '@mui/material';
+
 import { addToCart, removeFromCart } from '../redux/productSlice';
 
 function Product() {
+  const location = useLocation();
+  const productUrl = location.pathname + location.search;
+  const baseURL = 'http://localhost:3000/';
+
   const dispatch = useDispatch();
   const [usersCount, setUsersCount] = useState(0);
   const [share, setShare] = useState(false);
@@ -94,9 +105,11 @@ function Product() {
   const handlewishlist = () => {
     setWishlist(!Wishlist);
     setWishlistClick(true);
-    setTimeout(() => {
-      setWishlistClick(false);
-    }, 1500);
+    if (!wishlistClick) {
+      setTimeout(() => {
+        setWishlistClick(false);
+      }, 1500);
+    }
   };
   const wishlistMessage = Wishlist ? (
     <p>Product has been added to wishlist</p>
@@ -106,9 +119,11 @@ function Product() {
   const handlecompare = () => {
     setCompare(!compare);
     setCompareClick(true);
-    setTimeout(() => {
-      setCompareClick(false);
-    }, 1500);
+    if (!compareClick) {
+      setTimeout(() => {
+        setCompareClick(false);
+      }, 1500);
+    }
   };
   const compareMessage = compare ? (
     <p>Product has been added to compare</p>
@@ -154,7 +169,7 @@ function Product() {
               <h6 className="mt-3">{usersCount} views</h6>
             </div>
             <h2>{selectedProduct.price} FCFA</h2>
-            <div className="d-flex flex-row gap-4">
+            <div className="d-flex flex-row gap-4 desIcons-container">
               <ul className="d-flex flex-row gap-3 justify-content-center align-center previewCart-list">
                 <li>
                   <RemoveIcon
@@ -221,26 +236,75 @@ function Product() {
                   className="d-flex flex-row gap-2"
                 >
                   <ShareIcon />
-                  <h6 className="activeIcon">Share</h6>
+                  <h6>Share</h6>
                 </IconButton>
               </li>
-              <div>
-                <div>
+            </ul>
+            <div>
+              <div className="share-container">
+                <div className="d-flex flex-row justify-content-between">
                   <h5>Share</h5>
                   <IconButton
                     sx={{
                       color: 'black',
                       fontSize: '1.5rem',
                       fontWeight: '800',
-                      border: '1px solid #e4e2e2',
                     }}
-                    className="d-flex flex-row gap-2"
                   >
-                    <ContentCopyIcon />
+                    <CancelPresentationIcon />
                   </IconButton>
                 </div>
+                <hr />
+                <div className="icons d-flex flex-row gap-4">
+                  <Link to="facebook.com" className="link">
+                    {' '}
+                    <Tooltip title="Facebook" placement="top">
+                      <IconButton>
+                        <FacebookIcon />
+                      </IconButton>
+                      <p className="icon-text">Facebook</p>
+                    </Tooltip>
+                  </Link>
+                  <Link to="pinterest.com" className="link">
+                    {' '}
+                    <Tooltip title="Pinterest" placement="top">
+                      <IconButton>
+                        <PinterestIcon />
+                      </IconButton>
+                      <p className="icon-text">Pinterest</p>
+                    </Tooltip>
+                  </Link>
+                  <Link to="instagram.com" className="link">
+                    {' '}
+                    <Tooltip title="Instagram" placement="top">
+                      <IconButton>
+                        <InstagramIcon />
+                      </IconButton>
+                      <p className="icon-text">Instagram</p>
+                    </Tooltip>
+                  </Link>
+                  <Link to="twitter.com" className="link">
+                    {' '}
+                    <Tooltip title="Twitter" placement="top">
+                      <IconButton>
+                        <TwitterIcon />
+                      </IconButton>
+                      <p className="icon-text">Twitter</p>
+                    </Tooltip>
+                  </Link>
+                </div>
+                <div
+                  className="copy-text d-flex flex-row gap-3"
+                  data-href={productUrl}
+                  data-layout="button"
+                  data-size="small"
+                >
+                  <p>{baseURL + productUrl}</p>
+                  <ContentCopyIcon />
+                </div>
               </div>
-            </ul>
+            </div>
+
             <div
               className={
                 wishlistClick && wishlistMessage ? 'element' : 'element2'
@@ -265,6 +329,23 @@ function Product() {
           </div>
         </div>
       )}
+      <div
+        className="fb-share-button"
+        data-href={productUrl}
+        data-layout="button"
+        data-size="small"
+      >
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            productUrl
+          )}`}
+          className="fb-xfbml-parse-ignore"
+        >
+          Share on Facebook
+        </a>
+      </div>
     </section>
   );
 }
