@@ -170,7 +170,7 @@ function Footer() {
           <li>
             <Tooltip title="Apply Pay" placement="bottom">
               <img
-                src="Images/icons/applePay.png"
+                src="/Images/icons/applePay.png"
                 alt="apple"
                 height={50}
                 width={80}
@@ -180,7 +180,7 @@ function Footer() {
           <li>
             <Tooltip title="Apply Pay" placement="bottom">
               <img
-                src="Images/icons/google.png"
+                src="/Images/icons/google.png"
                 alt="apple"
                 height={50}
                 width={80}
@@ -190,7 +190,7 @@ function Footer() {
           <li>
             <Tooltip title="Apply Pay" placement="bottom">
               <img
-                src="Images/icons/discover.png"
+                src="/Images/icons/discover.png"
                 alt="apple"
                 height={50}
                 width={80}
@@ -200,7 +200,7 @@ function Footer() {
           <li>
             <Tooltip title="Apply Pay" placement="bottom">
               <img
-                src="Images/icons/meta.jpeg"
+                src="/Images/icons/meta.jpeg"
                 alt="apple"
                 height={50}
                 width={80}
@@ -210,7 +210,7 @@ function Footer() {
           <li>
             <Tooltip title="Apply Pay" placement="bottom">
               <img
-                src="Images/icons/paypal.png"
+                src="/Images/icons/paypal.png"
                 alt="apple"
                 height={50}
                 width={80}
@@ -220,7 +220,7 @@ function Footer() {
           <li>
             <Tooltip title="Apply Pay" placement="bottom">
               <img
-                src="Images/icons/visa.png"
+                src="/Images/icons/visa.png"
                 alt="apple"
                 height={50}
                 width={80}
