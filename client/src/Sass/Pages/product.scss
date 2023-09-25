@@ -2,17 +2,28 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   padding: 2em 1em;
+  width: 100%;
 
   @media (min-width: 768px) {
     flex-direction: row;
+    ustify-content: space-between;
   }
 }
-
+.description-image {
+  width: 100%;
+  height: 500px;
+  img {
+    width: 100%;
+    height: 500px;
+  }
+}
 .d-block {
   padding: 0;
   cursor: pointer;
+  width: 100%;
 }
 
 .des-icon {
@@ -50,6 +61,7 @@
 }
 .desIcons-container {
   position: relative;
+  width: 100%;
 }
 .icon-text {
   font-size: 1rem;
@@ -68,4 +80,41 @@
   padding: 2em;
   position: absolute;
   top: 90%;
+}
+.not-share {
+  display: none;
+}
+
+.vendor {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.list-images {
+  height: 80px;
+  width: 50px;
+  border-radius: 8px;
+}
+.list-images img {
+  object-fit: contain;
+}
+.images-list {
+  border: 1px solid #cec7c7;
+  width: 100%;
+}
+.mobile-icon {
+  display: flex;
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+.no-flex-tab {
+  display: flex;
+  gap: 1em;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.active-tab {
+  color: red;
 }
