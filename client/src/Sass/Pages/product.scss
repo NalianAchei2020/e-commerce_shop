@@ -131,8 +131,23 @@
   height: 2px;
   background-color: #1976d2;
   transition: width 2s ease-in-out;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.hr-line {
+  display: none;
 }
 
+.flex-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.flex-tab li {
+  border-bottom: 1px solid #cec7c7;
+  padding-block: 0.5em;
+}
 .product-description {
   display: grid;
 
@@ -147,4 +162,7 @@
 }
 .des-form {
   width: 100%;
+}
+.desbest-imgae {
+  object-fit: contain;
 }

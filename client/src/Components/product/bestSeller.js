@@ -20,7 +20,11 @@ const BestSeller = () => {
             <div className="card">
               <div className="card-image">
                 <Link to={`/product/${item.name}`} className="product-link">
-                  <img src={item.image} alt={item.name} />
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="desbest-imgae"
+                  />
                 </Link>
               </div>
               <div className="card-body">

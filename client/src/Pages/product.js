@@ -155,12 +155,7 @@ function Product() {
   };
 
   const handleTabs = (tab) => {
-    const width = window.screen.width < 768;
-    if (!width) {
-      setTabs(tab);
-    } else {
-      setTabs('mobile-screen');
-    }
+    setTabs(tab);
   };
   const handleReview = () => {
     setReview(!review);
@@ -488,7 +483,7 @@ function Product() {
             className={window.screen.width < 768 ? 'flex-tab' : 'no-flex-tab'}
           >
             <li
-              className="d-flex flex-row gap-2 tab-list2"
+              className="d-flex flex-row justify-content-between  gap-2 tab-list2"
               onClick={() => handleTabs('description')}
             >
               <span className={tabs === 'description' ? ' active-tab' : ''}>
@@ -500,7 +495,7 @@ function Product() {
               </span>
             </li>
             <li
-              className="d-flex flex-row gap-2 tab-list2"
+              className="d-flex flex-row justify-content-between gap-2 tab-list2"
               onClick={() => handleTabs('custom-tab')}
             >
               <span className={tabs === 'custom-tab' ? ' active-tab' : ''}>
@@ -512,7 +507,7 @@ function Product() {
               </span>
             </li>
             <li
-              className="d-flex flex-row gap-2 tab-list2"
+              className="d-flex flex-row justify-content-between gap-2 tab-list2"
               onClick={() => handleTabs('shipping-return')}
             >
               <span className={tabs === 'shipping-return' ? ' active-tab' : ''}>
@@ -524,7 +519,7 @@ function Product() {
               </span>
             </li>
             <li
-              className="d-flex flex-row gap-2 tab-list2"
+              className="d-flex flex-row justify-content-between gap-2 tab-list2"
               onClick={() => handleTabs('review')}
             >
               <span className={tabs === 'review' ? ' active-tab' : ''}>
@@ -536,7 +531,7 @@ function Product() {
               </span>
             </li>
           </ul>
-          <hr />
+          <hr className="hr-line" />
           <div className="container">
             {tabs === 'description' && (
               <div className="container">
