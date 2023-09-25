@@ -24,6 +24,9 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { addToCart, removeFromCart } from '../redux/productSlice';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Review from '../Components/product/review';
+import BestSeller from '../Components/product/bestSeller';
+import MayLikeProduct from '../Components/product/mayLikeProduct';
 
 function Product() {
   const location = useLocation();
@@ -40,6 +43,7 @@ function Product() {
   const [compareClick, setCompareClick] = useState(false);
 
   const [tabs, setTabs] = useState('description');
+  const [review, setReview] = useState(false);
 
   // Get the selected product from the URL params
   const { slug } = useParams();
@@ -158,10 +162,13 @@ function Product() {
       setTabs('mobile-screen');
     }
   };
+  const handleReview = () => {
+    setReview(!review);
+  };
   return (
     <section>
       <h1>Product</h1>
-      <section className="description-container container">
+      <section className="description-container container-fluid">
         <div className="description-image container">
           <img src={selectedProduct.image} alt="product" />
         </div>
@@ -475,54 +482,54 @@ function Product() {
           </ul>
         </div>
       </section>
-      <section className="product-description">
+      <section className="product-description container-fluid">
         <div className="description-section">
           <ul
             className={window.screen.width < 768 ? 'flex-tab' : 'no-flex-tab'}
           >
             <li
-              className={`d-flex flex-row gap-2${
-                tabs === 'description' ? ' active-tab' : ''
-              }`}
+              className="d-flex flex-row gap-2 tab-list2"
               onClick={() => handleTabs('description')}
             >
-              <span>Description</span>
+              <span className={tabs === 'description' ? ' active-tab' : ''}>
+                Description
+              </span>
               <span className="mobile-icon">
                 {' '}
                 <ExpandMoreIcon />
               </span>
             </li>
             <li
-              className={`d-flex flex-row gap-2${
-                tabs === 'custom-tab' ? ' active-tab' : ''
-              }`}
+              className="d-flex flex-row gap-2 tab-list2"
               onClick={() => handleTabs('custom-tab')}
             >
-              <span>Custom Tab</span>
+              <span className={tabs === 'custom-tab' ? ' active-tab' : ''}>
+                Custom Tab
+              </span>
               <span className="mobile-icon">
                 {' '}
                 <ExpandMoreIcon />
               </span>
             </li>
             <li
-              className={`d-flex flex-row gap-2${
-                tabs === 'shipping-return' ? ' active-tab' : ''
-              }`}
+              className="d-flex flex-row gap-2 tab-list2"
               onClick={() => handleTabs('shipping-return')}
             >
-              <span>Shipping & Return</span>
+              <span className={tabs === 'shipping-return' ? ' active-tab' : ''}>
+                Shipping & Return
+              </span>
               <span className="mobile-icon">
                 {' '}
                 <ExpandMoreIcon />
               </span>
             </li>
             <li
-              className={`d-flex flex-row gap-2${
-                tabs === 'review' ? ' active-tab' : ''
-              }`}
+              className="d-flex flex-row gap-2 tab-list2"
               onClick={() => handleTabs('review')}
             >
-              <span>Reviews</span>
+              <span className={tabs === 'review' ? ' active-tab' : ''}>
+                Reviews
+              </span>
               <span className="mobile-icon">
                 {' '}
                 <ExpandMoreIcon />
@@ -530,8 +537,82 @@ function Product() {
             </li>
           </ul>
           <hr />
+          <div className="container">
+            {tabs === 'description' && (
+              <div className="container">
+                <p>{selectedProduct.description}</p>
+              </div>
+            )}
+            {tabs === 'custom-tab' && (
+              <div className="container">
+                <p>
+                  It is a long established fact that a reader will be distracted
+                  by the readable content of a page when looking at its layout.
+                  The point of using Lorem Ipsum is that it has a more-or-less
+                  normal distribution of letters, as opposed to using 'Content
+                  here, content here', making it look like readable English.
+                  Many desktop publishing packages and web page editors now use
+                  Lorem Ipsum as their default model text, and a search for
+                  'lorem ipsum' will uncover many web sites still in their
+                  infancy. Various versions have evolved over the years,
+                  sometimes by accident, sometimes on purpose (injected humour
+                  and the like).
+                </p>
+                <div>
+                  <img
+                    src="/Images/banner/banner-3.png"
+                    alt="banner"
+                    width={600}
+                  />
+                </div>
+              </div>
+            )}
+            {tabs === 'shipping-return' && (
+              <div className="container">
+                <p>
+                  There are many variations of passages of Lorem Ipsum
+                  available, but the majority have suffered alteration in some
+                  form, by injected humour, or randomised words which don't look
+                  even slightly believable. I f you are going to use a passage
+                  of Lorem Ipsum, you need to be sure there isn't anything
+                  embarrassing hidden in the middle of text. All the Lorem Ipsum
+                  generators on the Internet tend to repeat predefined chunks as
+                  necessary, making this the first true generator on the
+                  Internet. It uses a dictionary of over 200 Latin words,
+                  combined with a handful of model sentence structures, to
+                  generate Lorem Ipsum which looks reasonable. The generated
+                  Lorem Ipsum is therefore always free from repetition, injected
+                  humour, or non-characteristic words etc
+                </p>
+              </div>
+            )}
+            {tabs === 'review' && (
+              <section>
+                <div className="container d-flex flex-column flex-md-row  justify-content-between">
+                  <div>
+                    <p>No review yet for this product</p>
+                  </div>
+                  <div>
+                    <button
+                      className="btn-best btn-review"
+                      type="button"
+                      onClick={handleReview}
+                    >
+                      Write a review
+                    </button>
+                  </div>
+                </div>
+                {review && <Review />}
+              </section>
+            )}
+          </div>
+        </div>
+        <div className="des-bestSeller">
+          <h4>Best Sellers</h4>
+          <BestSeller />
         </div>
       </section>
+      <MayLikeProduct />
     </section>
   );
 }
