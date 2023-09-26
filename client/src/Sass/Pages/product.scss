@@ -12,14 +12,28 @@
     justify-content: space-between;
   }
 }
+.cart-heading3 {
+  background-color: #faf7f7;
+  margin-inline: -1%;
+  padding: 1.5em;
+}
+.des-text-link:hover {
+  text-decoration: underline;
+}
 .description-image {
   width: 100%;
-  height: 100vh;
+  height: 50vh;
+  background-color: #9e9e9e;
+  margin-top: 0px;
   padding-inline: 4px;
+  @media (min-width: 768px) {
+    height: 100vh;
+    margin-top: -100px;
+  }
   img {
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: contain;
   }
 }
 .d-block {

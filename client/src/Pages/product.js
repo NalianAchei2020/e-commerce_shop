@@ -24,6 +24,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { addToCart, removeFromCart } from '../redux/productSlice';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Review from '../Components/product/review';
 import BestSeller from '../Components/product/bestSeller';
 import MayLikeProduct from '../Components/product/mayLikeProduct';
@@ -166,13 +167,23 @@ function Product() {
   };
   return (
     <section className="container-fluid">
-      <h1>Product</h1>
+      <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
+        <Link to="/" className="cart-text des-text-link">
+          Home
+        </Link>
+        <div className="cart-text">
+          <NavigateNextIcon />
+        </div>
+        <Link to="#" className="cart-text des-text-link">
+          {selectedProduct.name}
+        </Link>
+      </div>
       <section className="description-container ">
         <div className="description-image">
           <img src={selectedProduct.image} alt="product" />
         </div>
         <div className="des-text container-fluid">
-          <h2>{selectedProduct.name}</h2>
+          <h3>{selectedProduct.name}</h3>
           <Stack spacing={2}>
             <div className="rating">
               <Rating
@@ -192,7 +203,7 @@ function Product() {
             </IconButton>
             <h6 className="mt-3">{usersCount} views</h6>
           </div>
-          <h2>{selectedProduct.price} FCFA</h2>
+          <h5>{selectedProduct.price} FCFA</h5>
           <div className="d-flex flex-row gap-4 desIcons-container">
             <ul className="d-flex flex-row gap-3 justify-content-center align-center previewCart-list">
               <li>
@@ -484,7 +495,7 @@ function Product() {
       <section className="product-description container-fluid">
         <div className="description-section">
           <ul
-            className={window.screen.width < 768 ? 'flex-tab' : 'no-flex-tab'}
+            className={window.screen.width < 767.9 ? 'flex-tab' : 'no-flex-tab'}
           >
             <li
               className="d-flex flex-row justify-content-between  gap-2 tab-list2"
