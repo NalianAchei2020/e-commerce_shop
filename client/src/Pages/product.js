@@ -42,7 +42,8 @@ function Product() {
   const [compare, setCompare] = useState(false);
   const [compareClick, setCompareClick] = useState(false);
 
-  const [tabs, setTabs] = useState('description');
+  const width = window.screen.width < 768;
+  const [tabs, setTabs] = useState(!width ? 'description' : null);
   const [review, setReview] = useState(false);
 
   // Get the selected product from the URL params
@@ -157,17 +158,20 @@ function Product() {
   const handleTabs = (tab) => {
     setTabs(tab);
   };
+  const handleCloseTab = () => {
+    setTabs(null);
+  };
   const handleReview = () => {
     setReview(!review);
   };
   return (
-    <section>
+    <section className="container-fluid">
       <h1>Product</h1>
-      <section className="description-container container-fluid">
-        <div className="description-image container">
+      <section className="description-container ">
+        <div className="description-image">
           <img src={selectedProduct.image} alt="product" />
         </div>
-        <div className="des-text container">
+        <div className="des-text container-fluid">
           <h2>{selectedProduct.name}</h2>
           <Stack spacing={2}>
             <div className="rating">
@@ -433,7 +437,7 @@ function Product() {
               <li>Estimated Delivery: Sep 28 - Oct 04</li>
             </ul>
           </div>
-          <ul className="d-flex flex-row gap-4  images-list">
+          <ul className="d-flex flex-row gap-2  images-list">
             <li className="list-images">
               <img
                 src="/Images/icons/visa.png"
@@ -531,15 +535,25 @@ function Product() {
               </span>
             </li>
           </ul>
-          <hr className="hr-line" />
-          <div className="container">
+
+          <div
+            className={`container-fluid ${
+              tabs === null ? 'no-content' : 'tab-content'
+            }`}
+          >
+            {tabs !== null && (
+              <div className="fload-left-end">
+                <div></div>
+                <RemoveIcon onClick={handleCloseTab} />
+              </div>
+            )}
             {tabs === 'description' && (
-              <div className="container">
+              <div>
                 <p>{selectedProduct.description}</p>
               </div>
             )}
             {tabs === 'custom-tab' && (
-              <div className="container">
+              <div>
                 <p>
                   It is a long established fact that a reader will be distracted
                   by the readable content of a page when looking at its layout.
@@ -557,13 +571,13 @@ function Product() {
                   <img
                     src="/Images/banner/banner-3.png"
                     alt="banner"
-                    width={600}
+                    className="custom-image"
                   />
                 </div>
               </div>
             )}
             {tabs === 'shipping-return' && (
-              <div className="container">
+              <div>
                 <p>
                   There are many variations of passages of Lorem Ipsum
                   available, but the majority have suffered alteration in some
@@ -583,7 +597,7 @@ function Product() {
             )}
             {tabs === 'review' && (
               <section>
-                <div className="container d-flex flex-column flex-md-row  justify-content-between">
+                <div className=" d-flex flex-column flex-md-row  justify-content-between">
                   <div>
                     <p>No review yet for this product</p>
                   </div>

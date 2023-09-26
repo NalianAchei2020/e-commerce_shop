@@ -14,7 +14,7 @@ const BestSeller = () => {
   const bestTwo = bestSeller.slice(0, 2);
   return (
     <div>
-      <div className="d-flex flex-column flex-md-row gap-2">
+      <div className="product-bestSeller">
         {bestTwo.map((item) => (
           <div className="card-container" key={item.id}>
             <div className="card">

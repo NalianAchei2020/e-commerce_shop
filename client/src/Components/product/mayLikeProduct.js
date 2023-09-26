@@ -18,7 +18,7 @@ function MayLikeProduct() {
     dispatch(addToCart(item));
   };
   return (
-    <section className="container-fluid mt-5">
+    <section className=" mt-5">
       <h1 className="text-center fw-bold mt-5 mb-4">You may also like</h1>
       <div className="row-container">
         {newArrival.map((item) => (
