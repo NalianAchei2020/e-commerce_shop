@@ -4,12 +4,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart, removeItem } from '../redux/productSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import SelectCountry from '../Components/home/select';
 function Cart() {
   const { cart } = useSelector((state) => state.product);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
@@ -19,6 +20,10 @@ function Cart() {
   };
   const handleDeleteItem2 = (item) => {
     dispatch(removeItem(item));
+  };
+
+  const handleBuy = () => {
+    navigate('/checkout');
   };
   return (
     <section className="container-fluid cart-container p-5">
@@ -117,7 +122,7 @@ function Cart() {
               type="text"
               label="Enter discount code"
               sx={{ width: '100%' }}
-              name="description"
+              name="discount"
             />
             <button className="btn-best btn-apply">Apply</button>
             <ul className="d-flex flex-row justify-content-between mt-4 cart-price-border">
@@ -126,14 +131,16 @@ function Cart() {
                 <h5>Sub Total</h5>
               </li>
               <li className="cart-price">
-                {cart.reduce((a, c) => a + c.quantity, 0)} Items:{' '}
-                {cart.reduce((a, c) => a + c.price * c.quantity, 0)} FCFA
+                {cart.reduce((a, c) => a + c.quantity, 0)} Items: $
+                {cart.reduce((a, c) => a + c.price * c.quantity, 0)}
               </li>
             </ul>
             <p className="cart-text text-taxes">
               Taxes and shipping calculated at checkout
             </p>
-            <button className="checkout-btn">Checkout Now</button>
+            <button className="checkout-btn" type="button" onClick={handleBuy}>
+              Checkout Now
+            </button>
           </div>
         </div>
       )}
