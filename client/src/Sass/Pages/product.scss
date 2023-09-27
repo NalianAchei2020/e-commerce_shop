@@ -102,13 +102,12 @@
   box-shadow: #64646f33 0 7px 29px;
   padding: 12px;
   position: sticky;
-  width: 440px;
+  width: 570px;
   z-index: 2;
 
   @media only screen and (max-width: 768px) {
     width: 115%;
     max-width: 440px;
-    margin-inline: -6%;
 
     .copied-text {
       word-break: break-word;

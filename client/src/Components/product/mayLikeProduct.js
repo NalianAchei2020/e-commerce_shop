@@ -5,17 +5,21 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/productSlice';
 
 function MayLikeProduct() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { product } = useSelector((state) => state.product);
   const newArrival = product.filter((item) => item.newArrival === true);
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
+  };
+  const handleView = (itemName) => {
+    navigate(`/product/${itemName}`);
   };
   return (
     <section className=" mt-5">
@@ -23,7 +27,7 @@ function MayLikeProduct() {
       <div className="row-container">
         {newArrival.map((item) => (
           <div className="card-container" key={item.id}>
-            <Link to="/" className="product-link">
+            <a href={`/product/${item.name}`} className="product-link">
               <div className="card">
                 <div className="card-image">
                   <img src={item.image} alt={item.name} />
@@ -60,14 +64,17 @@ function MayLikeProduct() {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Quick View" placement="bottom">
-                      <IconButton className="whistlist">
+                      <IconButton
+                        className="whistlist"
+                        onClick={() => handleView(item.name)}
+                      >
                         <VisibilityIcon className="whistlist" />
                       </IconButton>
                     </Tooltip>
                   </div>
                 </div>
               </div>
-            </Link>
+            </a>
           </div>
         ))}
       </div>
