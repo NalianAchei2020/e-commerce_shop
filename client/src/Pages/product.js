@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -33,6 +33,7 @@ function Product() {
   const location = useLocation();
   const productUrl = location.pathname + location.search;
   const baseURL = 'http://localhost:3000';
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const [usersCount, setUsersCount] = useState(0);
@@ -166,6 +167,9 @@ function Product() {
   const handleReview = () => {
     setReview(!review);
   };
+  const handleBuy = () => {
+    navigate('/checkout');
+  };
   return (
     <section className="container-fluid">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -232,7 +236,13 @@ function Product() {
               label="I agree with Terms & Conditions"
             />
           </div>
-          <button className="viewCart-btn btn-best ">Buy it now</button>
+          <button
+            className="viewCart-btn btn-best "
+            type="button"
+            onClick={handleBuy}
+          >
+            Buy it now
+          </button>
           <ul className="mt-2 d-flex flex-row gap-2 mt-3 d-block">
             <li>
               <IconButton
