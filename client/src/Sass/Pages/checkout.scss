@@ -1,0 +1,42 @@
+.checkout-container2 {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  @media (min-width: 950px) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2rem;
+  }
+}
+
+.names {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+
+  div {
+    width: 100%;
+  }
+}
+.checkout-form {
+  width: 100%;
+}
+
+.checkout-cart {
+  width: 100%;
+
+  ul {
+    width: 100%;
+    padding: 0;
+    li {
+      display: flex;
+      width: 90%;
+      gap: 1em;
+      justify-content: space-between;
+      padding: 0.5em 0;
+      @media (min-width: 950px) {
+        padding: 0.5em 1em;
+        width: 90%;
+      }
+    }
+  }
+}
