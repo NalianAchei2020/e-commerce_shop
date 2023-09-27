@@ -24,7 +24,7 @@ function Cart() {
     <section className="container-fluid cart-container p-5">
       <div className="cart-heading d-flex flex-row justify-content-between mb-3 container">
         <h2>My Cart</h2>
-        <Link to="/" className="cart-text">
+        <Link to="/" className="cart-text cart-text2">
           Continue Shopping
         </Link>
       </div>

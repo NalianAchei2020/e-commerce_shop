@@ -3,7 +3,7 @@ const data = {
     {
       id: 1,
       name: 'Bookinees',
-      image: 'Images/women/heels/heels02.png',
+      image: '/Images/women/heels/heels02.png',
       brand: ' Jimmy Choo',
       price: 8000,
       category: 'women',
@@ -20,7 +20,7 @@ const data = {
     {
       id: 2,
       name: 'Gucci Marmont',
-      image: 'Images/women/heels/heels01.png',
+      image: '/Images/women/heels/heels01.png',
       brand: 'Gucci',
       price: 12000,
       category: 'women',
@@ -37,7 +37,7 @@ const data = {
     {
       id: 3,
       name: 'Stuart Weitzman Nudis',
-      image: 'Images/women/heels/heels03.png',
+      image: '/Images/women/heels/heels03.png',
       brand: 'Stuart Weitzman',
       price: 8000,
       category: 'women',
@@ -54,7 +54,7 @@ const data = {
     {
       id: 4,
       name: 'Gucci Marmont',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Gucci',
       price: 12000,
       category: 'women',
@@ -71,7 +71,7 @@ const data = {
     {
       id: 5,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 10000,
       category: 'women',
@@ -87,7 +87,7 @@ const data = {
     {
       id: 6,
       name: 'Gucci Marmont',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Gucci',
       price: 8000,
       category: 'men',
@@ -103,7 +103,7 @@ const data = {
     {
       id: 7,
       name: 'Gucci Marmont',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Gucci',
       price: 8000,
       category: 'women',
@@ -119,7 +119,7 @@ const data = {
     {
       id: 8,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -135,7 +135,7 @@ const data = {
     {
       id: 9,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -151,7 +151,7 @@ const data = {
     {
       id: 10,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'women',
@@ -167,7 +167,7 @@ const data = {
     {
       id: 11,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -183,7 +183,7 @@ const data = {
     {
       id: 12,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -199,7 +199,7 @@ const data = {
     {
       id: 13,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: '8000',
       category: 'men',
@@ -215,7 +215,7 @@ const data = {
     {
       id: 14,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -231,7 +231,7 @@ const data = {
     {
       id: 15,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -247,7 +247,7 @@ const data = {
     {
       id: 16,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -263,7 +263,7 @@ const data = {
     {
       id: 17,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -280,7 +280,7 @@ const data = {
     {
       id: 18,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -297,7 +297,7 @@ const data = {
     {
       id: 19,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'men',
@@ -313,7 +313,7 @@ const data = {
     {
       id: 20,
       name: 'Gucci Marmont',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Gucci',
       price: 8000,
       category: 'women',
@@ -331,7 +331,7 @@ const data = {
     {
       id: 21,
       name: 'Gucci Marmont',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Gucci',
       price: 8000,
       category: 'women',
@@ -348,7 +348,7 @@ const data = {
     {
       id: 22,
       name: 'Gucci Marmont',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Gucci',
       price: 8000,
       category: 'women',
@@ -365,7 +365,7 @@ const data = {
     {
       id: 23,
       name: 'Gucci Marmont',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Gucci',
       price: 8000,
       category: 'women',
@@ -382,7 +382,7 @@ const data = {
     {
       id: 24,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'women',
@@ -399,7 +399,7 @@ const data = {
     {
       id: 25,
       name: 'Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'women',
@@ -415,7 +415,7 @@ const data = {
     },
     {
       id: 26,
-      name: 'Jimmy Choo Romy',
+      name: '/Jimmy Choo Romy',
       image: 'Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
@@ -432,7 +432,7 @@ const data = {
     },
     {
       id: 27,
-      name: 'Jimmy Choo Romy',
+      name: '/Jimmy Choo Romy',
       image: 'Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
