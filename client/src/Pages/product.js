@@ -43,7 +43,7 @@ function Product() {
   const [compare, setCompare] = useState(false);
   const [compareClick, setCompareClick] = useState(false);
 
-  const width = window.screen.width < 768;
+  const width = window.screen.width < 767.9;
   const [tabs, setTabs] = useState(!width ? 'description' : null);
   const [review, setReview] = useState(false);
 
@@ -52,10 +52,11 @@ function Product() {
   const { product } = useSelector((state) => state.product);
   const selectedProduct = product.find((item) => item.name === slug);
   const productID = selectedProduct ? selectedProduct.id : 'error';
-
+  const [count, setCount] = useState(1);
   // Add item to cart
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
+    setCount((prevCount) => prevCount + 1);
   };
 
   // Remove item from cart
@@ -179,7 +180,7 @@ function Product() {
         </Link>
       </div>
       <section className="description-container ">
-        <div className="description-image">
+        <div className="description-image container-fluid">
           <img src={selectedProduct.image} alt="product" />
         </div>
         <div className="des-text container-fluid">
@@ -213,7 +214,7 @@ function Product() {
                   style={{ fontSize: '16px' }}
                 />
               </li>
-              <li className="qty">{selectedProduct.quantity}</li>
+              <li className="qty">{count}</li>
               <li>
                 <AddIcon
                   onClick={() => handleAddToCart(selectedProduct)}
@@ -279,17 +280,19 @@ function Product() {
           <div>
             <div className={share ? 'share-container' : 'not-share'}>
               <div className="d-flex flex-row justify-content-between">
-                <h5>Share</h5>
-                <IconButton
-                  sx={{
-                    color: 'black',
-                    fontSize: '1.5rem',
-                    fontWeight: '800',
-                  }}
-                  onClick={handleCloseShare}
-                >
-                  <CancelPresentationIcon />
-                </IconButton>
+                <h5>Share:</h5>
+                <Tooltip placement="bottom" title="Close">
+                  <IconButton
+                    sx={{
+                      color: 'black',
+                      fontSize: '1.5rem',
+                      fontWeight: '800',
+                    }}
+                    onClick={handleCloseShare}
+                  >
+                    <CancelPresentationIcon />
+                  </IconButton>
+                </Tooltip>
               </div>
               <hr />
               <div className="icons d-flex flex-row gap-4">
@@ -380,12 +383,18 @@ function Product() {
                 data-layout="button"
                 data-size="small"
               >
-                <p>{baseURL + productUrl}</p>
+                <p className="copied-text">{baseURL + productUrl}</p>
                 <CopyToClipboard
                   text={baseURL + productUrl}
                   onCopy={handleCopy}
                 >
-                  {copy ? <p>Copied</p> : <ContentCopyIcon />}
+                  {copy ? (
+                    <p className="fw-bold">Copied</p>
+                  ) : (
+                    <Tooltip placement="bottom" title="Copy">
+                      <ContentCopyIcon />
+                    </Tooltip>
+                  )}
                 </CopyToClipboard>
               </div>
             </div>
