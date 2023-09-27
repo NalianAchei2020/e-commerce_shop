@@ -89,7 +89,7 @@ function ShiipingMethod() {
                 />
               </div>
               <div>
-                <h6 className="mt-4 p-0 element1">$56.02</h6>
+                <h6 className="mt-4 p-0 element1">$58.02</h6>
               </div>
             </article>
           </RadioGroup>

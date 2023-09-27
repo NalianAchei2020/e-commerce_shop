@@ -192,9 +192,9 @@ function Checkout() {
             <ShiipingMethod />
           </section>
           <section className="checkout-cart">
-            {cart.length === 0
-              ? null
-              : cart.map((item) => (
+            {cart.length === 0 ? null : (
+              <div>
+                {cart.map((item) => (
                   <ul key={item.id}>
                     <li>
                       <div className="d-flex flex-row gap-4">
@@ -210,31 +210,35 @@ function Checkout() {
                         <span>${item.price}</span>
                       </div>
                     </li>
-                    <li>
-                      <TextField
-                        type="text"
-                        label="Enter discount code"
-                        sx={{ width: '100%' }}
-                        name="discount"
-                      />
-                      <button className="btn-best btn-apply">Apply</button>
-                    </li>
-                    <li>
-                      <span>Subtotal</span>
-                      <span>
-                        ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}{' '}
-                      </span>
-                    </li>
-                    <li c>
-                      <span>Shipping</span>
-                      <span>Free</span>
-                    </li>
-                    <li>
-                      <span className="fw-bold">Total</span>
-                      <span>total</span>
-                    </li>
                   </ul>
                 ))}
+                <ul>
+                  <li>
+                    <TextField
+                      type="text"
+                      label="Enter discount code"
+                      sx={{ width: '100%' }}
+                      name="discount"
+                    />
+                    <button className="btn-best btn-apply">Apply</button>
+                  </li>
+                  <li>
+                    <span>Subtotal</span>
+                    <span>
+                      ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}{' '}
+                    </span>
+                  </li>
+                  <li c>
+                    <span>Shipping</span>
+                    <span>Free</span>
+                  </li>
+                  <li>
+                    <span className="fw-bold">Total</span>
+                    <span>total</span>
+                  </li>
+                </ul>
+              </div>
+            )}
           </section>
         </section>
       </section>
