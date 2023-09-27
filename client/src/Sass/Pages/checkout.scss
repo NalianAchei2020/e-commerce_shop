@@ -40,3 +40,30 @@
     }
   }
 }
+.element1 {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.label-element {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.shipping-method {
+  width: 100%;
+}
+.shipping-container {
+  width: 100%;
+  border: 1px solid #f0eded;
+
+  article {
+    border-bottom: 1px solid #f0eded;
+    padding: 0.5em;
+  }
+  article:hover {
+    border: 1px solid #1976d2;
+  }
+  article:active {
+    background-color: #bdcddd;
+  }
+}

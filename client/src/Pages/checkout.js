@@ -12,6 +12,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import SelectCountry from '../Components/home/select';
+import ShiipingMethod from '../Components/checkout/shiipingMethod';
 
 function Checkout() {
   const { cart } = useSelector((state) => state.product);
@@ -188,6 +189,7 @@ function Checkout() {
                 )}
               </FormGroup>
             </Stack>
+            <ShiipingMethod />
           </section>
           <section className="checkout-cart">
             {cart.length === 0
