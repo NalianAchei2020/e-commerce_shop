@@ -37,23 +37,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }
-::-webkit-scrollbar {
-  width: 8px;
-  height: 25px;
-}
-::-webkit-scrollbar-track {
-  background: #f5f5f5;
-  border-radius: 10px;
-}
 
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: #888787;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #888787;
-}
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
@@ -96,5 +80,25 @@ ul li {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (min-width: 950px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 25px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #888787;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #888787;
   }
 }
