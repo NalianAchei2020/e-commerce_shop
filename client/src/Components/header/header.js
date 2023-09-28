@@ -89,7 +89,11 @@ function Header() {
                 <MenuIcon sx={{ fontSize: '2rem' }} />
               </IconButton>
             </div>
-            <h1 className="logo">SHOPEE</h1>
+            <h1 className="logo">
+              <Link to="/" style={{ textDecoration: 'none', color: '#000' }}>
+                SHOPEE
+              </Link>{' '}
+            </h1>
           </div>
           <ul className={isClicked ? 'no-list' : 'list'}>
             <li className="btn-clear" onClick={handleClose}>
