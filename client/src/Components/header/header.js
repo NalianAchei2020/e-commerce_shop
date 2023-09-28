@@ -84,13 +84,11 @@ function Header() {
         </div>
         <nav className="nav">
           <div className="menu-icons">
-            <IconButton
-              color="inherit"
-              className="menu"
-              onClick={handleClicked}
-            >
-              <MenuIcon className="menu" />
-            </IconButton>
+            <div className="menu-icon-one">
+              <IconButton color="inherit" onClick={handleClicked}>
+                <MenuIcon sx={{ fontSize: '2rem' }} />
+              </IconButton>
+            </div>
             <h1 className="logo">SHOPEE</h1>
           </div>
           <ul className={isClicked ? 'no-list' : 'list'}>
@@ -167,7 +165,7 @@ function Header() {
             </li>
             <ul className="list-2">
               <li>
-                <Link className="nav-link" to="/signin">
+                <Link className="nav-link" to="/login">
                   SignIn
                 </Link>
               </li>
