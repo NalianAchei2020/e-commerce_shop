@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import { useForm } from 'react-hook-form';
 
 function Login() {
+  const navigate = useNavigate();
   const form = useForm();
   const {
     register,
@@ -13,6 +14,10 @@ function Login() {
 
     formState: { errors },
   } = form;
+
+  const handleToRegister = () => {
+    navigate('/register');
+  };
   return (
     <section className="container-fluid container-login">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -59,16 +64,16 @@ function Login() {
               label="Password"
               variant="outlined"
               type="text"
-              name="email"
-              {...register('email', {
+              name="password"
+              {...register('password', {
                 required: {
                   value: true,
-                  message: 'Please enter an password',
+                  message: 'Please enter a password',
                 },
               })}
             />
-            {errors.email && (
-              <Alert severity="error">{errors.email.message}</Alert>
+            {errors.password && (
+              <Alert severity="error">{errors.password.message}</Alert>
             )}
             <Link to="#" className="login-link">
               Forgot your password?
@@ -82,7 +87,13 @@ function Login() {
               Sign up for early Sale access plus tailored new arrivals, trends
               and promotions. To opt out, click unsubscribe in our emails.
             </Alert>
-            <button className="btn-best btn-apply">Register</button>
+            <button
+              className="btn-best btn-apply"
+              type="submit"
+              onClick={handleToRegister}
+            >
+              Register
+            </button>
           </div>
         </section>
       </section>

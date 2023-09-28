@@ -3,6 +3,7 @@
   grid-template-columns: auto;
   gap: 1rem;
   padding: 0;
+  width: 100%;
 
   .login-sub {
     padding-inline: 2rem;
@@ -10,6 +11,8 @@
 }
 .container-login {
   margin-bottom: 3em;
+  width: 100%;
+  overflow-x: hidden;
 }
 .btn-login {
   background-color: #1976d2 !important;
@@ -58,5 +61,51 @@
   }
   .sub2 {
     margin-top: 0;
+  }
+}
+
+// register
+.register-main-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.container-register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-block: 2em;
+}
+
+.register-container {
+  width: 100%;
+  border: 1px solid #ebe6e6;
+  padding: 2em;
+}
+
+.btn-register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.register-text {
+  color: #1976d2;
+}
+.btn-register1 {
+  border-top: 1px solid #ebe6e6;
+  padding-top: 1em;
+}
+.btn-login2 {
+  width: 200px !important;
+}
+
+@media (min-width: 48em) {
+  .register-container {
+    width: 50%;
+    border: 1px solid #ebe6e6;
+    padding: 2em;
   }
 }
