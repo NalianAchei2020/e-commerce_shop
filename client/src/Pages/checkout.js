@@ -24,10 +24,13 @@ function Checkout() {
     formState: { errors },
   } = form;
   return (
-    <section className="container-fluid ">
-      <section className="container-fluid checkout-container">
-        <div className="checkout-header d-flex flex-row justify-content-between p-2">
-          <h2>SHOPEE</h2>
+    <section className="container-checkout">
+      <section className="checkout-container">
+        <div className="checkout-header d-flex flex-row justify-content-between">
+          <Link to="/" style={{ textDecoration: 'none', color: '#000' }}>
+            {' '}
+            <h2>SHOPEE</h2>
+          </Link>
           <Link to="/cart" className="icon-link">
             <Tooltip title="Cart">
               <IconButton
@@ -190,55 +193,73 @@ function Checkout() {
               </FormGroup>
             </Stack>
             <ShiipingMethod />
+            <div className="container-fluid checkout-footer">
+              <Link to="#" className="icon-link3">
+                Refund policy
+              </Link>
+              <Link to="#" className="icon-link3">
+                Privacy policy
+              </Link>
+              <Link to="#" className="icon-link3">
+                Term of service
+              </Link>
+              <Link to="#" className="icon-link3">
+                Contact information
+              </Link>
+            </div>
           </section>
-          <section className="checkout-cart">
-            {cart.length === 0 ? null : (
-              <div>
-                {cart.map((item) => (
-                  <ul key={item.id}>
+          <section className="checkout-cart-wrapper">
+            <section className="checkout-cart">
+              {cart.length === 0 ? null : (
+                <div>
+                  {cart.map((item) => (
+                    <ul key={item.id}>
+                      <li>
+                        <div className="d-flex flex-row gap-4 check-items">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            width={80}
+                            height={60}
+                            className="check-image"
+                          />
+                          <span>{item.name}</span>
+                          <span className="check-qty">{item.quantity}</span>
+                        </div>
+                        <div>
+                          <span>${item.price}</span>
+                        </div>
+                      </li>
+                    </ul>
+                  ))}
+                  <ul>
                     <li>
-                      <div className="d-flex flex-row gap-4">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          width={80}
-                          height={60}
-                        />
-                        <span>{item.name}</span>
-                      </div>
-                      <div>
-                        <span>${item.price}</span>
-                      </div>
+                      <TextField
+                        type="text"
+                        label="Enter discount code"
+                        sx={{ width: '100%' }}
+                        name="discount"
+                      />
+                      <button className="btn-best btn-apply">Apply</button>
+                    </li>
+                    <li>
+                      <span>Subtotal</span>
+                      <span>
+                        ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}{' '}
+                      </span>
+                    </li>
+                    <li c>
+                      <span>Shipping</span>
+                      <span>Free</span>
+                    </li>
+                    <li>
+                      <span className="fw-bold">Total</span>
+                      <span>total</span>
                     </li>
                   </ul>
-                ))}
-                <ul>
-                  <li>
-                    <TextField
-                      type="text"
-                      label="Enter discount code"
-                      sx={{ width: '100%' }}
-                      name="discount"
-                    />
-                    <button className="btn-best btn-apply">Apply</button>
-                  </li>
-                  <li>
-                    <span>Subtotal</span>
-                    <span>
-                      ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}{' '}
-                    </span>
-                  </li>
-                  <li c>
-                    <span>Shipping</span>
-                    <span>Free</span>
-                  </li>
-                  <li>
-                    <span className="fw-bold">Total</span>
-                    <span>total</span>
-                  </li>
-                </ul>
-              </div>
-            )}
+                </div>
+              )}
+            </section>
           </section>
         </section>
       </section>
