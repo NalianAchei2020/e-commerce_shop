@@ -10,6 +10,7 @@ import Cart from './Pages/cart';
 import { fetchProduct } from './redux/productSlice';
 import Product from './Pages/product';
 import Checkout from './Pages/checkout';
+import Login from './Pages/login';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/product/:slug" element={<Product />} />
         </Routes>
         <Footer />

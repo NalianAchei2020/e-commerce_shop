@@ -227,7 +227,7 @@ function Header() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/profile" className="icon-link none">
+              <Link to="/login" className="icon-link none">
                 <Tooltip title="Login/Register" placement="bottom">
                   <IconButton color="inherit">
                     <AccountCircleIcon />
