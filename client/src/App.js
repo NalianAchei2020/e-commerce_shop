@@ -1,4 +1,9 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Home from './Pages/home';
@@ -14,26 +19,27 @@ import Login from './Pages/login';
 import Register from './Pages/register';
 
 function App() {
+  const location = useLocation();
+  const hideHeaderFooter = location.pathname.includes('/checkout');
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
+
   return (
     <div className="App">
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/product/:slug" element={<Product />} />
-        </Routes>
-        <Footer />
-      </Router>
-      <a href="/upload">Upload</a>
+      {!hideHeaderFooter && <Header />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/product/:slug" element={<Product />} />
+      </Routes>
+      {!hideHeaderFooter && <Footer />}
     </div>
   );
 }
