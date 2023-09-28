@@ -1,0 +1,93 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import { useForm } from 'react-hook-form';
+
+function Login() {
+  const form = useForm();
+  const {
+    register,
+    handleSubmit,
+
+    formState: { errors },
+  } = form;
+  return (
+    <section className="container-fluid container-login">
+      <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
+        <Link to="/" className="cart-text des-text-link">
+          Home
+        </Link>
+        <div className="cart-text">
+          <NavigateNextIcon />
+        </div>
+        <span>Account</span>
+      </div>
+      <section className="container-fluid">
+        <h4 className="account-heading">Account</h4>
+        <section className=" login-container">
+          <div className="d-flex flex-column gap-4 login-sub">
+            <h4>Login</h4>
+            <TextField
+              label="Email"
+              variant="outlined"
+              type="text"
+              name="email"
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'Please enter an email',
+                },
+                pattern: {
+                  value:
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                  message: 'Email is invalid',
+                },
+                validate: (fieldValue) => {
+                  return (
+                    fieldValue !== 'admin@gmail.com' ||
+                    'Enter a different email '
+                  );
+                },
+              })}
+            />
+            {errors.email && (
+              <Alert severity="error">{errors.email.message}</Alert>
+            )}
+            <TextField
+              label="Password"
+              variant="outlined"
+              type="text"
+              name="email"
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'Please enter an password',
+                },
+              })}
+            />
+            {errors.email && (
+              <Alert severity="error">{errors.email.message}</Alert>
+            )}
+            <Link to="#" className="login-link">
+              Forgot your password?
+            </Link>
+            <button className="btn-login">Login</button>
+          </div>
+          <div className="vertical-line"></div>
+          <div className="d-flex flex-column gap-4  login-sub sub2">
+            <h4>New Customer</h4>
+            <Alert color="info">
+              Sign up for early Sale access plus tailored new arrivals, trends
+              and promotions. To opt out, click unsubscribe in our emails.
+            </Alert>
+            <button className="btn-best btn-apply">Register</button>
+          </div>
+        </section>
+      </section>
+    </section>
+  );
+}
+
+export default Login;
