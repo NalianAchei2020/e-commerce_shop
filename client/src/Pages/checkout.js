@@ -14,6 +14,8 @@ import { useSelector } from 'react-redux';
 import SelectCountry from '../Components/home/select';
 import ShiipingMethod from '../Components/checkout/shiipingMethod';
 import PaymentMethod from '../Components/checkout/paymentMethod';
+import Summary from '../Components/checkout/summary';
+import Cfooter from '../Components/checkout/Cfooter';
 
 function Checkout() {
   const [isFill, setIsFill] = useState(false);
@@ -66,6 +68,7 @@ function Checkout() {
           </Link>
         </div>
         <section className="checkout-container2">
+          <Summary />
           <section className="checkout-form">
             <ul className="d-flex flex-row justify-content-between p-0">
               <li>
@@ -240,20 +243,21 @@ function Checkout() {
             </div>
           </section>
           <section className="checkout-cart-wrapper">
-            <section className="checkout-cart">
+            <section className="checkout-cart ">
               {cart.length === 0 ? null : (
                 <div>
+                  <h4 className="mb-3">Order summary</h4>
                   {cart.map((item) => (
                     <ul key={item.id}>
                       <li>
                         <div className="d-flex flex-row gap-4 check-items">
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            width={80}
-                            height={60}
-                            className="check-image"
-                          />
+                          <div className="check-imageContainer">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="check-image"
+                            />
+                          </div>
                           <span>{item.name}</span>
                           <span className="check-qty">{item.quantity}</span>
                         </div>
@@ -285,12 +289,16 @@ function Checkout() {
                     </li>
                     <li>
                       <span className="fw-bold">Total</span>
-                      <span>total</span>
+                      <span>
+                        {' '}
+                        ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}
+                      </span>
                     </li>
                   </ul>
                 </div>
               )}
             </section>
+            <Cfooter />
           </section>
         </section>
       </section>
