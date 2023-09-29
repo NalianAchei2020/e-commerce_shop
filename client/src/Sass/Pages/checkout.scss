@@ -58,6 +58,14 @@
 .checkout-cart-wrapper {
   position: relative;
 }
+.enter-address {
+  background-color: #d6d6d6;
+  padding: 1rem;
+  margin-top: 1em;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+}
 .checkout-cart {
   width: 100%;
   padding: 2em;
@@ -104,18 +112,16 @@
   width: 100%;
   border: 1px solid #f0eded;
 
-  article {
+  .article {
     border-bottom: 1px solid #f0eded;
     padding: 0.5em;
   }
-  article:hover {
-    border: 1px solid #1976d2;
-  }
-  article:active {
-    background-color: #bdcddd;
-  }
 }
-
+.active-selected {
+  background-color: #bdcddd;
+  border: 1px solid #1976d2;
+  padding: 0.5em;
+}
 .checkout-footer {
   display: flex;
   gap: 1em;
@@ -126,4 +132,21 @@
 .icon-link3 {
   font-size: 0.9rem;
   color: #1976d2;
+}
+
+// payment
+
+.payment {
+  border: 1px solid #f0eded;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1em;
+}
+
+.active-method {
+  background-color: #bdcddd;
+  border: 1px solid #1976d2;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1em;
 }

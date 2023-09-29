@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tooltip } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -13,16 +13,37 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import SelectCountry from '../Components/home/select';
 import ShiipingMethod from '../Components/checkout/shiipingMethod';
+import PaymentMethod from '../Components/checkout/paymentMethod';
 
 function Checkout() {
+  const [isFill, setIsFill] = useState(false);
   const { cart } = useSelector((state) => state.product);
   const form = useForm();
   const {
     register,
+    watch,
     handleSubmit,
 
     formState: { errors },
   } = form;
+
+  const valueF = () => {
+    watch((value) => {
+      if (
+        value.email !== '' &&
+        value.email !== '' &&
+        value.postalCode !== '' &&
+        value.city !== '' &&
+        value.lname !== '' &&
+        value.FirstName !== '' &&
+        value.address !== ''
+      ) {
+        setIsFill(true);
+      }
+    });
+  };
+  valueF();
+
   return (
     <section className="container-checkout">
       <section className="checkout-container">
@@ -88,9 +109,6 @@ function Checkout() {
                   label="Email me with news and offers"
                   {...register('EmailCheckBox')}
                 />
-                {errors.bestSeller && (
-                  <Alert severity="error">{errors.bestSeller.message}</Alert>
-                )}
               </FormGroup>
               <SelectCountry />
               <div className="names">
@@ -187,12 +205,25 @@ function Checkout() {
                   label="Save this information for next time"
                   {...register('saveData')}
                 />
-                {errors.saveData && (
-                  <Alert severity="error">{errors.saveData.message}</Alert>
-                )}
               </FormGroup>
             </Stack>
-            <ShiipingMethod />
+            {isFill ? (
+              <ShiipingMethod />
+            ) : (
+              <div className="enter-address">
+                <p>
+                  Enter your shipping address to view available shipping
+                  methods.
+                </p>
+              </div>
+            )}
+
+            <PaymentMethod />
+            <div className="mt-3 mb-5">
+              <button className="checkout-btn" type="button">
+                Complete Order
+              </button>
+            </div>
             <div className="container-fluid checkout-footer">
               <Link to="#" className="icon-link3">
                 Refund policy

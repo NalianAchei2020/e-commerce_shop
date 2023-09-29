@@ -1,22 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 function ShiipingMethod() {
+  const [selectedValue, setSelectedValue] = useState('usps');
+
+  const handleRadioChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
   return (
     <section className="container-fluid mt-4 shipping-method">
       <h4>Shipping method</h4>
       <section className="shipping-container">
         <FormControl sx={{ width: '100%' }}>
           <RadioGroup
-            aria-labelledby="demo-radio-buttons-group-label"
-            name="radio-buttons-group"
-            defaultValue="usps"
+            aria-labelledby="shipping method"
+            name="shipping method"
+            value={selectedValue}
+            onChange={handleRadioChange}
             sx={{ width: '100%' }}
           >
-            <article className="d-flex flex-row justify-content-between">
+            <article
+              className={`d-flex flex-row justify-content-between ${
+                selectedValue === 'usps' ? 'active-selected' : 'article'
+              }`}
+            >
               <div>
                 <FormControlLabel
                   value="usps"
@@ -35,7 +46,11 @@ function ShiipingMethod() {
                 <h6 className="mt-4 p-0 element1">$16.25</h6>
               </div>
             </article>
-            <article className="d-flex flex-row justify-content-between">
+            <article
+              className={`d-flex flex-row justify-content-between ${
+                selectedValue === 'dhl' ? 'active-selected' : 'article'
+              }`}
+            >
               <div>
                 <FormControlLabel
                   value="dhl"
@@ -54,7 +69,13 @@ function ShiipingMethod() {
                 <h6 className="mt-4 p-0 element1">$35.21</h6>
               </div>
             </article>
-            <article className="d-flex flex-row justify-content-between">
+            <article
+              className={`d-flex flex-row justify-content-between ${
+                selectedValue === 'usps-priority'
+                  ? 'active-selected'
+                  : 'article'
+              }`}
+            >
               <div>
                 <FormControlLabel
                   value="usps-priority"
@@ -73,7 +94,13 @@ function ShiipingMethod() {
                 <h6 className="mt-4 p-0 element1">$56.02</h6>
               </div>
             </article>
-            <article className="d-flex flex-row justify-content-between">
+            <article
+              className={`d-flex flex-row justify-content-between ${
+                selectedValue === 'usps-priority-mail'
+                  ? 'active-selected'
+                  : 'article'
+              }`}
+            >
               <div>
                 <FormControlLabel
                   value="usps-priority-mail"
