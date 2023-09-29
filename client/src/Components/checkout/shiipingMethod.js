@@ -4,13 +4,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-function ShiipingMethod() {
-  const [selectedValue, setSelectedValue] = useState('usps');
-
-  const handleRadioChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
-
+function ShiipingMethod({ handleRadioChange, selectedValue }) {
   return (
     <section className="container-fluid mt-4 shipping-method">
       <h4>Shipping method</h4>

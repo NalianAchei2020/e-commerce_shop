@@ -17,6 +17,7 @@ import Product from './Pages/product';
 import Checkout from './Pages/checkout';
 import Login from './Pages/login';
 import Register from './Pages/register';
+import { emporaryDrawer } from './Pages/drawer';
 
 function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/product/:slug" element={<Product />} />
+        <Route path="/drawer" element={<emporaryDrawer />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}
     </div>

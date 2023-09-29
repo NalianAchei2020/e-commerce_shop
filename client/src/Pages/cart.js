@@ -26,8 +26,9 @@ function Cart() {
     navigate('/checkout');
   };
   return (
-    <section className="container-fluid cart-container p-5">
-      <div className="cart-heading d-flex flex-row justify-content-between mb-3 container">
+    <section className="container-fluid cart-container">
+      <Link to="/drawer">Drawer</Link>
+      <div className="cart-heading d-flex flex-row container justify-content-between">
         <h2>My Cart</h2>
         <Link to="/" className="cart-text cart-text2">
           Continue Shopping
@@ -37,31 +38,53 @@ function Cart() {
         <h4>Your cart is empty</h4>
       ) : (
         <div className="summary-table container">
-          <div className="table-container table-responsive">
-            <table className="table mt-3">
+          <div className="table-container ">
+            <table className="table table-responsive mt-3">
               <thead>
                 <tr>
                   <th>Product</th>
                   <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
+                  <th className="cart-total">Quantity</th>
+                  <th className="cart-total">Total</th>
                 </tr>
               </thead>
               <tbody>
                 {cart.map((item) => (
                   <tr key={item.id}>
-                    <td className="d-flex flex-row gap-4">
-                      <DeleteIcon onClick={() => handleDeleteItem2(item)} />
-                      <img
-                        src={item.image}
-                        alt="cartImage"
-                        width={80}
-                        height={70}
-                      />
-                      <span>{item.name}</span>
-                    </td>
-                    <td>{item.price}</td>
                     <td>
+                      <div className="d-flex flex-row gap-1">
+                        <DeleteIcon onClick={() => handleDeleteItem2(item)} />
+                        <img
+                          src={item.image}
+                          alt="cartImage"
+                          className="cartImage"
+                        />
+                        <span className="text-wrap">{item.name}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <span>{item.price}</span>
+                      <div className=" list2">
+                        <ul className="d-flex flex-row gap-3 justify-content-center align-center previewCart-list">
+                          <li>
+                            <RemoveIcon
+                              onClick={() => handleDeleteItem(item)}
+                              className="previewCart-icon"
+                              style={{ fontSize: '16px' }}
+                            />
+                          </li>
+                          <li className="qty">{item.quantity}</li>
+                          <li>
+                            <AddIcon
+                              onClick={() => handleAddToCart(item)}
+                              className="previewCart-icon"
+                              style={{ fontSize: '16px' }}
+                            />
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                    <td className="cart-total">
                       <ul className="d-flex flex-row gap-3 justify-content-center align-center previewCart-list">
                         <li>
                           <RemoveIcon
@@ -80,7 +103,7 @@ function Cart() {
                         </li>
                       </ul>
                     </td>
-                    <td>{item.price * item.quantity}</td>
+                    <td className="cart-total">{item.price * item.quantity}</td>
                   </tr>
                 ))}
               </tbody>
@@ -91,18 +114,8 @@ function Cart() {
             <h5 className="mb-4 cart-text">Get shipping estimates</h5>
             <SelectCountry />
             <div className="d-flex flex-row gap-4 mt-3">
-              <TextField
-                type="text"
-                label="Zip Code"
-                //sx={{ width: '100%' }}
-                name="description"
-              />
-              <TextField
-                type="text"
-                label="City"
-                //sx={{ width: '100%' }}
-                name="description"
-              />
+              <TextField type="text" label="Zip Code" name="description" />
+              <TextField type="text" label="City" name="description" />
             </div>
             <button className="viewCart-btn btn-best ">
               Calculate Shipping

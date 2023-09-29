@@ -19,6 +19,11 @@ import Cfooter from '../Components/checkout/Cfooter';
 
 function Checkout() {
   const [isFill, setIsFill] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('usps');
+
+  const handleRadioChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
   const { cart } = useSelector((state) => state.product);
   const form = useForm();
   const {
@@ -45,6 +50,12 @@ function Checkout() {
     });
   };
   valueF();
+
+  const total = cart.reduce((a, c) => a + c.price * c.quantity, 0);
+
+  //free shipping
+  const freeShippingValue = 200000;
+  const currentValue = cart.reduce((a, c) => a + c.price * c.quantity, 0);
 
   return (
     <section className="container-checkout">
@@ -211,7 +222,10 @@ function Checkout() {
               </FormGroup>
             </Stack>
             {isFill ? (
-              <ShiipingMethod />
+              <ShiipingMethod
+                handleRadioChange={handleRadioChange}
+                selectedValue={selectedValue}
+              />
             ) : (
               <div className="enter-address">
                 <p>
@@ -279,20 +293,61 @@ function Checkout() {
                     </li>
                     <li>
                       <span>Subtotal</span>
-                      <span>
-                        ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}{' '}
+                      <span className="fw-bold">
+                        <small>
+                          ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}{' '}
+                        </small>
                       </span>
                     </li>
-                    <li c>
-                      <span>Shipping</span>
-                      <span>Free</span>
+                    <li>
+                      <p>Shipping</p>
+                      <div>
+                        {isFill ? (
+                          <div>
+                            {currentValue >= freeShippingValue ? (
+                              <span>Free</span>
+                            ) : (
+                              <span>
+                                {selectedValue === 'usps' ? (
+                                  <span>$16.25</span>
+                                ) : selectedValue === 'dhl' ? (
+                                  <span>$35.21</span>
+                                ) : selectedValue === 'usps-priority' ? (
+                                  <span>$56.02</span>
+                                ) : selectedValue === 'usps-priority-mail' ? (
+                                  <span>$58.02</span>
+                                ) : null}
+                              </span>
+                            )}
+                          </div>
+                        ) : (
+                          <span>
+                            <small>Enter shipping address</small>
+                          </span>
+                        )}
+                      </div>
                     </li>
                     <li>
                       <span className="fw-bold">Total</span>
-                      <span>
-                        {' '}
-                        ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}
-                      </span>
+                      <div className="fw-bold">
+                        {currentValue >= freeShippingValue ? (
+                          <span>{total}</span>
+                        ) : (
+                          <span>
+                            {selectedValue === 'usps' ? (
+                              <span>${total + 16.25}</span>
+                            ) : selectedValue === 'dhl' ? (
+                              <span>${total + 35.21}</span>
+                            ) : selectedValue === 'usps-priority' ? (
+                              <span>${total + 56.02}</span>
+                            ) : selectedValue === 'usps-priority-mail' ? (
+                              <span>${total + 58.02}</span>
+                            ) : (
+                              total
+                            )}
+                          </span>
+                        )}
+                      </div>
                     </li>
                   </ul>
                 </div>

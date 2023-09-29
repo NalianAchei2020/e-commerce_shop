@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
+import { IconButton } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 function Summary() {
@@ -18,7 +19,7 @@ function Summary() {
       <section className="checkout-cart-wrapper">
         <div className="d-flex flex-row d-md-none justify-content-between mt-3 mb-2 mtshow">
           <ul className="d-flex flex-row text-primary p-0">
-            <li>
+            <li onClick={handleSummary}>
               {show ? (
                 <span>Hide Order Summary</span>
               ) : (
@@ -73,7 +74,7 @@ function Summary() {
                     ${cart.reduce((a, c) => a + c.price * c.quantity, 0)}{' '}
                   </span>
                 </li>
-                <li c>
+                <li>
                   <span>Shipping</span>
                   <span>Free</span>
                 </li>
