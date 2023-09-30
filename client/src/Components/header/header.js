@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useMatch } from 'react-router-dom';
+import { Link, NavLink, useMatch, useLocation } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Badge, IconButton } from '@mui/material';
@@ -14,6 +14,9 @@ import Searchbar from './search';
 
 function Header({ handlePopup }) {
   const { cart } = useSelector((state) => state.product);
+
+  const location = useLocation();
+  const hideCartIcon = location.pathname.includes('/cart');
 
   // State variables
   const [showSearchbar, setShowSearchbar] = useState(false);
@@ -198,7 +201,7 @@ function Header({ handlePopup }) {
                 </IconButton>
               </Tooltip>
             </li>
-            <li className="nav-item">
+            <li className={hideCartIcon ? 'hidecart-icon' : 'nav-item'}>
               <Tooltip title="Cart">
                 <IconButton
                   size="large"
