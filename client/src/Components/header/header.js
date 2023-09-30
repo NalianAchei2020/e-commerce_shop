@@ -12,7 +12,7 @@ import { Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Searchbar from './search';
 
-function Header() {
+function Header({ handlePopup }) {
   const { cart } = useSelector((state) => state.product);
 
   // State variables
@@ -199,19 +199,18 @@ function Header() {
               </Tooltip>
             </li>
             <li className="nav-item">
-              <Link to="/cart" className="icon-link">
-                <Tooltip title="Cart">
-                  <IconButton
-                    size="large"
-                    aria-label="show 4 new mails"
-                    color="inherit"
-                  >
-                    <Badge color="primary" badgeContent={cart.length}>
-                      <ShoppingCartIcon />
-                    </Badge>
-                  </IconButton>
-                </Tooltip>
-              </Link>
+              <Tooltip title="Cart">
+                <IconButton
+                  size="large"
+                  aria-label="show cart"
+                  color="inherit"
+                  onClick={handlePopup}
+                >
+                  <Badge color="primary" badgeContent={cart.length}>
+                    <ShoppingCartIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
             </li>
             <li className="nav-item">
               <Link to="/wishlist" className="icon-link none">

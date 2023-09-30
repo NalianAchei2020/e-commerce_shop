@@ -5,7 +5,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Home from './Pages/home';
 import Header from './Components/header/header';
 import Upload from './Pages/upload';
@@ -22,17 +22,22 @@ import { emporaryDrawer } from './Pages/drawer';
 function App() {
   const location = useLocation();
   const hideHeaderFooter = location.pathname.includes('/checkout');
+  const [popup, setPopup] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
 
+  const handlePopup = () => {
+    setPopup(true);
+    console.log('hi');
+  };
   return (
     <div className="App">
-      {!hideHeaderFooter && <Header />}
+      {!hideHeaderFooter && <Header handlePopup={handlePopup} />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home popup={popup} setPopup={setPopup} />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/checkout" element={<Checkout />} />

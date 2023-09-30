@@ -10,24 +10,23 @@ import NewArrivals from '../Components/home/newArrivals';
 import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
 import ShoppingCart from '../Components/home/ShoppingCart';
-function Home() {
+//import Header from '../Components/header/header';
+function Home({ popup, setPopup }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [popup, setPopup] = useState(false);
+  //const [popup, setPopup] = useState(false);
+
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
     setPopup(true);
-    document.body.style.overflow = 'hidden';
   };
 
   const handleClosePopup = () => {
     setPopup(false);
-    document.body.style.overflow = 'auto';
   };
   const handleRouteToCart = () => {
     setPopup(false);
     navigate('/cart');
-    document.body.style.overflow = 'auto';
   };
   return (
     <section className="slider-container">
