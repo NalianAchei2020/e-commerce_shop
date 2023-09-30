@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart, removeItem } from '../redux/productSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import SelectCountry from '../Components/home/select';
 function Cart() {
   const { cart } = useSelector((state) => state.product);
@@ -27,7 +28,15 @@ function Cart() {
   };
   return (
     <section className="container-fluid cart-container">
-      <Link to="/drawer">Drawer</Link>
+      <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
+        <Link to="/" className="cart-text des-text-link">
+          Home
+        </Link>
+        <div className="cart-text">
+          <NavigateNextIcon />
+        </div>
+        <div>Cart</div>
+      </div>
       <div className="cart-heading d-flex flex-row container justify-content-between">
         <h2>My Cart</h2>
         <Link to="/" className="cart-text cart-text2">
@@ -54,12 +63,22 @@ function Cart() {
                     <td>
                       <div className="d-flex flex-row gap-1">
                         <DeleteIcon onClick={() => handleDeleteItem2(item)} />
-                        <img
-                          src={item.image}
-                          alt="cartImage"
-                          className="cartImage"
-                        />
-                        <span className="text-wrap">{item.name}</span>
+                        <Link
+                          to={`/product/${item.name}`}
+                          className="cart-link"
+                        >
+                          <img
+                            src={item.image}
+                            alt="cartImage"
+                            className="cartImage"
+                          />
+                        </Link>
+                        <Link
+                          to={`/product/${item.name}`}
+                          className="cart-link"
+                        >
+                          <span className="text-wrap">{item.name}</span>
+                        </Link>
                       </div>
                     </td>
                     <td>
