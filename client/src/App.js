@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -17,10 +18,12 @@ import Product from './Pages/product';
 import Checkout from './Pages/checkout';
 import Login from './Pages/login';
 import Register from './Pages/register';
-import { emporaryDrawer } from './Pages/drawer';
+import ShoppingCart from './Components/ShoppingCart';
+import { addToCart } from './redux/productSlice';
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const hideHeaderFooter = location.pathname.includes('/checkout');
   const [popup, setPopup] = useState(false);
 
@@ -31,8 +34,19 @@ function App() {
 
   const handlePopup = () => {
     setPopup(true);
-    console.log('hi');
   };
+  const handleClosePopup = () => {
+    setPopup(false);
+  };
+  const handleRouteToCart = () => {
+    setPopup(false);
+    navigate('/cart');
+  };
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+    setPopup(true);
+  };
+
   return (
     <div className="App">
       {!hideHeaderFooter && <Header handlePopup={handlePopup} />}
@@ -43,10 +57,17 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/product/:slug" element={<Product />} />
-        <Route path="/drawer" element={<emporaryDrawer />} />
+        <Route
+          path="/product/:slug"
+          element={<Product handleAddToCart={handleAddToCart} />}
+        />
       </Routes>
       {!hideHeaderFooter && <Footer />}
+      <ShoppingCart
+        handleClosePopup={handleClosePopup}
+        popup={popup}
+        handleRouteToCart={handleRouteToCart}
+      />
     </div>
   );
 }
