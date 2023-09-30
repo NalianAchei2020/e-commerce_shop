@@ -29,7 +29,7 @@ import Review from '../Components/product/review';
 import BestSeller from '../Components/product/bestSeller';
 import MayLikeProduct from '../Components/product/mayLikeProduct';
 
-function Product() {
+function Product({ handleAddToCart }) {
   const location = useLocation();
   const productUrl = location.pathname + location.search;
   const baseURL = 'http://localhost:3000';
@@ -55,14 +55,19 @@ function Product() {
   const productID = selectedProduct ? selectedProduct.id : 'error';
   const [count, setCount] = useState(1);
   // Add item to cart
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
-    setCount((prevCount) => prevCount + 1);
+  const handleProductAddToCart = (item) => {
+    handleAddToCart(item);
   };
 
   // Remove item from cart
   const handleDeleteItem = (item) => {
     dispatch(removeFromCart(item));
+    setCount((prevCount) => prevCount - 1);
+  };
+
+  const handleIncreseCart = (item) => {
+    dispatch(addToCart(item));
+    setCount((prevCount) => prevCount + 1);
   };
 
   useEffect(() => {
@@ -221,13 +226,18 @@ function Product() {
               <li className="qty">{count}</li>
               <li>
                 <AddIcon
-                  onClick={() => handleAddToCart(selectedProduct)}
+                  onClick={() => handleIncreseCart(selectedProduct)}
                   className="previewCart-icon"
                   style={{ fontSize: '16px' }}
                 />
               </li>
             </ul>
-            <button className="checkout-btn">Add to cart</button>
+            <button
+              className="checkout-btn"
+              onClick={() => handleProductAddToCart(selectedProduct)}
+            >
+              Add to cart
+            </button>
           </div>
           <div className="des-terms">
             <FormControlLabel
