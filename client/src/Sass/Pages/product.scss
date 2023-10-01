@@ -99,15 +99,13 @@
 .share-container {
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: #64646f33 0 7px 29px;
-  padding: 12px;
+  width: 100%;
+  //box-shadow: #64646f33 0 7px 29px;
+  //padding: 12px;
   position: sticky;
-  width: 570px;
-  z-index: 2;
 
   @media only screen and (max-width: 768px) {
-    width: 115%;
-    max-width: 440px;
+    width: 100%;
 
     .copied-text {
       word-break: break-word;
