@@ -25,6 +25,7 @@ import { addToCart, removeFromCart } from '../redux/productSlice';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { Dialog, DialogContent, DialogContentText } from '@mui/material';
 import Review from '../Components/product/review';
 import BestSeller from '../Components/product/bestSeller';
 import MayLikeProduct from '../Components/product/mayLikeProduct';
@@ -298,126 +299,132 @@ function Product({ handleAddToCart }) {
             </li>
           </ul>
           <div>
-            <div className={share ? 'share-container' : 'not-share'}>
-              <div className="d-flex flex-row justify-content-between">
-                <h5>Share:</h5>
-                <Tooltip placement="bottom" title="Close">
-                  <IconButton
-                    sx={{
-                      color: 'black',
-                      fontSize: '1.5rem',
-                      fontWeight: '800',
-                    }}
-                    onClick={handleCloseShare}
-                  >
-                    <CancelPresentationIcon />
-                  </IconButton>
-                </Tooltip>
-              </div>
-              <hr />
-              <div className="icons d-flex flex-row gap-4">
-                <Link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                  className="link"
-                >
-                  <img
-                    src={selectedProduct.image}
-                    alt="product"
-                    className="d-none"
-                  />
-                  <Tooltip title="Facebook" placement="top">
-                    <div>
-                      <IconButton>
-                        <FacebookIcon />
-                      </IconButton>
-                      <p className="icon-text">Facebook</p>
+            <Dialog open={share} onClose={handleCloseShare}>
+              <DialogContent>
+                <DialogContentText>
+                  <div className={share ? 'share-container' : 'not-share'}>
+                    <div className="d-flex flex-row justify-content-between">
+                      <h5>Share:</h5>
+                      <Tooltip placement="bottom" title="Close">
+                        <IconButton
+                          sx={{
+                            color: 'black',
+                            fontSize: '1.5rem',
+                            fontWeight: '800',
+                          }}
+                          onClick={handleCloseShare}
+                        >
+                          <CancelPresentationIcon />
+                        </IconButton>
+                      </Tooltip>
                     </div>
-                  </Tooltip>
-                </Link>
-                <Link
-                  className="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://www.pinterest.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                >
-                  <img
-                    src={selectedProduct.image}
-                    alt="product"
-                    className="d-none"
-                  />
-                  <Tooltip title="Pinterest" placement="top">
-                    <div>
-                      <IconButton>
-                        <PinterestIcon />
-                      </IconButton>
-                      <p className="icon-text">Pinterest</p>
+                    <hr />
+                    <div className="icons d-flex flex-row flex-xxs-wrap gap-4">
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                        className="link"
+                      >
+                        <img
+                          src={selectedProduct.image}
+                          alt="product"
+                          className="d-none"
+                        />
+                        <Tooltip title="Facebook" placement="top">
+                          <div>
+                            <IconButton>
+                              <FacebookIcon />
+                            </IconButton>
+                            <p className="icon-text">Facebook</p>
+                          </div>
+                        </Tooltip>
+                      </Link>
+                      <Link
+                        className="link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        to="https://www.pinterest.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                      >
+                        <img
+                          src={selectedProduct.image}
+                          alt="product"
+                          className="d-none"
+                        />
+                        <Tooltip title="Pinterest" placement="top">
+                          <div>
+                            <IconButton>
+                              <PinterestIcon />
+                            </IconButton>
+                            <p className="icon-text">Pinterest</p>
+                          </div>
+                        </Tooltip>
+                      </Link>
+                      <Link
+                        className="link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        to="https://www.instagram.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                      >
+                        <img
+                          src={selectedProduct.image}
+                          alt="product"
+                          className="d-none"
+                        />
+                        <Tooltip title="Instagram" placement="top">
+                          <div>
+                            <IconButton>
+                              <InstagramIcon />
+                            </IconButton>
+                            <p className="icon-text">Instagram</p>
+                          </div>
+                        </Tooltip>
+                      </Link>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                        className="link"
+                      >
+                        <img
+                          src={selectedProduct.image}
+                          alt="product"
+                          className="d-none"
+                        />
+                        <Tooltip title="Twitter" placement="top">
+                          <div>
+                            <IconButton>
+                              <TwitterIcon />
+                            </IconButton>
+                            <p className="icon-text">Twitter</p>
+                          </div>
+                        </Tooltip>
+                      </Link>
                     </div>
-                  </Tooltip>
-                </Link>
-                <Link
-                  className="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://www.instagram.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                >
-                  <img
-                    src={selectedProduct.image}
-                    alt="product"
-                    className="d-none"
-                  />
-                  <Tooltip title="Instagram" placement="top">
-                    <div>
-                      <IconButton>
-                        <InstagramIcon />
-                      </IconButton>
-                      <p className="icon-text">Instagram</p>
+                    <div
+                      className="copy-text d-flex flex-row gap-3"
+                      data-href={productUrl}
+                      data-layout="button"
+                      data-size="small"
+                    >
+                      <p className="copied-text">{baseURL + productUrl}</p>
+                      <CopyToClipboard
+                        text={baseURL + productUrl}
+                        onCopy={handleCopy}
+                      >
+                        {copy ? (
+                          <p className="fw-bold">Copied</p>
+                        ) : (
+                          <Tooltip placement="bottom" title="Copy">
+                            <ContentCopyIcon />
+                          </Tooltip>
+                        )}
+                      </CopyToClipboard>
                     </div>
-                  </Tooltip>
-                </Link>
-                <Link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                  className="link"
-                >
-                  <img
-                    src={selectedProduct.image}
-                    alt="product"
-                    className="d-none"
-                  />
-                  <Tooltip title="Twitter" placement="top">
-                    <div>
-                      <IconButton>
-                        <TwitterIcon />
-                      </IconButton>
-                      <p className="icon-text">Twitter</p>
-                    </div>
-                  </Tooltip>
-                </Link>
-              </div>
-              <div
-                className="copy-text d-flex flex-row gap-3"
-                data-href={productUrl}
-                data-layout="button"
-                data-size="small"
-              >
-                <p className="copied-text">{baseURL + productUrl}</p>
-                <CopyToClipboard
-                  text={baseURL + productUrl}
-                  onCopy={handleCopy}
-                >
-                  {copy ? (
-                    <p className="fw-bold">Copied</p>
-                  ) : (
-                    <Tooltip placement="bottom" title="Copy">
-                      <ContentCopyIcon />
-                    </Tooltip>
-                  )}
-                </CopyToClipboard>
-              </div>
-            </div>
+                  </div>
+                </DialogContentText>
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div
