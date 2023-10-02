@@ -10,6 +10,9 @@
     justify-content: space-between;
   }
 }
+.card {
+  border: none !important;
+}
 .cart-heading3 {
   background-color: #faf7f7;
   margin-inline: -1%;
@@ -63,11 +66,10 @@
   background-color: #2b2929;
   color: #fff;
   padding: 0.5em;
-  width: 73%;
   text-align: center;
   position: fixed;
   top: 50%;
-  left: 45%;
+
   transform: translate(-50%, -50%);
 
   @media (min-width: 768px) {
@@ -100,8 +102,7 @@
   background-color: #ffffff;
   border-radius: 10px;
   width: 100%;
-  //box-shadow: #64646f33 0 7px 29px;
-  //padding: 12px;
+
   position: sticky;
 
   @media only screen and (max-width: 768px) {
