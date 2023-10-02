@@ -20,6 +20,7 @@ import Login from './Pages/login';
 import Register from './Pages/register';
 import ShoppingCart from './Components/ShoppingCart';
 import { addToCart } from './redux/productSlice';
+import Shop from './Pages/shop';
 
 function App() {
   const location = useLocation();
@@ -55,6 +56,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/shop" element={<Shop />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
