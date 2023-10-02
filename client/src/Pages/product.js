@@ -3,7 +3,7 @@ import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { IconButton } from '@mui/material';
+import { IconButton, Snackbar } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import Rating from '@mui/material/Rating';
@@ -319,7 +319,7 @@ function Product({ handleAddToCart }) {
                       </Tooltip>
                     </div>
                     <hr />
-                    <div className="icons d-flex flex-row flex-xxs-wrap gap-4">
+                    <div className="icons d-flex flex-row flex-wrap gap-4">
                       <Link
                         target="_blank"
                         rel="noopener noreferrer"
@@ -426,26 +426,24 @@ function Product({ handleAddToCart }) {
               </DialogContent>
             </Dialog>
           </div>
-
-          <div
-            className={
-              wishlistClick && wishlistMessage ? 'element' : 'element2'
-            }
-          >
-            {wishlistClick && wishlistMessage}
-          </div>
-          <div
-            className={
-              wishlistClick && wishlistMessage ? 'element' : 'element2'
-            }
-          >
-            {wishlistClick && wishlistMessage}
-          </div>
-          <div
-            className={compareClick && compareMessage ? 'element' : 'element2'}
-          >
-            {compareClick && compareMessage}
-          </div>
+          <Snackbar open={handlewishlist} autoHideDuration={1500}>
+            <div
+              className={
+                wishlistClick && wishlistMessage ? 'element' : 'element2'
+              }
+            >
+              {wishlistClick && wishlistMessage}
+            </div>
+          </Snackbar>
+          <Snackbar open={handlecompare} autoHideDuration={1500}>
+            <div
+              className={
+                compareClick && compareMessage ? 'element' : 'element2'
+              }
+            >
+              {compareClick && compareMessage}
+            </div>
+          </Snackbar>
           <hr />
           <ul className="p-0">
             <li className="d-flex flex-row gap-2">
