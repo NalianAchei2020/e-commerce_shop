@@ -1,0 +1,19 @@
+.shop-container {
+  padding-block: 2em;
+  display: flex;
+  width: 100%;
+
+  aside {
+    width: 18%;
+  }
+  main {
+    width: 82%;
+  }
+}
+
+.aside-list {
+  cursor: pointer;
+  li {
+    padding-block: 0.4em;
+  }
+}
