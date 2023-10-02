@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../redux/productSlice';
 import Slider from '../Components/home/image-slider';
 import BestSeller from '../Components/home/bestSeller';
@@ -9,25 +8,16 @@ import FeaturedProducts from '../Components/home/featuredProducts';
 import NewArrivals from '../Components/home/newArrivals';
 import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
-import ShoppingCart from '../Components/home/ShoppingCart';
-function Home() {
+
+//import Header from '../Components/header/header';
+function Home({ setPopup }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [popup, setPopup] = useState(false);
+
+  //const [popup, setPopup] = useState(false);
+
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
     setPopup(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const handleClosePopup = () => {
-    setPopup(false);
-    document.body.style.overflow = 'auto';
-  };
-  const handleRouteToCart = () => {
-    setPopup(false);
-    navigate('/cart');
-    document.body.style.overflow = 'auto';
   };
   return (
     <section className="slider-container">
@@ -67,11 +57,6 @@ function Home() {
       {/* Instagram post */}
       <Instagram />
       {/* Preview ShoppingCart post */}
-      <ShoppingCart
-        handleClosePopup={handleClosePopup}
-        popup={popup}
-        handleRouteToCart={handleRouteToCart}
-      />
     </section>
   );
 }

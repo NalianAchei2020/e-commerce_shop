@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { IconButton } from '@mui/material';
+import { IconButton, Snackbar } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import Rating from '@mui/material/Rating';
@@ -25,14 +25,16 @@ import { addToCart, removeFromCart } from '../redux/productSlice';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { Dialog, DialogContent, DialogContentText } from '@mui/material';
 import Review from '../Components/product/review';
 import BestSeller from '../Components/product/bestSeller';
 import MayLikeProduct from '../Components/product/mayLikeProduct';
 
-function Product() {
+function Product({ handleAddToCart }) {
   const location = useLocation();
   const productUrl = location.pathname + location.search;
   const baseURL = 'http://localhost:3000';
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const [usersCount, setUsersCount] = useState(0);
@@ -54,14 +56,19 @@ function Product() {
   const productID = selectedProduct ? selectedProduct.id : 'error';
   const [count, setCount] = useState(1);
   // Add item to cart
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
-    setCount((prevCount) => prevCount + 1);
+  const handleProductAddToCart = (item) => {
+    handleAddToCart(item);
   };
 
   // Remove item from cart
   const handleDeleteItem = (item) => {
     dispatch(removeFromCart(item));
+    setCount((prevCount) => prevCount - 1);
+  };
+
+  const handleIncreseCart = (item) => {
+    dispatch(addToCart(item));
+    setCount((prevCount) => prevCount + 1);
   };
 
   useEffect(() => {
@@ -166,6 +173,9 @@ function Product() {
   const handleReview = () => {
     setReview(!review);
   };
+  const handleBuy = () => {
+    navigate('/checkout');
+  };
   return (
     <section className="container-fluid">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -217,13 +227,18 @@ function Product() {
               <li className="qty">{count}</li>
               <li>
                 <AddIcon
-                  onClick={() => handleAddToCart(selectedProduct)}
+                  onClick={() => handleIncreseCart(selectedProduct)}
                   className="previewCart-icon"
                   style={{ fontSize: '16px' }}
                 />
               </li>
             </ul>
-            <button className="checkout-btn">Add to cart</button>
+            <button
+              className="checkout-btn"
+              onClick={() => handleProductAddToCart(selectedProduct)}
+            >
+              Add to cart
+            </button>
           </div>
           <div className="des-terms">
             <FormControlLabel
@@ -232,7 +247,13 @@ function Product() {
               label="I agree with Terms & Conditions"
             />
           </div>
-          <button className="viewCart-btn btn-best ">Buy it now</button>
+          <button
+            className="viewCart-btn btn-best "
+            type="button"
+            onClick={handleBuy}
+          >
+            Buy it now
+          </button>
           <ul className="mt-2 d-flex flex-row gap-2 mt-3 d-block">
             <li>
               <IconButton
@@ -278,147 +299,151 @@ function Product() {
             </li>
           </ul>
           <div>
-            <div className={share ? 'share-container' : 'not-share'}>
-              <div className="d-flex flex-row justify-content-between">
-                <h5>Share:</h5>
-                <Tooltip placement="bottom" title="Close">
-                  <IconButton
-                    sx={{
-                      color: 'black',
-                      fontSize: '1.5rem',
-                      fontWeight: '800',
-                    }}
-                    onClick={handleCloseShare}
-                  >
-                    <CancelPresentationIcon />
-                  </IconButton>
-                </Tooltip>
-              </div>
-              <hr />
-              <div className="icons d-flex flex-row gap-4">
-                <Link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                  className="link"
-                >
-                  <img
-                    src={selectedProduct.image}
-                    alt="product"
-                    className="d-none"
-                  />
-                  <Tooltip title="Facebook" placement="top">
-                    <div>
-                      <IconButton>
-                        <FacebookIcon />
-                      </IconButton>
-                      <p className="icon-text">Facebook</p>
+            <Dialog open={share} onClose={handleCloseShare}>
+              <DialogContent>
+                <DialogContentText>
+                  <div className={share ? 'share-container' : 'not-share'}>
+                    <div className="d-flex flex-row justify-content-between">
+                      <h5>Share:</h5>
+                      <Tooltip placement="bottom" title="Close">
+                        <IconButton
+                          sx={{
+                            color: 'black',
+                            fontSize: '1.5rem',
+                            fontWeight: '800',
+                          }}
+                          onClick={handleCloseShare}
+                        >
+                          <CancelPresentationIcon />
+                        </IconButton>
+                      </Tooltip>
                     </div>
-                  </Tooltip>
-                </Link>
-                <Link
-                  className="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://www.pinterest.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                >
-                  <img
-                    src={selectedProduct.image}
-                    alt="product"
-                    className="d-none"
-                  />
-                  <Tooltip title="Pinterest" placement="top">
-                    <div>
-                      <IconButton>
-                        <PinterestIcon />
-                      </IconButton>
-                      <p className="icon-text">Pinterest</p>
+                    <hr />
+                    <div className="icons d-flex flex-row flex-wrap gap-4">
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                        className="link"
+                      >
+                        <img
+                          src={selectedProduct.image}
+                          alt="product"
+                          className="d-none"
+                        />
+                        <Tooltip title="Facebook" placement="top">
+                          <div>
+                            <IconButton>
+                              <FacebookIcon />
+                            </IconButton>
+                            <p className="icon-text">Facebook</p>
+                          </div>
+                        </Tooltip>
+                      </Link>
+                      <Link
+                        className="link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        to="https://www.pinterest.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                      >
+                        <img
+                          src={selectedProduct.image}
+                          alt="product"
+                          className="d-none"
+                        />
+                        <Tooltip title="Pinterest" placement="top">
+                          <div>
+                            <IconButton>
+                              <PinterestIcon />
+                            </IconButton>
+                            <p className="icon-text">Pinterest</p>
+                          </div>
+                        </Tooltip>
+                      </Link>
+                      <Link
+                        className="link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        to="https://www.instagram.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                      >
+                        <img
+                          src={selectedProduct.image}
+                          alt="product"
+                          className="d-none"
+                        />
+                        <Tooltip title="Instagram" placement="top">
+                          <div>
+                            <IconButton>
+                              <InstagramIcon />
+                            </IconButton>
+                            <p className="icon-text">Instagram</p>
+                          </div>
+                        </Tooltip>
+                      </Link>
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
+                        className="link"
+                      >
+                        <img
+                          src={selectedProduct.image}
+                          alt="product"
+                          className="d-none"
+                        />
+                        <Tooltip title="Twitter" placement="top">
+                          <div>
+                            <IconButton>
+                              <TwitterIcon />
+                            </IconButton>
+                            <p className="icon-text">Twitter</p>
+                          </div>
+                        </Tooltip>
+                      </Link>
                     </div>
-                  </Tooltip>
-                </Link>
-                <Link
-                  className="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://www.instagram.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                >
-                  <img
-                    src={selectedProduct.image}
-                    alt="product"
-                    className="d-none"
-                  />
-                  <Tooltip title="Instagram" placement="top">
-                    <div>
-                      <IconButton>
-                        <InstagramIcon />
-                      </IconButton>
-                      <p className="icon-text">Instagram</p>
+                    <div
+                      className="copy-text d-flex flex-row gap-3"
+                      data-href={productUrl}
+                      data-layout="button"
+                      data-size="small"
+                    >
+                      <p className="copied-text">{baseURL + productUrl}</p>
+                      <CopyToClipboard
+                        text={baseURL + productUrl}
+                        onCopy={handleCopy}
+                      >
+                        {copy ? (
+                          <p className="fw-bold">Copied</p>
+                        ) : (
+                          <Tooltip placement="bottom" title="Copy">
+                            <ContentCopyIcon />
+                          </Tooltip>
+                        )}
+                      </CopyToClipboard>
                     </div>
-                  </Tooltip>
-                </Link>
-                <Link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
-                  className="link"
-                >
-                  <img
-                    src={selectedProduct.image}
-                    alt="product"
-                    className="d-none"
-                  />
-                  <Tooltip title="Twitter" placement="top">
-                    <div>
-                      <IconButton>
-                        <TwitterIcon />
-                      </IconButton>
-                      <p className="icon-text">Twitter</p>
-                    </div>
-                  </Tooltip>
-                </Link>
-              </div>
-              <div
-                className="copy-text d-flex flex-row gap-3"
-                data-href={productUrl}
-                data-layout="button"
-                data-size="small"
-              >
-                <p className="copied-text">{baseURL + productUrl}</p>
-                <CopyToClipboard
-                  text={baseURL + productUrl}
-                  onCopy={handleCopy}
-                >
-                  {copy ? (
-                    <p className="fw-bold">Copied</p>
-                  ) : (
-                    <Tooltip placement="bottom" title="Copy">
-                      <ContentCopyIcon />
-                    </Tooltip>
-                  )}
-                </CopyToClipboard>
-              </div>
+                  </div>
+                </DialogContentText>
+              </DialogContent>
+            </Dialog>
+          </div>
+          <Snackbar open={handlewishlist} autoHideDuration={1500}>
+            <div
+              className={
+                wishlistClick && wishlistMessage ? 'element' : 'element2'
+              }
+            >
+              {wishlistClick && wishlistMessage}
             </div>
-          </div>
-
-          <div
-            className={
-              wishlistClick && wishlistMessage ? 'element' : 'element2'
-            }
-          >
-            {wishlistClick && wishlistMessage}
-          </div>
-          <div
-            className={
-              wishlistClick && wishlistMessage ? 'element' : 'element2'
-            }
-          >
-            {wishlistClick && wishlistMessage}
-          </div>
-          <div
-            className={compareClick && compareMessage ? 'element' : 'element2'}
-          >
-            {compareClick && compareMessage}
-          </div>
+          </Snackbar>
+          <Snackbar open={handlecompare} autoHideDuration={1500}>
+            <div
+              className={
+                compareClick && compareMessage ? 'element' : 'element2'
+              }
+            >
+              {compareClick && compareMessage}
+            </div>
+          </Snackbar>
           <hr />
           <ul className="p-0">
             <li className="d-flex flex-row gap-2">

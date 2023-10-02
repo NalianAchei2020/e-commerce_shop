@@ -415,8 +415,8 @@ const data = {
     },
     {
       id: 26,
-      name: '/Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      name: 'Jimmy Choo Romy',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'women',
@@ -432,8 +432,8 @@ const data = {
     },
     {
       id: 27,
-      name: '/Jimmy Choo Romy',
-      image: 'Images/women/heels/heels04.png',
+      name: 'Jimmy Choo Romy',
+      image: '/Images/women/heels/heels04.png',
       brand: 'Jimmy Choo',
       price: 8000,
       category: 'women',

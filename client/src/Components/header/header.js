@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useMatch } from 'react-router-dom';
+import { Link, NavLink, useMatch, useLocation } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Badge, IconButton } from '@mui/material';
@@ -12,8 +12,11 @@ import { Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Searchbar from './search';
 
-function Header() {
+function Header({ handlePopup }) {
   const { cart } = useSelector((state) => state.product);
+
+  const location = useLocation();
+  const hideCartIcon = location.pathname.includes('/cart');
 
   // State variables
   const [showSearchbar, setShowSearchbar] = useState(false);
@@ -84,14 +87,16 @@ function Header() {
         </div>
         <nav className="nav">
           <div className="menu-icons">
-            <IconButton
-              color="inherit"
-              className="menu"
-              onClick={handleClicked}
-            >
-              <MenuIcon className="menu" />
-            </IconButton>
-            <h1 className="logo">SHOPEE</h1>
+            <div className="menu-icon-one">
+              <IconButton color="inherit" onClick={handleClicked}>
+                <MenuIcon sx={{ fontSize: '2rem' }} />
+              </IconButton>
+            </div>
+            <h1 className="logo">
+              <Link to="/" style={{ textDecoration: 'none', color: '#000' }}>
+                SHOPEE
+              </Link>{' '}
+            </h1>
           </div>
           <ul className={isClicked ? 'no-list' : 'list'}>
             <li className="btn-clear" onClick={handleClose}>
@@ -167,7 +172,7 @@ function Header() {
             </li>
             <ul className="list-2">
               <li>
-                <Link className="nav-link" to="/signin">
+                <Link className="nav-link" to="/login">
                   SignIn
                 </Link>
               </li>
@@ -196,20 +201,19 @@ function Header() {
                 </IconButton>
               </Tooltip>
             </li>
-            <li className="nav-item">
-              <Link to="/cart" className="icon-link">
-                <Tooltip title="Cart">
-                  <IconButton
-                    size="large"
-                    aria-label="show 4 new mails"
-                    color="inherit"
-                  >
-                    <Badge color="primary" badgeContent={cart.length}>
-                      <ShoppingCartIcon />
-                    </Badge>
-                  </IconButton>
-                </Tooltip>
-              </Link>
+            <li className={hideCartIcon ? 'hidecart-icon' : 'nav-item'}>
+              <Tooltip title="Cart">
+                <IconButton
+                  size="large"
+                  aria-label="show cart"
+                  color="inherit"
+                  onClick={handlePopup}
+                >
+                  <Badge color="primary" badgeContent={cart.length}>
+                    <ShoppingCartIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
             </li>
             <li className="nav-item">
               <Link to="/wishlist" className="icon-link none">
@@ -227,7 +231,7 @@ function Header() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/profile" className="icon-link none">
+              <Link to="/login" className="icon-link none">
                 <Tooltip title="Login/Register" placement="bottom">
                   <IconButton color="inherit">
                     <AccountCircleIcon />
