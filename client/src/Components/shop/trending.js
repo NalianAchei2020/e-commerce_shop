@@ -7,8 +7,14 @@ import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Pagination from '@mui/material/Pagination';
+import { useMediaQuery } from 'react-responsive';
 
 function Trending({ handleAddToCart }) {
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 6; // Define the number of items to display per page
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' }); // Check if the screen is mobile
+
   const { product } = useSelector((state) => state.product);
 
   const trending = product.filter((item) => item.trending === true);
@@ -16,12 +22,22 @@ function Trending({ handleAddToCart }) {
     return <p>...Loading</p>;
   }
 
+  // Calculate pagination related variables
+  const totalItems = trending.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = trending.slice(startIndex, endIndex);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
   return (
     <section className="best-seller container-fluid">
-      <h4 className="mb-3">Trending</h4>
       <section className="women">
         <div className="row-container2">
-          {trending.map((item) => (
+          {currentItems.map((item) => (
             <div className="card-container" key={item.id}>
               <div className="card">
                 <div className="card-image">
@@ -69,6 +85,15 @@ function Trending({ handleAddToCart }) {
             </div>
           ))}
         </div>
+        {isMobile && (
+          <Pagination
+            count={totalPages}
+            page={page}
+            color="primary"
+            onChange={handlePageChange}
+            sx={{ marginTop: '1em' }}
+          />
+        )}
       </section>
     </section>
   );

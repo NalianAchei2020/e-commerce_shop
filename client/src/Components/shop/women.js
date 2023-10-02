@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from '@mui/material/Rating';
@@ -7,8 +7,14 @@ import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Pagination from '@mui/material/Pagination';
+import { useMediaQuery } from 'react-responsive';
 
 function Women({ handleAddToCart }) {
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 6; // Define the number of items to display per page
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' }); // Check if the scr
+
   const { product } = useSelector((state) => state.product);
 
   const women = product.filter((item) => item.category === 'women');
@@ -16,12 +22,22 @@ function Women({ handleAddToCart }) {
     return <p>...Loading</p>;
   }
 
+  // Calculate pagination related variables
+  const totalItems = women.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = women.slice(startIndex, endIndex);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
   return (
     <section className="best-seller container-fluid">
-      <h4 className="mb-3">Women</h4>
       <section className="women">
         <div className="row-container2">
-          {women.map((item) => (
+          {currentItems.map((item) => (
             <div className="card-container" key={item.id}>
               <div className="card">
                 <div className="card-image">
@@ -69,6 +85,15 @@ function Women({ handleAddToCart }) {
             </div>
           ))}
         </div>
+        {isMobile && (
+          <Pagination
+            count={totalPages}
+            page={page}
+            color="primary"
+            onChange={handlePageChange}
+            sx={{ marginTop: '1em' }}
+          />
+        )}
       </section>
     </section>
   );
