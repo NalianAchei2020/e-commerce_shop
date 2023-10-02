@@ -13,6 +13,9 @@ function BestSeller({ handleAddToCart }) {
 
   const bestSeller = product.filter((item) => item.bestSeller === true);
 
+  const count = bestSeller.length;
+  console.log(count);
+
   if (product.isLoading) {
     return <p>...Loading</p>;
   }

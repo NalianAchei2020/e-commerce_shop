@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Divider from '@mui/material/Divider';
 import BestSeller from '../Components/shop/bestseller';
+import { useSelector } from 'react-redux';
 
 const Shop = () => {
+  const { product } = useSelector((state) => state.product);
+  const [select, SetSelect] = useState('bestSeller');
+  const bestSeller = product.filter((item) => item.bestSeller === true);
+  const countOne = bestSeller.length;
+
+  const handleSection = (selected) => {
+    SetSelect(selected);
+  };
   return (
     <section className="container-fluid">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -31,24 +40,39 @@ const Shop = () => {
               </li>
             </ul>
             <ul className="aside-list">
-              <li className="d-flex flex-row justify-content-between">
-                <spn>Best Seller</spn>
+              <li
+                className="d-flex flex-row justify-content-between"
+                onClick={() => handleSection('bestSeller')}
+              >
+                <Link to={`/${select}`}>Best Seller</Link>
+                <span>{countOne}</span>
+              </li>
+              <li
+                className="d-flex flex-row justify-content-between"
+                onClick={() => handleSection('trending')}
+              >
+                <span>Trending</span>
                 <span>05</span>
               </li>
-              <li className="d-flex flex-row justify-content-between">
-                <spn>Trending</spn>
+              <li
+                className="d-flex flex-row justify-content-between"
+                onClick={() => handleSection('men')}
+              >
+                <span>Men</span>
                 <span>05</span>
               </li>
-              <li className="d-flex flex-row justify-content-between">
-                <spn>Men</spn>
+              <li
+                className="d-flex flex-row justify-content-between"
+                onClick={() => handleSection('newArrival')}
+              >
+                <span>New Arrivals</span>
                 <span>05</span>
               </li>
-              <li className="d-flex flex-row justify-content-between">
-                <spn>New Arrivals</spn>
-                <span>05</span>
-              </li>
-              <li className="d-flex flex-row justify-content-between">
-                <spn>Women</spn>
+              <li
+                className="d-flex flex-row justify-content-between"
+                onClick={() => handleSection('women')}
+              >
+                <span>Women</span>
                 <span>05</span>
               </li>
             </ul>
@@ -65,11 +89,11 @@ const Shop = () => {
             </ul>
             <ul className="aside-list">
               <li className="d-flex flex-row justify-content-between">
-                <spn>In Stock</spn>
+                <span>In Stock</span>
                 <span>05</span>
               </li>
               <li className="d-flex flex-row justify-content-between">
-                <spn>Out of Stock</spn>
+                <span>Out of Stock</span>
                 <span>05</span>
               </li>
             </ul>
@@ -103,9 +127,7 @@ const Shop = () => {
           </div>
           <Divider sx={{ backgroundColor: 'ActiveBorder' }} />
         </aside>
-        <main>
-          <BestSeller />
-        </main>
+        <main>{select === 'bestSeller' && <BestSeller />}</main>
       </section>
     </section>
   );

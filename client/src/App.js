@@ -57,6 +57,7 @@ function App() {
         <Route path="/upload" element={<Upload />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/:section" element={<Shop />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route

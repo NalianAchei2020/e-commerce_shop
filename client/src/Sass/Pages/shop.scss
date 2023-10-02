@@ -28,4 +28,11 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1em;
+
+  @media (767px < width < 980px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 767px) {
+    grid-template-columns: auto;
+  }
 }
