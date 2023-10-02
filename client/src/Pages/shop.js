@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Divider from '@mui/material/Divider';
-import BestSeller from '../Components/shop/bestseller';
 import { useSelector } from 'react-redux';
+import Newarrival from '../Components/shop/newArrivals';
+import Women from '../Components/shop/women';
+import Men from '../Components/shop/men';
+import Trending from '../Components/shop/trending';
+import BestSeller from '../Components/shop/bestseller';
 
 const Shop = () => {
   const { product } = useSelector((state) => state.product);
@@ -127,7 +131,13 @@ const Shop = () => {
           </div>
           <Divider sx={{ backgroundColor: 'ActiveBorder' }} />
         </aside>
-        <main>{select === 'bestSeller' && <BestSeller />}</main>
+        <main>
+          {select === 'bestSeller' && <BestSeller />}
+          {select === 'trending' && <Trending />}
+          {select === 'women' && <Women />}
+          {select === 'newArrival' && <Newarrival />}
+          {select === 'men' && <Men />}
+        </main>
       </section>
     </section>
   );
