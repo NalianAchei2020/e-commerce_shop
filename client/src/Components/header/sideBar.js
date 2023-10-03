@@ -1,67 +1,70 @@
 import React from 'react';
 import { Box, Drawer } from '@mui/material';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
 function SideBar({ handleClose, isClicked }) {
   return (
     <Drawer anchor="left" open={isClicked} onClose={handleClose}>
-      <Box spacing={2} role="presentation">
+      <Box spacing={2} role="presentation" width={200}>
         <ul className="list-01">
-          <li className="btn-clear" onClick={handleClose}>
-            <IconButton color="inherit" className="menu">
-              <ClearIcon className="clear" />
+          <li className="d-flex flex-row  btn-clear mt-4 mb-4">
+            <IconButton color="inherit" className="menu" onClick={handleClose}>
+              <ClearIcon className="clear" sx={{ fontSize: '2rem' }} />
             </IconButton>
-            <span>Close</span>
+            <span className="mt-2">Close</span>
           </li>
-          <li className="nav-item active">
-            <NavLink className="nav-link" to="/">
+        </ul>
+        <ul className="list-2">
+          <li className="nav-item active" onClick={handleClose}>
+            <Link className="nav-link" to="/">
               HOME
-            </NavLink>
+            </Link>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/shop">
+          <li className="nav-item" onClick={handleClose}>
+            <Link className="nav-link" to="/shop">
               SHOP
-            </NavLink>
+            </Link>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/about">
+
+          <li className="nav-item" onClick={handleClose}>
+            <Link className="nav-link" to="/about">
               ABOUT
-            </NavLink>
+            </Link>
           </li>
-          <li>
-            <NavLink className="nav-link" to="/contact">
+          <li onClick={handleClose}>
+            <Link className="nav-link" to="/contact">
               CONTACT
-            </NavLink>
+            </Link>
           </li>
-          <li>
-            <NavLink className="nav-link" to="/blog">
+          <li onClick={handleClose}>
+            <Link className="nav-link" to="/blog">
               BLOG
-            </NavLink>
+            </Link>
           </li>
-          <ul className="list-2">
-            <li>
-              <Link className="nav-link" to="/login">
-                SignIn
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-link" to="/register">
-                Register
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-link" to="/cart">
-                View Cart
-              </Link>
-            </li>
-            <li>
-              <Link className="nav-link" to="/wishlist">
-                Wishlist
-              </Link>
-            </li>
-          </ul>
+        </ul>
+        <ul className="list-2">
+          <li onClick={handleClose}>
+            <Link className="nav-link" to="/login">
+              SignIn
+            </Link>
+          </li>
+          <li onClick={handleClose}>
+            <Link className="nav-link" to="/register">
+              Register
+            </Link>
+          </li>
+          <li onClick={handleClose}>
+            <Link className="nav-link" to="/cart">
+              View Cart
+            </Link>
+          </li>
+          <li onClick={handleClose}>
+            <Link className="nav-link" to="/wishlist">
+              Wishlist
+            </Link>
+          </li>
         </ul>
       </Box>
     </Drawer>

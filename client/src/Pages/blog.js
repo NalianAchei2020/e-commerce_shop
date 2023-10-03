@@ -17,15 +17,15 @@ function Blog() {
           <span>Blog</span>
         </div>
       </div>
-      <section className="container-fluid">
-        <section className="container-fluid news">
+      <section>
+        <section className="news">
           <h1 className="text-center fw-bold mt-5 ">Fashion News</h1>
           <h6 className="text-center mb-5">
             The latest fashion news, celebrity style, fashion week updates
           </h6>
           <section className="new-main-container">
             <div className="new-container">
-              <Link to="/" className="link">
+              <Link to="#" className="link">
                 <div className="new-image">
                   <img src="Images/women/high-heels.jpg" alt="heels" />
                 </div>
@@ -38,14 +38,14 @@ function Blog() {
                   </p>
                 </div>
               </Link>
-              <Link to="/" className="link discover">
+              <Link to="#" className="link discover">
                 {' '}
                 Discover
               </Link>
             </div>
 
             <div className="new-container">
-              <Link to="/" className="link">
+              <Link to="#" className="link">
                 <div className="new-image">
                   <img src="Images/women/high-heels.jpg" alt="heels" />
                 </div>
@@ -60,14 +60,14 @@ function Blog() {
                   </p>
                 </div>
               </Link>
-              <Link to="/" className="link discover">
+              <Link to="#" className="link discover">
                 {' '}
                 Discover
               </Link>
             </div>
 
             <div className="new-container">
-              <Link to="/" className="link">
+              <Link to="#" className="link">
                 <div className="new-image">
                   <img src="Images/women/high-heels.jpg" alt="heels" />
                 </div>
@@ -80,7 +80,7 @@ function Blog() {
                   </p>
                 </div>
               </Link>
-              <Link to="/" className="link discover">
+              <Link to="#" className="link discover">
                 Discover
               </Link>
             </div>

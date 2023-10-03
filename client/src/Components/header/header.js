@@ -6,8 +6,6 @@ import { Badge, IconButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
-import ClearIcon from '@mui/icons-material/Clear';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Searchbar from './search';
@@ -22,16 +20,12 @@ function Header({ handlePopup }) {
   // State variables
   const [showSearchbar, setShowSearchbar] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  const [pages, setPages] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   // Event handlers
   const handleSearch = () => {
     setShowSearchbar(true);
   };
-  const checkMobileScreen = () => {
-    setIsMobile(window.innerWidth <= 920);
-  };
+
   const hideSearch = () => {
     setShowSearchbar(false);
   };
@@ -44,13 +38,6 @@ function Header({ handlePopup }) {
     setIsClicked(false);
   };
 
-  useEffect(() => {
-    window.addEventListener('resize', checkMobileScreen);
-    checkMobileScreen(); // Check the initial screen width
-    return () => {
-      window.removeEventListener('resize', checkMobileScreen);
-    };
-  }, []);
   // Check if current route is active
   const isActive = useMatch({
     path: '/',
@@ -95,7 +82,7 @@ function Header({ handlePopup }) {
             </h1>
           </div>
           <ul className="list">
-            <li className="nav-item active">
+            <li className="nav-item">
               <NavLink className={isActive ? 'active-link' : 'nav-link'} to="/">
                 HOME
               </NavLink>
@@ -180,7 +167,8 @@ function Header({ handlePopup }) {
               </Link>
             </li>
           </ul>
-          {showSearchbar && <Searchbar hideSearch={hideSearch} />}
+
+          <Searchbar hideSearch={hideSearch} showSearchbar={showSearchbar} />
         </nav>
       </header>
       <SideBar handleClose={handleClose} isClicked={isClicked} />

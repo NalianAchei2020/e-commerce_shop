@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import CallIcon from '@mui/icons-material/Call';
@@ -11,9 +11,10 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
 import Alert from '@mui/material/Alert';
-import Map from '../Components/contact/map';
+import Maps from '../Components/contact/map';
 
 function Contact() {
+  const [message, setMessage] = useState('');
   const form = useForm();
   const {
     register,
@@ -21,6 +22,15 @@ function Contact() {
     reset,
     formState: { errors },
   } = form;
+
+  const handleContact = (data) => {
+    if (data) {
+      setMessage(
+        'Thanks for contacting us. We would get back to you as soon as possible.'
+      );
+    }
+    reset();
+  };
 
   return (
     <section className="container-fluid">
@@ -79,14 +89,15 @@ function Contact() {
             </ul>
           </div>
           <div>
-            <img src="Images/icons/shoes.png" alt="shoes" />
+            <img src="Images/icons/shoes.png" alt="shoes" loading="lazy" />
           </div>
           <div className="text">
-            <Map />
+            <Maps />
           </div>
           <div className="text">
             <h5>Send us a message</h5>
-            <form>
+            <form onSubmit={handleSubmit(handleContact)}>
+              <p className="mt-3 mb-3">{message}</p>
               <TextField
                 label="Email"
                 variant="outlined"
@@ -96,7 +107,7 @@ function Contact() {
                 {...register('email', {
                   required: {
                     value: true,
-                    message: 'Eamil is required',
+                    message: 'Email is required',
                   },
                   pattern: {
                     value:
@@ -106,14 +117,17 @@ function Contact() {
                   validate: (fieldValue) => {
                     return (
                       fieldValue !== 'admin@gmail.com' ||
-                      'Enter a different email '
+                      'Enter a different email'
                     );
                   },
                 })}
               />
 
               {errors.email && (
-                <Alert severity="error" sx={{ marginTop: '5px' }}>
+                <Alert
+                  severity="error"
+                  sx={{ marginTop: '5px', width: '100%' }}
+                >
                   {errors.email.message}
                 </Alert>
               )}
@@ -125,7 +139,7 @@ function Contact() {
                 multiline
                 rows={5}
                 sx={{ width: '100%', marginBlock: '5px' }}
-                {...register('Comment', {
+                {...register('comment', {
                   required: {
                     value: true,
                     message: 'Comment is required',
@@ -133,12 +147,15 @@ function Contact() {
                 })}
               />
               {errors.comment && (
-                <Alert severity="error" sx={{ marginTop: '5px' }}>
+                <Alert
+                  severity="error"
+                  sx={{ marginTop: '5px', width: '100%' }}
+                >
                   {errors.comment.message}
                 </Alert>
               )}
               <p>
-                <button className="viewCart-btn btn-best " type="button">
+                <button className="viewCart-btn btn-best" type="submit">
                   Subscribe
                 </button>
               </p>

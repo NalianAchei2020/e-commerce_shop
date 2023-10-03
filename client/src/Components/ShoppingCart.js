@@ -74,6 +74,7 @@ function ShoppingCart({ popup, handleClosePopup, handleRouteToCart }) {
                           alt="cartImage"
                           width={120}
                           height={100}
+                          loading='lazy'
                         />
                       </div>
                     </Link>

@@ -174,6 +174,7 @@ function Footer() {
                 alt="apple"
                 height={50}
                 width={80}
+                loading="lazy"
               />
             </Tooltip>
           </li>

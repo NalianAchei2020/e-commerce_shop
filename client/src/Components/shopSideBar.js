@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Drawer, Link } from '@mui/material';
+import { Box, Drawer } from '@mui/material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -52,7 +52,7 @@ const ShopSideBar = ({
                     className="d-flex flex-row justify-content-between"
                     onClick={() => handleSection('bestSeller')}
                   >
-                    <Link to={`/${select}`}>Best Seller</Link>
+                    <span>Best Seller</span>
                     <span>{countOne}</span>
                   </li>
                   <li
@@ -122,7 +122,7 @@ const ShopSideBar = ({
                   </li>
                   <li className="d-flex flex-row justify-content-between">
                     <span>Out of Stock</span>
-                    <span>05</span>
+                    <span>0</span>
                   </li>
                 </ul>
               )}
@@ -149,6 +149,13 @@ const ShopSideBar = ({
                   )}
                 </li>
               </ul>
+              {expand3 && (
+                <ul className="d-flex flex-row flex-wrap justify-content-between mt-3">
+                  <li>$0</li>
+                  <li>to</li>
+                  <li>$70</li>
+                </ul>
+              )}
             </div>
             <Divider sx={{ backgroundColor: 'ActiveBorder' }} />
             <div>

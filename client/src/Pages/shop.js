@@ -160,7 +160,7 @@ const Shop = ({ handleAddToCart }) => {
                 </li>
                 <li className="d-flex flex-row justify-content-between">
                   <span>Out of Stock</span>
-                  <span>05</span>
+                  <span>0</span>
                 </li>
               </ul>
             )}
@@ -187,6 +187,13 @@ const Shop = ({ handleAddToCart }) => {
                 )}
               </li>
             </ul>
+            {expand3 && (
+              <ul className="d-flex flex-row flex-wrap justify-content-between mt-3">
+                <li>$0</li>
+                <li>to</li>
+                <li>$70</li>
+              </ul>
+            )}
           </div>
           <Divider sx={{ backgroundColor: 'ActiveBorder' }} />
           <div>
@@ -234,6 +241,7 @@ const Shop = ({ handleAddToCart }) => {
             <div className="side-icon">
               <IconButton onClick={handleSidebar}>
                 <FilterAltIcon />
+                <span>Filter</span>
               </IconButton>
             </div>
           </div>
