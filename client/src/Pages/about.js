@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Divider from '@mui/material/Divider';
+
 function About() {
   return (
     <section className="container-fluid">
