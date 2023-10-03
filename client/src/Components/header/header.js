@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Searchbar from './search';
+import SideBar from './sideBar';
 
 function Header({ handlePopup }) {
   const { cart } = useSelector((state) => state.product);
@@ -43,11 +44,6 @@ function Header({ handlePopup }) {
     setIsClicked(false);
   };
 
-  const showPages = () => {
-    if (isMobile) {
-      setPages(!pages);
-    }
-  };
   useEffect(() => {
     window.addEventListener('resize', checkMobileScreen);
     checkMobileScreen(); // Check the initial screen width
@@ -85,7 +81,7 @@ function Header({ handlePopup }) {
             </li>
           </ul>
         </div>
-        <nav className="nav">
+        <nav className="nav container-fluid">
           <div className="menu-icons">
             <div className="menu-icon-one">
               <IconButton color="inherit" onClick={handleClicked}>
@@ -98,13 +94,7 @@ function Header({ handlePopup }) {
               </Link>{' '}
             </h1>
           </div>
-          <ul className={isClicked ? 'no-list' : 'list'}>
-            <li className="btn-clear" onClick={handleClose}>
-              <IconButton color="inherit" className="menu">
-                <ClearIcon className="clear" />
-              </IconButton>
-              <span>Close</span>
-            </li>
+          <ul className="list">
             <li className="nav-item active">
               <NavLink className={isActive ? 'active-link' : 'nav-link'} to="/">
                 HOME
@@ -120,78 +110,28 @@ function Header({ handlePopup }) {
             </li>
             <li className="nav-item">
               <NavLink
-                className={useMatch('/Women') ? 'active-link' : 'nav-link'}
-                to="/Women"
+                className={useMatch('/about') ? 'active-link' : 'nav-link'}
+                to="/about"
               >
-                WOMEN
+                ABOUT
               </NavLink>
             </li>
             <li>
               <NavLink
-                className={useMatch('/men') ? 'active-link' : 'nav-link'}
-                to="/men"
+                className={useMatch('/contact') ? 'active-link' : 'nav-link'}
+                to="/contact"
               >
-                MEN
+                CONTACT
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
-              <div className="pages" onClick={showPages}>
-                <NavLink
-                  className={useMatch('/pages') ? 'active-link' : 'nav-link'}
-                  to="/pages"
-                >
-                  PAGES
-                </NavLink>
-                <IconButton color="inherit" className="menu">
-                  <ExpandMoreIcon className="cheron" />
-                </IconButton>
-              </div>
-              <div
-                className={
-                  isMobile && pages ? 'no-content' : 'dropdown-content'
-                }
+            <li>
+              <NavLink
+                className={useMatch('/blog') ? 'active-link' : 'nav-link'}
+                to="/blog"
               >
-                <ul className="nav-item">
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/pages/about">
-                      About
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/pages/contact">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/pages/blog">
-                      Blog
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+                BLOG
+              </NavLink>
             </li>
-            <ul className="list-2">
-              <li>
-                <Link className="nav-link" to="/login">
-                  SignIn
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link" to="/register">
-                  Register
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link" to="/cart">
-                  View Cart
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link" to="/wishlist">
-                  Wishlist
-                </Link>
-              </li>
-            </ul>
           </ul>
           <ul className="icons">
             <li className="nav-item">
@@ -243,6 +183,7 @@ function Header({ handlePopup }) {
           {showSearchbar && <Searchbar hideSearch={hideSearch} />}
         </nav>
       </header>
+      <SideBar handleClose={handleClose} isClicked={isClicked} />
     </section>
   );
 }
