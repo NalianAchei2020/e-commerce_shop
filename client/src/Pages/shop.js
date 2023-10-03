@@ -14,7 +14,7 @@ import Trending from '../Components/shop/trending';
 import BestSeller from '../Components/shop/bestseller';
 import ShopSideBar from '../Components/shopSideBar';
 
-const Shop = () => {
+const Shop = ({ handleAddToCart }) => {
   const { product } = useSelector((state) => state.product);
 
   const [select, SetSelect] = useState('bestSeller');
@@ -90,7 +90,7 @@ const Shop = () => {
                   className="d-flex flex-row justify-content-between"
                   onClick={() => handleSection('bestSeller')}
                 >
-                  <Link to={`/${select}`}>Best Seller</Link>
+                  <span>Best Seller</span>
                   <span>{countOne}</span>
                 </li>
                 <li
@@ -237,11 +237,17 @@ const Shop = () => {
               </IconButton>
             </div>
           </div>
-          {select === 'bestSeller' && <BestSeller />}
-          {select === 'trending' && <Trending />}
-          {select === 'women' && <Women />}
-          {select === 'newArrival' && <Newarrival />}
-          {select === 'men' && <Men />}
+          {select === 'bestSeller' && (
+            <BestSeller handleAddToCart={handleAddToCart} />
+          )}
+          {select === 'trending' && (
+            <Trending handleAddToCart={handleAddToCart} />
+          )}
+          {select === 'women' && <Women handleAddToCart={handleAddToCart} />}
+          {select === 'newArrival' && (
+            <Newarrival handleAddToCart={handleAddToCart} />
+          )}
+          {select === 'men' && <Men handleAddToCart={handleAddToCart} />}
         </main>
       </section>
       <ShopSideBar
