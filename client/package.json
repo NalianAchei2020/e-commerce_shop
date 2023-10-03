@@ -13,6 +13,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.46.0",
+    "react-map-gl": "^7.1.6",
     "react-material-ui-carousel": "^3.4.2",
     "react-multi-carousel": "^2.8.4",
     "react-responsive": "^9.0.2",
