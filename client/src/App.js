@@ -21,6 +21,9 @@ import Register from './Pages/register';
 import ShoppingCart from './Components/ShoppingCart';
 import { addToCart } from './redux/productSlice';
 import Shop from './Pages/shop';
+import About from './Pages/about';
+import Contact from './Pages/contact';
+import Blog from './Pages/blog';
 
 function App() {
   const location = useLocation();
@@ -56,14 +59,20 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/:section" element={<Shop />} />
+        <Route
+          path="/shop"
+          element={<Shop handleAddToCart={handleAddToCart} />}
+        />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
           path="/product/:slug"
           element={<Product handleAddToCart={handleAddToCart} />}
         />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}
       <ShoppingCart
