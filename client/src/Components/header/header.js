@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink, useMatch, useLocation } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -13,6 +13,7 @@ import SideBar from './sideBar';
 
 function Header({ handlePopup }) {
   const { cart } = useSelector((state) => state.product);
+  const { wishlist } = useSelector((state) => state.product);
 
   const location = useLocation();
   const hideCartIcon = location.pathname.includes('/cart');
@@ -150,7 +151,7 @@ function Header({ handlePopup }) {
                     aria-label="show 4 new mails"
                     color="inherit"
                   >
-                    <Badge color="primary" badgeContent="cart">
+                    <Badge color="primary" badgeContent={wishlist.length}>
                       <FavoriteIcon />
                     </Badge>
                   </IconButton>

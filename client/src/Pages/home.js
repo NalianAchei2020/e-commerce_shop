@@ -9,15 +9,15 @@ import NewArrivals from '../Components/home/newArrivals';
 import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
 
-//import Header from '../Components/header/header';
-function Home({ setPopup }) {
+function Home({ setPopup, handleWishlist }) {
   const dispatch = useDispatch();
-
-  //const [popup, setPopup] = useState(false);
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
     setPopup(true);
+  };
+  const addwishlist = (item) => {
+    handleWishlist(item);
   };
   return (
     <section className="slider-container">
@@ -45,7 +45,7 @@ function Home({ setPopup }) {
         </div>
       </section>
       {/*beastSeller */}
-      <BestSeller handleAddToCart={handleAddToCart} />
+      <BestSeller handleAddToCart={handleAddToCart} addwishlist={addwishlist} />
       {/* call to action */}
       <CallToAction />
       {/* featured products */}

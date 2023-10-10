@@ -24,12 +24,17 @@ import Shop from './Pages/shop';
 import About from './Pages/about';
 import Contact from './Pages/contact';
 import Blog from './Pages/blog';
+import Wishlist from './Pages/wishlist';
+import { addToWishlist, removeFromWishlist } from './redux/productSlice';
+import Message from './Components/wishlist/message';
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const hideHeaderFooter = location.pathname.includes('/checkout');
   const [popup, setPopup] = useState(false);
+  const [wishlist, setWishlist] = useState(false);
+  const [wishMessage, setWishMessage] = useState('');
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -50,12 +55,24 @@ function App() {
     dispatch(addToCart(item));
     setPopup(true);
   };
-
+  const handleWishlist = (item) => {
+    dispatch(addToWishlist(item));
+    setWishMessage('Added to wishlist');
+  };
   return (
     <div className="App">
       {!hideHeaderFooter && <Header handlePopup={handlePopup} />}
       <Routes>
-        <Route path="/" element={<Home popup={popup} setPopup={setPopup} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              popup={popup}
+              setPopup={setPopup}
+              handleWishlist={handleWishlist}
+            />
+          }
+        />
         <Route path="/cart" element={<Cart />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/checkout" element={<Checkout />} />
@@ -73,6 +90,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}
       <ShoppingCart
@@ -80,6 +98,7 @@ function App() {
         popup={popup}
         handleRouteToCart={handleRouteToCart}
       />
+      <Message wishMessage={wishMessage} wishlist={wishlist} />
     </div>
   );
 }

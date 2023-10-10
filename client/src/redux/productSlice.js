@@ -2,7 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  cart: [],
+  cart: localStorage.getItem('cart')
+    ? JSON.parse(localStorage.getItem('cart'))
+    : [],
+  wishlist: localStorage.getItem('wishlist')
+    ? JSON.parse(localStorage.getItem('wishlist'))
+    : [],
   product: [],
   isLoading: false,
   error: null,
@@ -61,28 +66,39 @@ const productsSlice = createSlice({
       } else {
         state.cart.push({ ...action.payload, quantity: 1 });
       }
-
+      localStorage.setItem('cart', JSON.stringify(state.cart));
       return state;
     },
     removeFromCart: (state, action) => {
       const existed = state.cart.find(
         (product) => product.id === action.payload.id
       );
-      if (existed === 1) {
-        state.cart = state.cart.filter(
-          (product) => product.id !== action.payload.id
-        );
-      } else {
-        state.cart.map((item) =>
-          item.id === action.payload.id ? (item.quantity -= 1) : item
-        );
+      if (existed) {
+        state.cart = state.cart
+          .map((item) =>
+            item.id === action.payload.id
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+          .filter((item) => item.quantity > 0);
       }
+      localStorage.setItem('cart', JSON.stringify(state.cart));
+      return state;
     },
     removeItem: (state, action) => {
       state.cart = state.cart.filter(
         (product) => product.id !== action.payload.id
       );
+      localStorage.setItem('cart', JSON.stringify(state.cart));
+      return state;
     },
+    //wishlist
+    addToWishlist: (state, action) => {
+      state.wishlist = state.wishlist.concat(action.payload);
+      localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
+      return state;
+    },
+    removeFromWishlist: (state, action) => {},
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
@@ -99,5 +115,11 @@ const productsSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, removeItem } = productsSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  removeItem,
+  addToWishlist,
+  removeFromWishlist,
+} = productsSlice.actions;
 export default productsSlice.reducer;

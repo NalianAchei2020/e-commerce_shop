@@ -5,6 +5,10 @@ const store = configureStore({
   reducer: {
     product: productSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

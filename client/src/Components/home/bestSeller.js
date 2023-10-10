@@ -8,7 +8,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function BestSeller({ handleAddToCart }) {
+function BestSeller({ handleAddToCart, addwishlist }) {
   const [section, setSection] = useState('bestSeller-men');
   const { product } = useSelector((state) => state.product);
 
