@@ -94,18 +94,19 @@ const productsSlice = createSlice({
     },
     //wishlist
     addToWishlist: (state, action) => {
-      const existed = state.wishlist.find(
-        (product) => product.id === action.payload.id
-      );
+      const { id } = action.payload;
+      const existed = state.wishlist.find((product) => product.id === id);
+
       if (!existed) {
-        state.wishlist.push(action.payload);
-        localStorage.setItem('wishList', JSON.stringify(state.wishlist));
-      }
-      if (existed) {
-        state.wishlist = state.wishlist.filter(
-          (product) => product.id !== action.payload.id
+        const updatedWishlist = [...state.wishlist, action.payload];
+        localStorage.setItem('wishList', JSON.stringify(updatedWishlist));
+        return { ...state, wishlist: updatedWishlist };
+      } else {
+        const updatedWishlist = state.wishlist.filter(
+          (product) => product.id !== id
         );
-        localStorage.setItem('wishList', JSON.stringify(state.wishlist));
+        localStorage.setItem('wishList', JSON.stringify(updatedWishlist));
+        return { ...state, wishlist: updatedWishlist };
       }
     },
     removeFromWishlist: (state, action) => {

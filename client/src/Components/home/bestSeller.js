@@ -6,12 +6,10 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { addToWishlist, removeFromWishlist } from '../../redux/productSlice';
+import { useSelector } from 'react-redux';
 
 function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
   const [section, setSection] = useState('bestSeller-men');
-  const dispatch = useDispatch();
   const { product } = useSelector((state) => state.product);
 
   const bestSeller = product.filter(

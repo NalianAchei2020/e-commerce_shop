@@ -7,15 +7,11 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { useSelector, useDispatch } from 'react-redux';
-import { addToWishlist, removeFromWishlist } from '../redux/productSlice';
+import { useSelector } from 'react-redux';
 
-function Wishlist({ handleAddToCart, wishList }) {
-  const dispatch = useDispatch();
+function Wishlist({ handleAddToCart, handleWishlist, wishList }) {
   const { wishlist } = useSelector((state) => state.product);
-  const handleWishlist = (item) => {
-    dispatch(addToWishlist(item));
-  };
+
   return (
     <section>
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -69,7 +65,9 @@ function Wishlist({ handleAddToCart, wishList }) {
                       <Tooltip title="Wishlist" placement="bottom">
                         <IconButton
                           className="whistlist"
-                          onClick={handleWishlist(item)}
+                          onClick={() => {
+                            handleWishlist(item);
+                          }}
                         >
                           <FavoriteIcon className="whistlist" />
                         </IconButton>

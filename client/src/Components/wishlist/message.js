@@ -5,7 +5,7 @@ const Message = ({ wishlist, wishMessage, setWishlist }) => {
   return (
     <Snackbar
       open={wishlist}
-      autoHideDuration={1500}
+      autoHideDuration={1000}
       onClose={() => {
         setWishlist(false);
       }}

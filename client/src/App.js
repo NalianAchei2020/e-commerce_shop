@@ -33,7 +33,9 @@ function App() {
   const navigate = useNavigate();
   const hideHeaderFooter = location.pathname.includes('/checkout');
   const [popup, setPopup] = useState(false);
-  const [wishlist, setWishlist] = useState(false);
+  const [wishlist, setWishlist] = useState(
+    localStorage.getItem('wishListState') || false
+  );
   const [wishMessage, setWishMessage] = useState('');
 
   const dispatch = useDispatch();
@@ -55,16 +57,21 @@ function App() {
     dispatch(addToCart(item));
     setPopup(true);
   };
+
+  useEffect(() => {
+    localStorage.setItem('wishListState', JSON.stringify(wishlist));
+  }, [wishlist]);
+
   const handleWishlist = (item) => {
-    setWishlist(true);
+    setWishlist(!wishlist);
     dispatch(addToWishlist(item));
-    setWishMessage('Added to wishlist');
+    if (item && wishlist) {
+      setWishMessage('Removed from wishlist');
+    } else {
+      setWishMessage('Added to wishlist');
+    }
   };
-  const handleRemoveWishlist = (item) => {
-    setWishlist(false);
-    dispatch(removeFromWishlist(item));
-    setWishMessage('Remove from wishlist');
-  };
+
   return (
     <div className="App">
       {!hideHeaderFooter && <Header handlePopup={handlePopup} />}
@@ -100,7 +107,11 @@ function App() {
         <Route
           path="/wishlist"
           element={
-            <Wishlist handleAddToCart={handleAddToCart} wishList={wishlist} />
+            <Wishlist
+              handleAddToCart={handleAddToCart}
+              wishList={wishlist}
+              handleWishlist={handleWishlist}
+            />
           }
         />
       </Routes>
