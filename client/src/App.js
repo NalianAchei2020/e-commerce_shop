@@ -56,8 +56,14 @@ function App() {
     setPopup(true);
   };
   const handleWishlist = (item) => {
+    setWishlist(true);
     dispatch(addToWishlist(item));
     setWishMessage('Added to wishlist');
+  };
+  const handleRemoveWishlist = (item) => {
+    setWishlist(false);
+    dispatch(removeFromWishlist(item));
+    setWishMessage('Remove from wishlist');
   };
   return (
     <div className="App">
@@ -70,6 +76,7 @@ function App() {
               popup={popup}
               setPopup={setPopup}
               handleWishlist={handleWishlist}
+              wishList={wishlist}
             />
           }
         />
@@ -90,7 +97,12 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/wishlist" element={<Wishlist />} />
+        <Route
+          path="/wishlist"
+          element={
+            <Wishlist handleAddToCart={handleAddToCart} wishList={wishlist} />
+          }
+        />
       </Routes>
       {!hideHeaderFooter && <Footer />}
       <ShoppingCart
@@ -98,7 +110,11 @@ function App() {
         popup={popup}
         handleRouteToCart={handleRouteToCart}
       />
-      <Message wishMessage={wishMessage} wishlist={wishlist} />
+      <Message
+        wishMessage={wishMessage}
+        wishlist={wishlist}
+        setWishlist={setWishlist}
+      />
     </div>
   );
 }

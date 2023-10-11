@@ -5,8 +5,8 @@ const initialState = {
   cart: localStorage.getItem('cart')
     ? JSON.parse(localStorage.getItem('cart'))
     : [],
-  wishlist: localStorage.getItem('wishlist')
-    ? JSON.parse(localStorage.getItem('wishlist'))
+  wishlist: localStorage.getItem('wishList')
+    ? JSON.parse(localStorage.getItem('wishList'))
     : [],
   product: [],
   isLoading: false,
@@ -94,11 +94,26 @@ const productsSlice = createSlice({
     },
     //wishlist
     addToWishlist: (state, action) => {
-      state.wishlist = state.wishlist.concat(action.payload);
-      localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
-      return state;
+      const existed = state.wishlist.find(
+        (product) => product.id === action.payload.id
+      );
+      if (!existed) {
+        state.wishlist.push(action.payload);
+        localStorage.setItem('wishList', JSON.stringify(state.wishlist));
+      }
+      if (existed) {
+        state.wishlist = state.wishlist.filter(
+          (product) => product.id !== action.payload.id
+        );
+        localStorage.setItem('wishList', JSON.stringify(state.wishlist));
+      }
     },
-    removeFromWishlist: (state, action) => {},
+    removeFromWishlist: (state, action) => {
+      state.wishlist = state.wishlist.filter(
+        (product) => product.id !== action.payload.id
+      );
+      localStorage.setItem('wishList', JSON.stringify(state.wishlist));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProduct.fulfilled, (state, action) => {

@@ -9,16 +9,14 @@ import NewArrivals from '../Components/home/newArrivals';
 import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
 
-function Home({ setPopup, handleWishlist }) {
+function Home({ setPopup, handleWishlist, wishList }) {
   const dispatch = useDispatch();
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
     setPopup(true);
   };
-  const addwishlist = (item) => {
-    handleWishlist(item);
-  };
+
   return (
     <section className="slider-container">
       <section>
@@ -45,7 +43,11 @@ function Home({ setPopup, handleWishlist }) {
         </div>
       </section>
       {/*beastSeller */}
-      <BestSeller handleAddToCart={handleAddToCart} addwishlist={addwishlist} />
+      <BestSeller
+        handleAddToCart={handleAddToCart}
+        handleWishlist={handleWishlist}
+        wishList={wishList}
+      />
       {/* call to action */}
       <CallToAction />
       {/* featured products */}
