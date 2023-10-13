@@ -11,8 +11,12 @@ const initialState = {
   product: [],
   isLoading: false,
   error: null,
+  loginError: '',
+  registerError: '',
   isLogin: false,
-  users: [],
+  username: localStorage.getItem('users')
+    ? JSON.parse(localStorage.getItem('users'))
+    : '',
   message: '',
 };
 
@@ -56,7 +60,15 @@ export const registerUser = createAsyncThunk(
   'user/register',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseURL}/api/auth/register`, data);
+      const response = await axios({
+        method: 'POST',
+        url: `${baseURL}/api/auth/register`,
+        headers: {
+          contentType: 'application/json',
+        },
+        withCredentials: true,
+        data: data,
+      });
       return response.data;
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -182,27 +194,28 @@ const productsSlice = createSlice({
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.message = action.payload.message;
+      state.username = action.payload.name;
     });
     builder.addCase(registerUser.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.payload.message;
+      state.registerError = action.payload.message;
     });
     //login in to system
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isLogin = true;
       state.message = action.payload.message;
-      state.users = action.payload;
+      state.username = action.payload.name;
     });
     builder.addCase(login.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.loginError = action.payload.message;
     });
   },
 });
