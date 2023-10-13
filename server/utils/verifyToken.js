@@ -1,7 +1,12 @@
 import jwt from 'jsonwebtoken';
-import { createError } from './error';
-import config from '../config';
+import { createError } from './error.js';
+import config from '../config.js';
 
+export const generateToken = (user) => {
+  return jwt.sign({ id: user._id, isAdmin: user.isAdmin }, config.JWT_SECRET, {
+    expiresIn: '24h',
+  });
+};
 export const verifiedToken = (req, res, next) => {
   const token = req.cookies.access_token;
   if (!token) {
