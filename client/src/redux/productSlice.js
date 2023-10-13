@@ -12,7 +12,7 @@ const initialState = {
   isLoading: false,
   error: null,
   isLogin: false,
-  userName: null,
+  users: [],
   message: '',
 };
 
@@ -70,14 +70,34 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
-export const login = createAsyncThunk('user/login', async (data) => {
-  try {
-    const response = await axios.post(`${baseURL}/api/auth/login`, data);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
+export const login = createAsyncThunk(
+  'user/login',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios({
+        method: 'POST',
+        url: `${baseURL}/api/auth/login`,
+        headers: {
+          contentType: 'application/json',
+        },
+        withCredentials: true,
+        data: data,
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        return { message: 'user not found!' };
+      } else if (error.response && error.response.status === 400) {
+        return { message: 'Wrong username or password!' };
+      } else {
+        return rejectWithValue({
+          message:
+            'Registration failed due to a server error. Please try again later.',
+        });
+      }
+    }
   }
-});
+);
 
 const productsSlice = createSlice({
   name: 'products',
@@ -174,7 +194,8 @@ const productsSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isLogin = true;
-      state.userName = action.payload;
+      state.message = action.payload.message;
+      state.users = action.payload;
     });
     builder.addCase(login.pending, (state) => {
       state.isLoading = true;

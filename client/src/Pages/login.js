@@ -4,9 +4,16 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../redux/productSlice';
 
 function Login() {
+  const dispatch = useDispatch();
+  const { message, error, users } = useSelector((state) => state.product);
   const navigate = useNavigate();
+  console.log(message);
+  console.log(error);
+  console.log(users.name);
   const form = useForm();
   const {
     register,
@@ -17,6 +24,10 @@ function Login() {
 
   const handleToRegister = () => {
     navigate('/register');
+  };
+
+  const handleLogin = (data) => {
+    dispatch(login(data));
   };
   return (
     <section className="container-fluid container-login">
@@ -33,52 +44,61 @@ function Login() {
         <h4 className="account-heading">Account</h4>
         <section className=" login-container">
           <div className="d-flex flex-column gap-4 login-sub">
+            <div>
+              {error && <p>{error}</p>}
+              {message && <p>{message}</p>}
+            </div>
             <h4>Login</h4>
-            <TextField
-              label="Email"
-              variant="outlined"
-              type="text"
-              name="email"
-              {...register('email', {
-                required: {
-                  value: true,
-                  message: 'Please enter an email',
-                },
-                pattern: {
-                  value:
-                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: 'Email is invalid',
-                },
-                validate: (fieldValue) => {
-                  return (
-                    fieldValue !== 'admin@gmail.com' ||
-                    'Enter a different email '
-                  );
-                },
-              })}
-            />
-            {errors.email && (
-              <Alert severity="error">{errors.email.message}</Alert>
-            )}
-            <TextField
-              label="Password"
-              variant="outlined"
-              type="text"
-              name="password"
-              {...register('password', {
-                required: {
-                  value: true,
-                  message: 'Please enter a password',
-                },
-              })}
-            />
-            {errors.password && (
-              <Alert severity="error">{errors.password.message}</Alert>
-            )}
-            <Link to="#" className="login-link">
-              Forgot your password?
-            </Link>
-            <button className="btn-login">Login</button>
+            <form
+              className="d-flex flex-column gap-4"
+              onSubmit={handleSubmit(handleLogin)}
+            >
+              <TextField
+                label="Email"
+                variant="outlined"
+                type="text"
+                name="email"
+                {...register('email', {
+                  required: {
+                    value: true,
+                    message: 'Please enter an email',
+                  },
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    message: 'Email is invalid',
+                  },
+                  validate: (fieldValue) => {
+                    return (
+                      fieldValue !== 'admin@gmail.com' ||
+                      'Enter a different email '
+                    );
+                  },
+                })}
+              />
+              {errors.email && (
+                <Alert severity="error">{errors.email.message}</Alert>
+              )}
+              <TextField
+                label="Password"
+                variant="outlined"
+                type="text"
+                name="password"
+                {...register('password', {
+                  required: {
+                    value: true,
+                    message: 'Please enter a password',
+                  },
+                })}
+              />
+              {errors.password && (
+                <Alert severity="error">{errors.password.message}</Alert>
+              )}
+              <Link to="#" className="login-link">
+                Forgot your password?
+              </Link>
+              <button className="btn-login">Login</button>
+            </form>
           </div>
           <div className="vertical-line"></div>
           <div className="d-flex flex-column gap-4  login-sub sub2">
