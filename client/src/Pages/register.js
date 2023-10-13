@@ -10,7 +10,7 @@ import { registerUser } from '../redux/productSlice';
 function Register() {
   const dispatch = useDispatch();
 
-  const { message, error } = useSelector((state) => state.product);
+  const { message, registerError } = useSelector((state) => state.product);
 
   const navigate = useNavigate();
   const form = useForm();
@@ -49,8 +49,10 @@ function Register() {
           <form onSubmit={handleSubmit(handleRegister)}>
             <div className="d-flex flex-column gap-4 ">
               <div>
-                {error && <p>{error}</p>}
-                {message && <p>{message}</p>}
+                {registerError && (
+                  <Alert severity="error">{registerError}</Alert>
+                )}
+                {message && <Alert severity="error">{message}</Alert>}
               </div>
               <h4 className="text-center">Register</h4>
 

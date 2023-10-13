@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TextField from '@mui/material/TextField';
@@ -9,11 +9,11 @@ import { login } from '../redux/productSlice';
 
 function Login() {
   const dispatch = useDispatch();
-  const { message, error, users } = useSelector((state) => state.product);
+  const { message, loginError, username, isLogin } = useSelector(
+    (state) => state.product
+  );
+  console.log(username);
   const navigate = useNavigate();
-  console.log(message);
-  console.log(error);
-  console.log(users.name);
   const form = useForm();
   const {
     register,
@@ -29,6 +29,11 @@ function Login() {
   const handleLogin = (data) => {
     dispatch(login(data));
   };
+  useEffect(() => {
+    if (isLogin) {
+      //navigate('/');
+    }
+  }, [isLogin]);
   return (
     <section className="container-fluid container-login">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -45,8 +50,8 @@ function Login() {
         <section className=" login-container">
           <div className="d-flex flex-column gap-4 login-sub">
             <div>
-              {error && <p>{error}</p>}
-              {message && <p>{message}</p>}
+              {loginError && <Alert severity="error">{loginError}</Alert>}
+              {message && <Alert severity="error">{message}</Alert>}
             </div>
             <h4>Login</h4>
             <form
