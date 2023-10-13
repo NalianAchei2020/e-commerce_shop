@@ -10,10 +10,10 @@ import { Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Searchbar from './search';
 import SideBar from './sideBar';
+import Avater from './avater';
 
 function Header({ handlePopup }) {
-  const { cart } = useSelector((state) => state.product);
-  const { wishlist } = useSelector((state) => state.product);
+  const { cart, wishlist, username } = useSelector((state) => state.product);
 
   const location = useLocation();
   const hideCartIcon = location.pathname.includes('/cart');
@@ -159,13 +159,19 @@ function Header({ handlePopup }) {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/login" className="icon-link none">
-                <Tooltip title="Login/Register" placement="bottom">
-                  <IconButton color="inherit">
-                    <AccountCircleIcon />
-                  </IconButton>
-                </Tooltip>
-              </Link>
+              {username ? (
+                <Link to="/profile">
+                  <Avater />
+                </Link>
+              ) : (
+                <Link to="/login" className="icon-link none">
+                  <Tooltip title="Login/Register" placement="bottom">
+                    <IconButton color="inherit">
+                      <AccountCircleIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Link>
+              )}
             </li>
           </ul>
 
