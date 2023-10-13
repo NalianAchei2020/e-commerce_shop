@@ -11,6 +11,9 @@ const initialState = {
   product: [],
   isLoading: false,
   error: null,
+  isLogin: false,
+  userName: null,
+  message: '',
 };
 
 const baseURL = 'http://localhost:8000';
@@ -40,10 +43,37 @@ export const viewProduct = createAsyncThunk(
     }
   }
 );
-
 export const leaveProduct = createAsyncThunk('products/leave', async () => {
   try {
     await axios.post(`${baseURL}/api/views/product/leave`);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+// register
+export const registerUser = createAsyncThunk(
+  'user/register',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${baseURL}/api/auth/register`, data);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        return { message: error.response.data.message };
+      } else {
+        return rejectWithValue({
+          message:
+            'Registration failed due to a server error. Please try again later.',
+        });
+      }
+    }
+  }
+);
+export const login = createAsyncThunk('user/login', async (data) => {
+  try {
+    const response = await axios.post(`${baseURL}/api/auth/login`, data);
+    return response.data;
   } catch (error) {
     throw new Error(error);
   }
@@ -125,6 +155,31 @@ const productsSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    //register
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.message = action.payload.message;
+    });
+    builder.addCase(registerUser.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(registerUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.message;
+    });
+    //login in to system
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isLogin = true;
+      state.userName = action.payload;
+    });
+    builder.addCase(login.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });
