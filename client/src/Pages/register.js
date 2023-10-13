@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TextField from '@mui/material/TextField';
@@ -24,6 +24,11 @@ function Register() {
   const handleRegister = (data) => {
     dispatch(registerUser(data));
   };
+  useEffect(() => {
+    if (message === 'User created') {
+      navigate('/');
+    }
+  }, [message]);
 
   const handleNavigateToLogin = () => {
     navigate('/login');
