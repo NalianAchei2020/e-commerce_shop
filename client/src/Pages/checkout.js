@@ -10,19 +10,33 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import SelectCountry from '../Components/home/select';
 import ShiipingMethod from '../Components/checkout/shiipingMethod';
 import PaymentMethod from '../Components/checkout/paymentMethod';
 import Summary from '../Components/checkout/summary';
 import Cfooter from '../Components/checkout/Cfooter';
+import { createOrder } from '../redux/productSlice';
 
 function Checkout() {
+  const dispatch = useDispatch();
   const [isFill, setIsFill] = useState(false);
   const [selectedValue, setSelectedValue] = useState('usps');
+  const [shippingprice, setShippingprice] = useState(0);
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
+    if (selectedValue === 'usps') {
+      setShippingprice(16.25);
+    } else if (selectedValue === 'dhl') {
+      setShippingprice(35.21);
+    } else if (selectedValue === 'usps-priority') {
+      setShippingprice(56.02);
+    } else if (selectedValue === 'usps-priority-mail') {
+      setShippingprice(58.02);
+    } else {
+      setShippingprice('free').toString();
+    }
   };
   const { cart } = useSelector((state) => state.product);
   const form = useForm();
@@ -51,12 +65,61 @@ function Checkout() {
   };
   valueF();
 
+  const [paymentValue, setPaymentValue] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('');
+
+  const handlePaymentValue = (event) => {
+    setPaymentValue(event.target.value);
+  };
+
+  const handleSelectedCountry = (event) => {
+    setSelectedCountry(event.target.value);
+  };
+
   const total = cart.reduce((a, c) => a + c.price * c.quantity, 0);
 
   //free shipping
   const freeShippingValue = 200000;
   const currentValue = cart.reduce((a, c) => a + c.price * c.quantity, 0);
+  //order
+  const [orderItems, setOrderItems] = useState([]);
+  const [shipping, setShipping] = useState({});
+  const [payment, setPayment] = useState({});
 
+  const handleOder = (data) => {
+    setOrderItems(
+      cart.map((item) => {
+        return {
+          name: item.name,
+          image: item.image,
+          price: item.price,
+          qty: item.quantity,
+        };
+      })
+    );
+    setShipping({
+      address: data.address,
+      city: data.city,
+      postalCode: data.postalCode,
+      country: selectedCountry,
+      method: selectedValue,
+    });
+
+    setPayment({
+      paymentMethod: paymentValue,
+    });
+    const orderData = {
+      orderItems: orderItems,
+      shipping: shipping,
+      payment: payment,
+      itemPrice: total,
+      taxPrice: 0,
+      shippingPrice: shippingprice,
+      totalPrice: shippingprice + total,
+    };
+    dispatch(createOrder(orderData));
+    console.log(orderData);
+  };
   return (
     <section className="container-checkout">
       <section className="checkout-container">
@@ -90,157 +153,175 @@ function Checkout() {
                 <Link to="/login">Login</Link>
               </li>
             </ul>
-            <Stack spacing={2} component="form">
-              <TextField
-                label="Email"
-                variant="outlined"
-                type="text"
-                name="email"
-                {...register('email', {
-                  required: {
-                    value: true,
-                    message: 'Please enter an email',
-                  },
-                  pattern: {
-                    value:
-                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                    message: 'Email is invalid',
-                  },
-                  validate: (fieldValue) => {
-                    return (
-                      fieldValue !== 'admin@gmail.com' ||
-                      'Enter a different email '
-                    );
-                  },
-                })}
-              />
-              {errors.email && (
-                <Alert severity="error">{errors.email.message}</Alert>
-              )}
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Email me with news and offers"
-                  {...register('EmailCheckBox')}
-                />
-              </FormGroup>
-              <SelectCountry />
-              <div className="names">
+            <form className="d-flex flex-column gap-2">
+              <Stack spacing={2} component="form">
                 <TextField
-                  label="First Name"
+                  label="Email"
                   variant="outlined"
                   type="text"
-                  name="fname"
-                  sx={{ width: '50%' }}
-                  {...register('FirstName', {
+                  name="email"
+                  {...register('email', {
                     required: {
                       value: true,
-                      message: 'Please enter first name',
+                      message: 'Please enter an email',
+                    },
+                    pattern: {
+                      value:
+                        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                      message: 'Email is invalid',
+                    },
+                    validate: (fieldValue) => {
+                      return (
+                        fieldValue !== 'admin@gmail.com' ||
+                        'Enter a different email '
+                      );
                     },
                   })}
                 />
-                {errors.FirstName && (
-                  <Alert severity="error">{errors.FirstName.message}</Alert>
+                {errors.email && (
+                  <Alert severity="error">{errors.email.message}</Alert>
                 )}
-
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Email me with news and offers"
+                    {...register('EmailCheckBox')}
+                  />
+                </FormGroup>
+                <SelectCountry
+                  handleSelectedCountry={handleSelectedCountry}
+                  selectedCountry={selectedCountry}
+                />
+                <div className="names">
+                  <div>
+                    <TextField
+                      label="First Name"
+                      variant="outlined"
+                      type="text"
+                      name="fname"
+                      sx={{ width: '50%', marginBottom: '1em' }}
+                      {...register('FirstName', {
+                        required: {
+                          value: true,
+                          message: 'Please enter first name',
+                        },
+                      })}
+                    />
+                    {errors.FirstName && (
+                      <Alert severity="error">{errors.FirstName.message}</Alert>
+                    )}
+                  </div>
+                  <div>
+                    <TextField
+                      label="Last Name"
+                      variant="outlined"
+                      type="text"
+                      name="lname"
+                      sx={{ width: '50%', marginBottom: '1em' }}
+                      {...register('lname', {
+                        required: {
+                          value: true,
+                          message: 'Please enter last name',
+                        },
+                      })}
+                    />
+                    {errors.lname && (
+                      <Alert severity="error">{errors.lname.message}</Alert>
+                    )}
+                  </div>
+                </div>
                 <TextField
-                  label="Last Name"
+                  label="Address"
                   variant="outlined"
                   type="text"
-                  name="lname"
-                  sx={{ width: '50%' }}
-                  {...register('lname', {
+                  name="address"
+                  {...register('address', {
                     required: {
                       value: true,
-                      message: 'Please enter last name',
+                      message: 'Please enter address',
                     },
                   })}
                 />
-                {errors.lname && (
-                  <Alert severity="error">{errors.lname.message}</Alert>
+                {errors.address && (
+                  <Alert severity="error">{errors.address.message}</Alert>
                 )}
-              </div>
-              <TextField
-                label="Address"
-                variant="outlined"
-                type="text"
-                name="address"
-                {...register('address', {
-                  required: {
-                    value: true,
-                    message: 'Please enter address',
-                  },
-                })}
-              />
-              {errors.address && (
-                <Alert severity="error">{errors.address.message}</Alert>
-              )}
-              <div className="names">
-                <div>
-                  <TextField
-                    label="Postal code"
-                    variant="outlined"
-                    type="text"
-                    name="postalCode"
-                    sx={{ width: '50%' }}
-                    {...register('postalCode', {
-                      required: {
-                        value: true,
-                        message: 'Please enter postal code',
-                      },
-                    })}
-                  />
-                  {errors.postalCode && (
-                    <Alert severity="error">{errors.postalCode.message}</Alert>
-                  )}
+                <div className="names">
+                  <div>
+                    <TextField
+                      label="Postal code"
+                      variant="outlined"
+                      type="text"
+                      name="postalCode"
+                      sx={{ width: '50%', marginBottom: '1em' }}
+                      {...register('postalCode', {
+                        required: {
+                          value: true,
+                          message: 'Please enter postal code',
+                        },
+                      })}
+                    />
+                    {errors.postalCode && (
+                      <Alert severity="error">
+                        {errors.postalCode.message}
+                      </Alert>
+                    )}
+                  </div>
+                  <div>
+                    <TextField
+                      label="City"
+                      variant="outlined"
+                      type="text"
+                      name="city"
+                      sx={{ width: '50%', marginBottom: '1em' }}
+                      {...register('city', {
+                        required: {
+                          value: true,
+                          message: 'Please enter city',
+                        },
+                      })}
+                    />
+                    {errors.city && (
+                      <Alert severity="error">{errors.city.message}</Alert>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <TextField
-                    label="City"
-                    variant="outlined"
-                    type="text"
-                    name="city"
-                    sx={{ width: '50%' }}
-                    {...register('city', {
-                      required: {
-                        value: true,
-                        message: 'Please enter city',
-                      },
-                    })}
-                  />
-                  {errors.city && (
-                    <Alert severity="error">{errors.city.message}</Alert>
-                  )}
-                </div>
-              </div>
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Save this information for next time"
-                  {...register('saveData')}
-                />
-              </FormGroup>
-            </Stack>
-            {isFill ? (
-              <ShiipingMethod
-                handleRadioChange={handleRadioChange}
-                selectedValue={selectedValue}
-              />
-            ) : (
-              <div className="enter-address">
-                <p>
-                  Enter your shipping address to view available shipping
-                  methods.
-                </p>
-              </div>
-            )}
 
-            <PaymentMethod />
-            <div className="mt-3 mb-5">
-              <button className="checkout-btn" type="button">
-                Complete Order
-              </button>
-            </div>
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Save this information for next time"
+                    {...register('saveData')}
+                  />
+                </FormGroup>
+              </Stack>
+              {isFill ? (
+                <ShiipingMethod
+                  handleRadioChange={handleRadioChange}
+                  selectedValue={selectedValue}
+                />
+              ) : (
+                <div className="enter-address">
+                  <p>
+                    Enter your shipping address to view available shipping
+                    methods.
+                  </p>
+                </div>
+              )}
+
+              <PaymentMethod
+                handlePaymentValue={handlePaymentValue}
+                paymentValue={paymentValue}
+              />
+              <div className="mt-3 mb-5">
+                <button
+                  className="checkout-btn"
+                  type="button"
+                  onClick={handleSubmit(handleOder)}
+                >
+                  Complete Order
+                </button>
+              </div>
+            </form>
             <div className="container-fluid checkout-footer">
               <Link to="#" className="icon-link3">
                 Refund policy
