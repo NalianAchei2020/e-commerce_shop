@@ -53,6 +53,10 @@ function App() {
     setPopup(false);
     navigate('/cart');
   };
+  const navigateToCheckout = () => {
+    setPopup(false);
+    navigate('/checkout');
+  };
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
     setPopup(true);
@@ -120,6 +124,7 @@ function App() {
         handleClosePopup={handleClosePopup}
         popup={popup}
         handleRouteToCart={handleRouteToCart}
+        navigateToCheckout={navigateToCheckout}
       />
       <Message
         wishMessage={wishMessage}

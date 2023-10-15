@@ -20,9 +20,15 @@ import SelectCountry from './home/select';
 
 import { addToCart, removeFromCart, removeItem } from '../redux/productSlice';
 
-function ShoppingCart({ popup, handleClosePopup, handleRouteToCart }) {
+function ShoppingCart({
+  popup,
+  handleClosePopup,
+  handleRouteToCart,
+  navigateToCheckout,
+}) {
   const form = useForm();
   const { register } = form;
+
   const { cart } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   //alert
@@ -51,6 +57,7 @@ function ShoppingCart({ popup, handleClosePopup, handleRouteToCart }) {
   const handleDeleteItem2 = (item) => {
     dispatch(removeItem(item));
   };
+
   return (
     <Drawer anchor="right" open={popup} onClose={handleClosePopup}>
       <Box spacing={2} role="presentation">
@@ -74,7 +81,7 @@ function ShoppingCart({ popup, handleClosePopup, handleRouteToCart }) {
                           alt="cartImage"
                           width={120}
                           height={100}
-                          loading='lazy'
+                          loading="lazy"
                         />
                       </div>
                     </Link>
@@ -283,7 +290,9 @@ function ShoppingCart({ popup, handleClosePopup, handleRouteToCart }) {
                   </li>
                 </ul>
                 <div className="btn-cart d-flex flex-column gap-4 mt-4 ">
-                  <button className="checkout-btn">Checkout Now</button>
+                  <button className="checkout-btn" onClick={navigateToCheckout}>
+                    Checkout Now
+                  </button>
                   <button
                     className="viewCart-btn btn-best "
                     onClick={handleRouteToCart}
