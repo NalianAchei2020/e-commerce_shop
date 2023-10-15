@@ -30,10 +30,10 @@ function Login() {
     dispatch(login(data));
   };
   useEffect(() => {
-    if (isLogin) {
-      //navigate('/');
+    if (username) {
+      navigate('/');
     }
-  }, [isLogin]);
+  }, [username]);
   return (
     <section className="container-fluid container-login">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">

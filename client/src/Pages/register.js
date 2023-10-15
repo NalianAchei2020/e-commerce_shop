@@ -10,7 +10,9 @@ import { registerUser } from '../redux/productSlice';
 function Register() {
   const dispatch = useDispatch();
 
-  const { message, registerError } = useSelector((state) => state.product);
+  const { message, registerError, username } = useSelector(
+    (state) => state.product
+  );
 
   const navigate = useNavigate();
   const form = useForm();
@@ -25,8 +27,8 @@ function Register() {
     dispatch(registerUser(data));
   };
   useEffect(() => {
-    if (message === 'User created') {
-      navigate('/login');
+    if (username) {
+      navigate('/');
     }
   }, [message]);
 
