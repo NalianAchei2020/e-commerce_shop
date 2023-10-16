@@ -38,7 +38,7 @@ function Checkout() {
       setShippingprice('free').toString();
     }
   };
-  const { cart } = useSelector((state) => state.product);
+  const { cart, username } = useSelector((state) => state.product);
   const form = useForm();
   const {
     register,
@@ -88,14 +88,9 @@ function Checkout() {
 
   const handleOder = (data) => {
     setOrderItems(
-      cart.map((item) => {
-        return {
-          name: item.name,
-          image: item.image,
-          price: item.price,
-          qty: item.quantity,
-        };
-      })
+      localStorage.getItem('cart')
+        ? JSON.parse(localStorage.getItem('cart'))
+        : []
     );
     setShipping({
       address: data.address,
@@ -110,6 +105,7 @@ function Checkout() {
     });
     const orderData = {
       orderItems: orderItems,
+      //user: username,
       shipping: shipping,
       payment: payment,
       itemPrice: total,
