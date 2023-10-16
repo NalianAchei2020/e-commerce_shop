@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
 
 function CarouselProduct({
   image,
@@ -23,7 +24,7 @@ function CarouselProduct({
       <div className="card">
         <div className="card-image">
           <Link to={`/product/${name}`} className="product-link">
-            <img src={image} alt={alt} />
+            <Image cloudName="sali-touch" publicId={image.public_id} />
           </Link>
         </div>
         <div className="card-body">

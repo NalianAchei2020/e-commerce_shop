@@ -39,7 +39,7 @@ export const createProduct = async (req, res, next) => {
       opts,
       folder: 'products',
     });
-    console.log(result);
+    //console.log(result);
     const product = new Product({
       name,
       category,

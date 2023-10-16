@@ -7,6 +7,7 @@ import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Image } from 'cloudinary-react';
 
 function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
   const [section, setSection] = useState('bestSeller-men');
@@ -54,17 +55,20 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
         <section className="women">
           <div className="row-container">
             {bestSeller.map((item) => (
-              <div className="card-container" key={item.id}>
+              <div className="card-container" key={item._id}>
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">
-                      <img src={item.image} alt={item.name} />
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                      />
                     </Link>
                   </div>
                   <div className="card-body">
                     <span>{item.brand}</span>
                     <h5 className="card-title">{item.name}</h5>
-                    <span className="text-center">{item.price} FCFA</span>
+                    <span className="text-center">${item.price}</span>
                     <Stack spacing={2}>
                       <div className="rating">
                         <Rating
@@ -127,13 +131,16 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">
-                      <img src={item.image} alt={item.name} />
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                      />
                     </Link>
                   </div>
                   <div className="card-body">
                     <span>{item.brand}</span>
                     <h5 className="card-title">{item.name}</h5>
-                    <span className="text-center">{item.price} FCFA</span>
+                    <span className="text-center">${item.price}</span>
                     <Stack spacing={2}>
                       <div className="rating">
                         <Rating
@@ -196,13 +203,16 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">
-                      <img src={item.image} alt={item.name} />
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                      />
                     </Link>
                   </div>
                   <div className="card-body">
                     <span>{item.brand}</span>
                     <h5 className="card-title">{item.name}</h5>
-                    <span className="text-center">{item.price} FCFA</span>
+                    <span className="text-center">${item.price}</span>
                     <Stack spacing={2}>
                       <div className="rating">
                         <Rating

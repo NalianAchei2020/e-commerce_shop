@@ -7,6 +7,7 @@ import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Image } from 'cloudinary-react';
 
 function NewArrivals({ handleAddToCart }) {
   const { product } = useSelector((state) => state.product);
@@ -20,7 +21,10 @@ function NewArrivals({ handleAddToCart }) {
             <Link to="/" className="product-link">
               <div className="card">
                 <div className="card-image">
-                  <img src={item.image} alt={item.name} />
+                  <Image
+                    cloudName="sali-touch"
+                    publicId={item.image.public_id}
+                  />
                 </div>
                 <div className="card-body">
                   <span>{item.brand}</span>
