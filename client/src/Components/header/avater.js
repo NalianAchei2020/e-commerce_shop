@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 
 function Avater() {
   const { username } = useSelector((state) => state.product);
-  const name = username.split('')[0].toUpperCase();
-
+  const name = username.name.split('')[0].toUpperCase();
+  console.log(username);
   return (
     <section>
       <Stack spacing={2} direction="row">
