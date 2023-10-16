@@ -159,7 +159,7 @@ function Header({ handlePopup }) {
               </Link>
             </li>
             <li className="nav-item">
-              {username ? (
+              {username.name ? (
                 <Link to="/profile">
                   <Avater />
                 </Link>
