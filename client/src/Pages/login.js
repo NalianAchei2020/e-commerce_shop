@@ -12,6 +12,7 @@ function Login() {
   const { message, loginError, username, isLogin } = useSelector(
     (state) => state.product
   );
+
   console.log(username);
   const navigate = useNavigate();
   const form = useForm();
@@ -30,7 +31,7 @@ function Login() {
     dispatch(login(data));
   };
   useEffect(() => {
-    if (username) {
+    if (username.name) {
       navigate('/');
     }
   }, [username]);

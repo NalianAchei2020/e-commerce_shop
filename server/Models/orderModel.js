@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema(
         name: { type: String, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
-        qty: { type: String, required: true },
+        quantity: { type: String, required: true },
         product: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Product',

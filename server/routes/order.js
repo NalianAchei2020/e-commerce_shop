@@ -8,10 +8,11 @@ import {
   getUserOrders,
   deleteOrder,
 } from '../Controller/order.js';
+import { verifiedToken, verifyUser } from '../utils/verifyToken.js';
 
 const orderRouter = express.Router();
 
-orderRouter.post('/', createOrder);
+orderRouter.post('/', verifiedToken, verifyUser, createOrder);
 orderRouter.put('/:id/deliver', isDelivered);
 orderRouter.put('/:id/paid', paidOrder);
 orderRouter.delete('/:id', deleteOrder);

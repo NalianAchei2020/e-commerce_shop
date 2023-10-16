@@ -16,7 +16,7 @@ const initialState = {
   isLogin: false,
   username: localStorage.getItem('username')
     ? JSON.parse(localStorage.getItem('username'))
-    : '',
+    : [],
   message: '',
 };
 
@@ -112,7 +112,15 @@ export const login = createAsyncThunk(
 );
 export const createOrder = createAsyncThunk('order/create', async (data) => {
   try {
-    const response = await axios.post(`${baseURL}/api/orders`, data);
+    const response = await axios({
+      method: 'POST',
+      url: `${baseURL}/api/orders`,
+      headers: {
+        contentType: 'application/json',
+      },
+      withCredentials: true,
+      data: data,
+    });
     return response.data;
   } catch (error) {
     throw new Error(error);
@@ -201,7 +209,8 @@ const productsSlice = createSlice({
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.message = action.payload.message;
-      state.username = action.payload.name;
+      state.username = action.payload;
+      localStorage.setItem('username', JSON.stringify(action.payload));
     });
     builder.addCase(registerUser.pending, (state) => {
       state.isLoading = true;
@@ -215,8 +224,8 @@ const productsSlice = createSlice({
       state.isLoading = false;
       state.isLogin = true;
       state.message = action.payload.message;
-      state.username = action.payload.name;
-      localStorage.setItem('username', JSON.stringify(action.payload.name));
+      state.username = action.payload;
+      localStorage.setItem('username', JSON.stringify(action.payload));
     });
     builder.addCase(login.pending, (state) => {
       state.isLoading = true;
