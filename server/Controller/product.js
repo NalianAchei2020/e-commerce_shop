@@ -27,6 +27,7 @@ export const createProduct = async (req, res, next) => {
     bestSeller,
     trending,
     newArrival,
+    featured,
   } = req.body;
   try {
     const opts = {
@@ -56,6 +57,7 @@ export const createProduct = async (req, res, next) => {
       bestSeller,
       trending,
       newArrival,
+      featured,
     });
     const createdProduct = await product.save();
     if (createdProduct) {
@@ -152,8 +154,13 @@ export const getProduct = async (req, res, next) => {
 
 // get all products
 export const getAllProducts = async (req, res, next) => {
-  const products = data.products;
-  res.send(products);
+  try {
+    const products = await Product.find();
+    res.send(products);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+    next(error);
+  }
 };
 
 //post a review

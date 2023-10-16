@@ -105,7 +105,7 @@ function Checkout() {
     });
     const orderData = {
       orderItems: orderItems,
-      //user: username,
+      user: username,
       shipping: shipping,
       payment: payment,
       itemPrice: total,

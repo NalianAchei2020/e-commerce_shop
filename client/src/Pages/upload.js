@@ -46,13 +46,20 @@ function Upload() {
   const bestSellerChecked = formData.bestSeller; // Get the value of the 'bestSeller' checkbox
   const newArrivalChecked = formData.newArrival; // Get the value of the 'newArrival' checkbox
   const trendingChecked = formData.trending;
+  const isfeaturedChecked = formData.featured;
   // Custom validation rule to check if at least one checkbox is checked
   const validateCheckbox = () => {
     const isBestSellerChecked = !!bestSellerChecked;
     const isNewArrivalChecked = !!newArrivalChecked;
     const isTrendingChecked = !!trendingChecked;
+    const isFeaturedChecked = !!isfeaturedChecked;
 
-    if (!isBestSellerChecked && !isNewArrivalChecked && !isTrendingChecked) {
+    if (
+      !isBestSellerChecked &&
+      !isNewArrivalChecked &&
+      !isTrendingChecked &&
+      !isFeaturedChecked
+    ) {
       // If none of the checkboxes are checked, return the error message
       return 'Please select at least one checkbox';
     }
@@ -258,6 +265,17 @@ function Upload() {
                 />
                 {errors.trending && (
                   <Alert severity="error">{errors.trending.message}</Alert>
+                )}
+                <FormControlLabel
+                  required
+                  control={<Checkbox />}
+                  label="featured"
+                  {...register('featured', {
+                    validate: validateCheckbox,
+                  })}
+                />
+                {errors.trending && (
+                  <Alert severity="error">{errors.featured.message}</Alert>
                 )}
               </FormGroup>
             </Stack>
