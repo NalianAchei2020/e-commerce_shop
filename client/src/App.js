@@ -27,6 +27,7 @@ import Blog from './Pages/blog';
 import Wishlist from './Pages/wishlist';
 import { addToWishlist, removeFromWishlist } from './redux/productSlice';
 import Message from './Components/wishlist/message';
+import Profile from './Pages/profile';
 
 function App() {
   const location = useLocation();
@@ -108,6 +109,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="/wishlist"
           element={

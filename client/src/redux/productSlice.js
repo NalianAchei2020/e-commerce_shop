@@ -17,6 +17,9 @@ const initialState = {
   username: localStorage.getItem('username')
     ? JSON.parse(localStorage.getItem('username'))
     : [],
+  orders: localStorage.getItem('orders')
+    ? JSON.parse(localStorage.getItem('orders'))
+    : [],
   message: '',
 };
 
@@ -120,6 +123,21 @@ export const createOrder = createAsyncThunk('order/create', async (data) => {
       },
       withCredentials: true,
       data: data,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+export const getUserOrder = createAsyncThunk('order/userOrder', async () => {
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: `${baseURL}/api/orders/mine`,
+      headers: {
+        contentType: 'application/json',
+      },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -243,6 +261,18 @@ const productsSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(createOrder.rejected, (state, action) => {
+      state.isLoading = false;
+      state.loginError = action.error.message;
+    });
+    //Get user order
+    builder.addCase(getUserOrder.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.orders = action.payload;
+    });
+    builder.addCase(getUserOrder.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getUserOrder.rejected, (state, action) => {
       state.isLoading = false;
       state.loginError = action.error.message;
     });

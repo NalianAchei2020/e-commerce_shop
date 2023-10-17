@@ -16,8 +16,8 @@ orderRouter.post('/', verifiedToken, verifyUser, createOrder);
 orderRouter.put('/:id/deliver', isDelivered);
 orderRouter.put('/:id/paid', paidOrder);
 orderRouter.delete('/:id', deleteOrder);
-orderRouter.get('/:id', getUserOder);
-orderRouter.get('/userOders', getUserOrders);
+orderRouter.get('/mine', verifiedToken, verifyUser, getUserOder);
+orderRouter.get('/userOders', verifiedToken, verifyUser, getUserOrders);
 orderRouter.get('/sunnary', orderSummary);
 
 export default orderRouter;

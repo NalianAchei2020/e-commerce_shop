@@ -20,7 +20,7 @@ export const verifiedToken = (req, res, next) => {
 };
 export const verifyUser = (req, res, next) => {
   verifiedToken(req, res, next, (err) => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.user._id === req.params._id || req.user.isAdmin) {
       next();
     } else {
       if (err) return next(createError('You are authorized'));
@@ -29,7 +29,7 @@ export const verifyUser = (req, res, next) => {
 };
 export const verifyAdmin = (req, res, next) => {
   verifiedToken(req, res, next, (err) => {
-    if (req.user.id === req.params.id && req.user.isAdmin) {
+    if (req.user._id === req.params._id && req.user.isAdmin) {
       next();
     } else {
       if (err) return next(createError('You are authorized'));

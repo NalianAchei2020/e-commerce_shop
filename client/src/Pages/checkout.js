@@ -11,6 +11,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
+import { Image } from 'cloudinary-react';
 import SelectCountry from '../Components/home/select';
 import ShiipingMethod from '../Components/checkout/shiipingMethod';
 import PaymentMethod from '../Components/checkout/paymentMethod';
@@ -343,9 +344,9 @@ function Checkout() {
                       <li>
                         <div className="d-flex flex-row gap-4 check-items">
                           <div className="check-imageContainer">
-                            <img
-                              src={item.image}
-                              alt={item.name}
+                            <Image
+                              cloudName="sali-touch"
+                              publicId={item.image.public_id}
                               className="check-image"
                             />
                           </div>
