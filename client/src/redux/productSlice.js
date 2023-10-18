@@ -150,11 +150,11 @@ const productsSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const existed = state.cart.find(
-        (product) => product.id === action.payload.id
+        (product) => product._id === action.payload._id
       );
       if (existed) {
         state.cart.forEach((product) => {
-          if (product.id === action.payload.id) {
+          if (product._id === action.payload._id) {
             product.quantity += 1;
           }
         });
@@ -166,12 +166,12 @@ const productsSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       const existed = state.cart.find(
-        (product) => product.id === action.payload.id
+        (product) => product._id === action.payload._id
       );
       if (existed) {
         state.cart = state.cart
           .map((item) =>
-            item.id === action.payload.id
+            item._id === action.payload._id
               ? { ...item, quantity: item.quantity - 1 }
               : item
           )
@@ -182,7 +182,7 @@ const productsSlice = createSlice({
     },
     removeItem: (state, action) => {
       state.cart = state.cart.filter(
-        (product) => product.id !== action.payload.id
+        (product) => product._id !== action.payload._id
       );
       localStorage.setItem('cart', JSON.stringify(state.cart));
       return state;

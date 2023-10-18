@@ -27,7 +27,7 @@ function Register() {
     dispatch(registerUser(data));
   };
   useEffect(() => {
-    if (username) {
+    if (username.name) {
       navigate('/');
     }
   }, [message]);
