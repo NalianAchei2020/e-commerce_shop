@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Pagination from '@mui/material/Pagination';
 import { useMediaQuery } from 'react-responsive';
+import { Image } from 'cloudinary-react';
 
 function BestSeller({ handleAddToCart }) {
   const { product } = useSelector((state) => state.product);
@@ -42,7 +43,10 @@ function BestSeller({ handleAddToCart }) {
               <div className="card">
                 <div className="card-image">
                   <Link to={`/product/${item.name}`} className="product-link">
-                    <img src={item.image} alt={item.name} />
+                    <Image
+                      cloudName="sali-touch"
+                      publicId={item.image.public_id}
+                    />
                   </Link>
                 </div>
                 <div className="card-body">

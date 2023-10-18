@@ -15,9 +15,9 @@ import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import { Tooltip } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
 import SelectCountry from './home/select';
-
 import { addToCart, removeFromCart, removeItem } from '../redux/productSlice';
 
 function ShoppingCart({
@@ -27,6 +27,7 @@ function ShoppingCart({
   navigateToCheckout,
 }) {
   const form = useForm();
+  const navigate = useNavigate();
   const { register } = form;
 
   const { cart } = useSelector((state) => state.product);
@@ -42,7 +43,7 @@ function ShoppingCart({
     setOpenTab(null);
   };
   //free shipping
-  const freeShippingValue = 200000;
+  const freeShippingValue = 1000;
   const currentValue = cart.reduce((a, c) => a + c.price * c.quantity, 0);
   const balance = freeShippingValue - currentValue;
 
@@ -56,6 +57,11 @@ function ShoppingCart({
   };
   const handleDeleteItem2 = (item) => {
     dispatch(removeItem(item));
+  };
+
+  const routeToProduct = (itemName) => {
+    navigate(`/product/${itemName}`);
+    handleClosePopup();
   };
 
   return (
@@ -73,23 +79,31 @@ function ShoppingCart({
             {cart.length ? (
               <div>
                 {cart.map((item) => (
-                  <div key={item.id} className="previewCart">
-                    <Link to={`/product/${item.name}`} className="product-link">
-                      <div className="previewCart-image">
-                        <img
-                          src={item.image}
-                          alt="cartImage"
-                          width={120}
-                          height={100}
-                          loading="lazy"
-                        />
-                      </div>
-                    </Link>
+                  <div key={item._id} className="previewCart">
+                    <div
+                      className="previewCart-image"
+                      onClick={() => {
+                        routeToProduct(item.name);
+                      }}
+                    >
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                        width={120}
+                        height={100}
+                      />
+                    </div>
                     <div className="previewCart-details">
-                      <Link to={`/product/${item.name}`} className="cart-link">
-                        <h5>{item.name}</h5>
-                      </Link>
-                      <span>{item.price} FCFA </span>
+                      <h5
+                        className="cart-link"
+                        onClick={() => {
+                          routeToProduct(item.name);
+                        }}
+                      >
+                        {item.name}
+                      </h5>
+
+                      <span>${item.price}</span>
                       <ul className="d-flex flex-row gap-3 justify-content-center align-center previewCart-list">
                         <li>
                           <RemoveIcon
@@ -159,7 +173,7 @@ function ShoppingCart({
                           ></div>
                         </div>
                         <div className="progress-bar-text">
-                          {balance} FCFA more to get free shipping
+                          ${balance} more to get free shipping
                         </div>
                       </div>
                     </div>
@@ -285,8 +299,8 @@ function ShoppingCart({
                     <h5>Sub Total</h5>
                   </li>
                   <li className="cart-price">
-                    {cart.reduce((a, c) => a + c.quantity, 0)} Items:{' '}
-                    {cart.reduce((a, c) => a + c.price * c.quantity, 0)} FCFA
+                    {cart.reduce((a, c) => a + c.quantity, 0)} Items: $
+                    {cart.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </li>
                 </ul>
                 <div className="btn-cart d-flex flex-column gap-4 mt-4 ">
