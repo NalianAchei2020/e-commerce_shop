@@ -18,3 +18,29 @@ export const createAdmin = async (req, res, next) => {
     next(err);
   }
 };
+
+//update user
+export const updateUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(401).send({
+        message: 'User Not Found',
+      });
+    } else {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.password = req.body.password || user.password;
+      const updateUser = await user.save();
+      res.send({
+        _id: updateUser._id,
+        name: updateUser.name,
+        email: updateUser.email,
+        isAdmin: updateUser.isAdmin,
+        token: generateToken(updateUser),
+      });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};

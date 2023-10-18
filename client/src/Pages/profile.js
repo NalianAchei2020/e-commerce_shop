@@ -16,11 +16,15 @@ function Profile() {
 
     formState: { errors },
   } = form;
-  const { orders } = useSelector((state) => state.product);
+  const { orders, username } = useSelector((state) => state.product);
   console.log(orders);
   useEffect(() => {
     dispatch(getUserOrder());
   }, [dispatch]);
+
+  const handleUpdate = (data) => {
+    console.log(data);
+  };
   return (
     <section className="container-fluid ">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -36,10 +40,14 @@ function Profile() {
         <div className="profile-info">
           <div className="form-container">
             <h3>User Profile</h3>
-            <form className="d-flex flex-column gap-4" onSubmit={handleSubmit}>
+            <form
+              className="d-flex flex-column gap-4"
+              onSubmit={handleSubmit(handleUpdate)}
+            >
               <TextField
-                label="User Name"
+                label="username"
                 variant="outlined"
+                value={username.name}
                 type="text"
                 name="name"
                 {...register('name', {

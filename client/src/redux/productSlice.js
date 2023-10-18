@@ -144,6 +144,22 @@ export const getUserOrder = createAsyncThunk('order/userOrder', async () => {
     throw new Error(error);
   }
 });
+export const updateUser = createAsyncThunk('user/update', async (data) => {
+  try {
+    const response = await axios({
+      method: 'PUT',
+      url: `${baseURL}/api/users/upddateuser`,
+      headers: {
+        contentType: 'application/json',
+      },
+      withCredentials: true,
+      data: data,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 const productsSlice = createSlice({
   name: 'products',
   initialState,
