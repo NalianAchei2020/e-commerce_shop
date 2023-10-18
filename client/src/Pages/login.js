@@ -9,7 +9,7 @@ import { login } from '../redux/productSlice';
 
 function Login() {
   const dispatch = useDispatch();
-  const { message, loginError, username, isLogin } = useSelector(
+  const { message, loginError, username } = useSelector(
     (state) => state.product
   );
 
