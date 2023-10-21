@@ -116,6 +116,9 @@ function Checkout() {
     };
     dispatch(createOrder(orderData));
     console.log(orderData);
+    /*setTimeout(() => {
+      localStorage.clear('cart');
+    }, 1000);*/
   };
   return (
     <section className="container-checkout">
@@ -413,13 +416,13 @@ function Checkout() {
                         ) : (
                           <span>
                             {selectedValue === 'usps' ? (
-                              <span>${total + 16.25}</span>
+                              <span>${(total + 16.25).toFixed(2)}</span>
                             ) : selectedValue === 'dhl' ? (
-                              <span>${total + 35.21}</span>
+                              <span>${(total + 35.21).toFixed(2)}</span>
                             ) : selectedValue === 'usps-priority' ? (
-                              <span>${total + 56.02}</span>
+                              <span>${(total + 56.02).toFixed(2)}</span>
                             ) : selectedValue === 'usps-priority-mail' ? (
-                              <span>${total + 58.02}</span>
+                              <span>${total + (58.02).toFixed(2)}</span>
                             ) : (
                               total
                             )}
