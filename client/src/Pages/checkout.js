@@ -83,16 +83,14 @@ function Checkout() {
   const freeShippingValue = 200000;
   const currentValue = cart.reduce((a, c) => a + c.price * c.quantity, 0);
   //order
-  const [orderItems, setOrderItems] = useState([]);
+  //const [orderItems, setOrderItems] = useState([]);
   const [shipping, setShipping] = useState({});
   const [payment, setPayment] = useState({});
 
   const handleOder = (data) => {
-    setOrderItems(
-      localStorage.getItem('cart')
-        ? JSON.parse(localStorage.getItem('cart'))
-        : []
-    );
+    const cartItems = localStorage.getItem('cart')
+      ? JSON.parse(localStorage.getItem('cart'))
+      : [];
     setShipping({
       address: data.address,
       city: data.city,
@@ -104,9 +102,15 @@ function Checkout() {
     setPayment({
       paymentMethod: paymentValue,
     });
+    const orderItems = cartItems.map((item) => ({
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      quantity: item.quantity,
+      product: item._id,
+    }));
     const orderData = {
       orderItems: orderItems,
-      user: username,
       shipping: shipping,
       payment: payment,
       itemPrice: total,
