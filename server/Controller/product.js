@@ -39,7 +39,7 @@ export const createProduct = async (req, res, next) => {
       opts,
       folder: 'products',
     });
-    //console.log(result);
+
     const product = new Product({
       name,
       category,
@@ -166,7 +166,7 @@ export const getAllProducts = async (req, res, next) => {
 //post a review
 export const postReview = async (req, res, next) => {
   try {
-    const product = data.products.find((x) => x._id === req.params.id);
+    const product = Product.findById(req.params.id);
     if (product) {
       const review = {
         rating: req.body.rating,
