@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useSelector } from 'react-redux';
+import { Image } from 'cloudinary-react';
 
 function Wishlist({ handleAddToCart, handleWishlist, wishList }) {
   const { wishlist } = useSelector((state) => state.product);
@@ -35,7 +36,10 @@ function Wishlist({ handleAddToCart, handleWishlist, wishList }) {
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">
-                      <img src={item.image} alt={item.name} />
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                      />
                     </Link>
                   </div>
                   <div className="card-body">
