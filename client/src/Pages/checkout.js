@@ -438,7 +438,7 @@ function Checkout() {
                   </ul>
                 </div>
               )}
-              <Paypal />
+              <Paypal total={total} />
             </section>
             <Cfooter />
           </section>
