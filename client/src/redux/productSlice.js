@@ -16,9 +16,8 @@ const initialState = {
   username: localStorage.getItem('username')
     ? JSON.parse(localStorage.getItem('username'))
     : [],
-  orders: localStorage.getItem('orders')
-    ? JSON.parse(localStorage.getItem('orders'))
-    : [],
+  orders: [],
+  usersOders: [],
   message: '',
 };
 
@@ -110,6 +109,7 @@ export const login = createAsyncThunk(
     }
   }
 );
+// create order
 export const createOrder = createAsyncThunk('order/create', async (data) => {
   try {
     const response = await axios({
@@ -126,6 +126,8 @@ export const createOrder = createAsyncThunk('order/create', async (data) => {
     throw new Error(error);
   }
 });
+
+// get user's orders
 export const getUserOrder = createAsyncThunk('order/userOrder', async () => {
   try {
     const response = await axios({
@@ -138,9 +140,31 @@ export const getUserOrder = createAsyncThunk('order/userOrder', async () => {
     });
     return response.data;
   } catch (error) {
-    throw new Error(error);
+    throw new Error('Sorry, something went wrong');
   }
 });
+
+// get all users' orders
+export const getAllUsersOrder = createAsyncThunk(
+  'order/allusersOrder',
+  async (id) => {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: `${baseURL}/api/orders/:${id}`,
+        headers: {
+          contentType: 'application/json',
+        },
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Sorry, something went wrong');
+    }
+  }
+);
+
+// update users
 export const updateUser = createAsyncThunk('user/update', async (data) => {
   try {
     const response = await axios({
@@ -154,7 +178,7 @@ export const updateUser = createAsyncThunk('user/update', async (data) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error(error);
+    throw new Error('Sorry, something went wrong');
   }
 });
 const productsSlice = createSlice({
@@ -287,6 +311,19 @@ const productsSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getUserOrder.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
+    // get all users' orders
+    builder.addCase(getAllUsersOrder.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.usersOders = action.payload;
+    });
+    builder.addCase(getAllUsersOrder.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getAllUsersOrder.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });

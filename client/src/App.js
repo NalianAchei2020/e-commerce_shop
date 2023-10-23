@@ -30,6 +30,8 @@ import { addToWishlist, removeFromWishlist } from './redux/productSlice';
 import Message from './Components/wishlist/message';
 import Profile from './Pages/profile';
 import { getPaypalClientID } from './hooks/getpaypal';
+import { getAllUsersOrder } from './redux/productSlice';
+import { get } from 'react-hook-form';
 
 function App() {
   const location = useLocation();
@@ -80,7 +82,6 @@ function App() {
   };
 
   const [paypalClientID, setPaypalClientID] = useState(null);
-  console.log(paypalClientID);
 
   useEffect(() => {
     const fetchPaypalClientID = async () => {
@@ -94,6 +95,9 @@ function App() {
 
     fetchPaypalClientID();
   }, []);
+  useEffect(() => {
+    dispatch(getAllUsersOrder);
+  }, [dispatch]);
 
   return (
     <div className="App">
