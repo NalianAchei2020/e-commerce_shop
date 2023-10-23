@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import Home from './Pages/home';
 import Header from './Components/header/header';
 import Upload from './Pages/upload';
@@ -28,6 +29,7 @@ import Wishlist from './Pages/wishlist';
 import { addToWishlist, removeFromWishlist } from './redux/productSlice';
 import Message from './Components/wishlist/message';
 import Profile from './Pages/profile';
+import { getPaypalClientID } from './hooks/getpaypal';
 
 function App() {
   const location = useLocation();
@@ -77,63 +79,81 @@ function App() {
     }
   };
 
+  const [paypalClientID, setPaypalClientID] = useState(null);
+  console.log(paypalClientID);
+
+  useEffect(() => {
+    const fetchPaypalClientID = async () => {
+      try {
+        const clientId = await getPaypalClientID();
+        setPaypalClientID(clientId);
+      } catch (error) {
+        throw new Error('Something Went Wrong');
+      }
+    };
+
+    fetchPaypalClientID();
+  }, []);
+
   return (
     <div className="App">
-      {!hideHeaderFooter && <Header handlePopup={handlePopup} />}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              popup={popup}
-              setPopup={setPopup}
-              handleWishlist={handleWishlist}
-              wishList={wishlist}
-            />
-          }
-        />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route
-          path="/shop"
-          element={<Shop handleAddToCart={handleAddToCart} />}
-        />
+      <PayPalScriptProvider options={{ 'client-id': paypalClientID }}>
+        {!hideHeaderFooter && <Header handlePopup={handlePopup} />}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                popup={popup}
+                setPopup={setPopup}
+                handleWishlist={handleWishlist}
+                wishList={wishlist}
+              />
+            }
+          />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route
+            path="/shop"
+            element={<Shop handleAddToCart={handleAddToCart} />}
+          />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/product/:slug"
-          element={<Product handleAddToCart={handleAddToCart} />}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/product/:slug"
+            element={<Product handleAddToCart={handleAddToCart} />}
+          />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/wishlist"
+            element={
+              <Wishlist
+                handleAddToCart={handleAddToCart}
+                wishList={wishlist}
+                handleWishlist={handleWishlist}
+              />
+            }
+          />
+          <Route path="/upload" element={<Upload />} />
+        </Routes>
+        {!hideHeaderFooter && <Footer />}
+        <ShoppingCart
+          handleClosePopup={handleClosePopup}
+          popup={popup}
+          handleRouteToCart={handleRouteToCart}
+          navigateToCheckout={navigateToCheckout}
         />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route
-          path="/wishlist"
-          element={
-            <Wishlist
-              handleAddToCart={handleAddToCart}
-              wishList={wishlist}
-              handleWishlist={handleWishlist}
-            />
-          }
+        <Message
+          wishMessage={wishMessage}
+          wishlist={wishlist}
+          setWishlist={setWishlist}
         />
-        <Route path="/upload" element={<Upload />} />
-      </Routes>
-      {!hideHeaderFooter && <Footer />}
-      <ShoppingCart
-        handleClosePopup={handleClosePopup}
-        popup={popup}
-        handleRouteToCart={handleRouteToCart}
-        navigateToCheckout={navigateToCheckout}
-      />
-      <Message
-        wishMessage={wishMessage}
-        wishlist={wishlist}
-        setWishlist={setWishlist}
-      />
+      </PayPalScriptProvider>
     </div>
   );
 }

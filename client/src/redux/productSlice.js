@@ -13,7 +13,6 @@ const initialState = {
   error: null,
   loginError: '',
   registerError: '',
-  isLogin: false,
   username: localStorage.getItem('username')
     ? JSON.parse(localStorage.getItem('username'))
     : [],
@@ -78,8 +77,7 @@ export const registerUser = createAsyncThunk(
         return { message: error.response.data.message };
       } else {
         return rejectWithValue({
-          message:
-            'Registration failed due to a server error. Please try again later.',
+          message: 'Sorry, something went wrong',
         });
       }
     }
@@ -106,8 +104,7 @@ export const login = createAsyncThunk(
         return { message: 'Wrong username or password!' };
       } else {
         return rejectWithValue({
-          message:
-            'Registration failed due to a server error. Please try again later.',
+          message: 'Sorry, something went wrong',
         });
       }
     }
@@ -228,6 +225,7 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //fetch products
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
       state.isLoading = false;
       state.product = action.payload;
@@ -278,7 +276,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(createOrder.rejected, (state, action) => {
       state.isLoading = false;
-      state.loginError = action.error.message;
+      state.error = action.error.message;
     });
     //Get user order
     builder.addCase(getUserOrder.fulfilled, (state, action) => {
@@ -290,7 +288,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(getUserOrder.rejected, (state, action) => {
       state.isLoading = false;
-      state.loginError = action.error.message;
+      state.error = action.error.message;
     });
   },
 });

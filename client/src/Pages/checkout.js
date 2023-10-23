@@ -18,6 +18,7 @@ import PaymentMethod from '../Components/checkout/paymentMethod';
 import Summary from '../Components/checkout/summary';
 import Cfooter from '../Components/checkout/Cfooter';
 import { createOrder } from '../redux/productSlice';
+import Paypal from '../Components/checkout/paypal';
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -437,6 +438,7 @@ function Checkout() {
                   </ul>
                 </div>
               )}
+              <Paypal />
             </section>
             <Cfooter />
           </section>

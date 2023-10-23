@@ -61,6 +61,9 @@ app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/products', productRouter);
 app.use('/api/views', viewsRouter);
+app.get('/api/paypal/clientId', (req, res) => {
+  res.send({ clientId: config.PAYPAL_CLIENT_ID });
+});
 
 app.listen(config.PORT, () => {
   console.log(`Server is running on port ${config.PORT}`);
