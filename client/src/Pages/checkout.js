@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tooltip } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton } from '@mui/material';
 import TextField from '@mui/material/TextField';
@@ -9,7 +9,7 @@ import Alert from '@mui/material/Alert';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { Image } from 'cloudinary-react';
 import SelectCountry from '../Components/home/select';
@@ -22,6 +22,7 @@ import Paypal from '../Components/checkout/paypal';
 
 function Checkout() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isFill, setIsFill] = useState(false);
   const [selectedValue, setSelectedValue] = useState('usps');
   const [shippingprice, setShippingprice] = useState(0);
@@ -121,25 +122,33 @@ function Checkout() {
       shippingPrice: shippingprice,
       totalPrice: shippingprice + total,
     };
-    const placeOrder = dispatch(createOrder(orderData));
-    if (!placeOrder) {
-      setError('Something went wrong');
+    if (orderData) {
+      const placeOrder = dispatch(createOrder(orderData));
+      if (!placeOrder) {
+        setError('Something went wrong');
+      } else {
+        console.log(errror);
+      }
     } else {
-      console.log(errror);
-      console.log(orderID);
+      setError('No data inserted');
     }
     if (paymentValue === 'paypal') {
       setShowPaypalBtn(true);
     } else {
       console.log(orderData);
     }
-    // console.log(orderData);
-    //console.log(orderID);
-
-    /*setTimeout(() => {
-      localStorage.clear('cart');
-    }, 1000);*/
   };
+  /*
+  useEffect(() => {
+    if (orderID) {
+      // Perform actions with the newly created order ID
+      console.log(orderID);
+    }
+  }, [orderID]);
+*/
+  if (cart.length === 0) {
+    navigate('/');
+  }
   return (
     <section className="container-checkout">
       <section className="checkout-container">

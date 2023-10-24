@@ -5,7 +5,7 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import Home from './Pages/home';
@@ -31,9 +31,9 @@ import Message from './Components/wishlist/message';
 import Profile from './Pages/profile';
 import { getPaypalClientID } from './hooks/getpaypal';
 import { getAllUsersOrder } from './redux/productSlice';
-import { get } from 'react-hook-form';
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const hideHeaderFooter = location.pathname.includes('/checkout');
@@ -42,8 +42,8 @@ function App() {
     localStorage.getItem('wishListState') || false
   );
   const [wishMessage, setWishMessage] = useState('');
+  const { orderID } = useSelector((state) => state.product);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
@@ -98,6 +98,13 @@ function App() {
   useEffect(() => {
     dispatch(getAllUsersOrder);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (orderID !== null && orderID !== undefined) {
+      // Perform actions with the newly created order ID
+      localStorage.setItem('orderID', JSON.stringify(orderID));
+    }
+  }, [orderID]);
 
   return (
     <div className="App">
