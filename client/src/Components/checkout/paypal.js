@@ -1,25 +1,46 @@
 import React, { useState } from 'react';
 import { PayPalButtons } from '@paypal/react-paypal-js';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { paidOrder } from '../../hooks/getpaypal';
+import axios from 'axios';
 
-function Paypal({ total }) {
-  const { usersOders } = useSelector((state) => state.product);
+function Paypal({ total, shippingPrice }) {
+  const { orderID } = useSelector((state) => state.product);
+  const navigate = useNavigate();
   const [isPaid, setIsPaid] = useState(false);
-  const [errMessage, setErrMessage] = useState('');
-  console.log(usersOders);
+  const [Message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
-  const handleApprove = (orderId) => {
-    const payment = paidOrder(orderId);
+  const paidOrder = async (data) => {
+    try {
+      const response = await axios({
+        method: 'PUT',
+        url: `http://localhost:8000/${orderID}/paid`,
+        headers: {
+          contentType: 'application/json',
+        },
+        withCredentials: true,
+        data: data,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const handleApprove = (data) => {
+    const payment = paidOrder(data);
     if (payment) {
       setIsPaid(true);
     } else {
-      setErrMessage(
+      setError(
         'Your payment was processed successfully. However, we are unable to fulfill your purchase. Please contact us at support.example@gmail.com for asssistance'
       );
+      console.log(error);
     }
     if (isPaid) {
-      setErrMessage('Payment successful');
+      setMessage('Payment successful');
+      console.log(Message);
     }
   };
   return (
@@ -32,7 +53,7 @@ function Paypal({ total }) {
               description: 'test',
               amount: {
                 currency_code: 'USD',
-                value: total,
+                value: total + shippingPrice,
               },
             },
           ],
@@ -42,7 +63,19 @@ function Paypal({ total }) {
         const order = await actions.order.capture();
         console.log('order:', order);
 
-        handleApprove(data.orderID);
+        handleApprove({
+          orderID: data.orderID,
+          payerID: data.payerID,
+          paymentID: data.paymentID,
+        });
+      }}
+      onCancel={() => {
+        setMessage('Do want really want to cancel?');
+        navigate('/cart');
+      }}
+      onError={(err) => {
+        setError(err);
+        console.log(err);
       }}
     />
   );
