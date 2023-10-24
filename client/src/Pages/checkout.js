@@ -25,6 +25,8 @@ function Checkout() {
   const [isFill, setIsFill] = useState(false);
   const [selectedValue, setSelectedValue] = useState('usps');
   const [shippingprice, setShippingprice] = useState(0);
+  const [errror, setError] = useState(null);
+  const [showPaypalBtn, setShowPaypalBtn] = useState(false);
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -40,7 +42,7 @@ function Checkout() {
       setShippingprice('free').toString();
     }
   };
-  const { cart, username } = useSelector((state) => state.product);
+  const { cart, orderID } = useSelector((state) => state.product);
   const form = useForm();
   const {
     register,
@@ -119,8 +121,21 @@ function Checkout() {
       shippingPrice: shippingprice,
       totalPrice: shippingprice + total,
     };
-    dispatch(createOrder(orderData));
-    console.log(orderData);
+    const placeOrder = dispatch(createOrder(orderData));
+    if (!placeOrder) {
+      setError('Something went wrong');
+    } else {
+      console.log(errror);
+      console.log(orderID);
+    }
+    if (paymentValue === 'paypal') {
+      setShowPaypalBtn(true);
+    } else {
+      console.log(orderData);
+    }
+    // console.log(orderData);
+    //console.log(orderID);
+
     /*setTimeout(() => {
       localStorage.clear('cart');
     }, 1000);*/
@@ -438,7 +453,9 @@ function Checkout() {
                   </ul>
                 </div>
               )}
-              <Paypal total={total} />
+              {showPaypalBtn && (
+                <Paypal total={total} shippingPrice={shippingprice} />
+              )}
             </section>
             <Cfooter />
           </section>

@@ -18,6 +18,7 @@ const initialState = {
     : [],
   orders: [],
   usersOders: [],
+  orderID: null,
   message: '',
 };
 
@@ -121,7 +122,8 @@ export const createOrder = createAsyncThunk('order/create', async (data) => {
       withCredentials: true,
       data: data,
     });
-    return response.data;
+    const result = await response.data;
+    return result;
   } catch (error) {
     throw new Error(error);
   }
@@ -294,6 +296,7 @@ const productsSlice = createSlice({
     builder.addCase(createOrder.fulfilled, (state, action) => {
       state.isLoading = false;
       state.message = action.payload.message;
+      state.orderID = action.payload.order._id;
     });
     builder.addCase(createOrder.pending, (state) => {
       state.isLoading = true;
