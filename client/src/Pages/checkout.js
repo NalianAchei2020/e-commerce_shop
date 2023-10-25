@@ -9,7 +9,7 @@ import Alert from '@mui/material/Alert';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { Image } from 'cloudinary-react';
 import SelectCountry from '../Components/home/select';
@@ -28,6 +28,7 @@ function Checkout() {
   const [shippingprice, setShippingprice] = useState(0);
   const [errror, setError] = useState(null);
   const [showPaypalBtn, setShowPaypalBtn] = useState(false);
+  //const [id, setId] = useState(null);
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -133,22 +134,24 @@ function Checkout() {
       setError('No data inserted');
     }
     if (paymentValue === 'paypal') {
-      setShowPaypalBtn(true);
+      //setShowPaypalBtn(true);
+      navigate('/payment');
     } else {
       console.log(orderData);
     }
   };
-  /*
-  useEffect(() => {
-    if (orderID) {
+
+  /* useEffect(() => {
+    if (showPaypalBtn) {
       // Perform actions with the newly created order ID
+      setId(orderID);
       console.log(orderID);
     }
   }, [orderID]);
-*/
+
   if (cart.length === 0) {
     navigate('/');
-  }
+  }*/
   return (
     <section className="container-checkout">
       <section className="checkout-container">
