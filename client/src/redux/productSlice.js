@@ -18,7 +18,10 @@ const initialState = {
     : [],
   orders: [],
   usersOders: [],
-  orderID: null,
+  orderItems: [],
+  paidOrder: localStorage.getItem('paidOrder')
+    ? JSON.parse(localStorage.getItem('paidOrder'))
+    : [],
   message: '',
 };
 
@@ -128,6 +131,28 @@ export const createOrder = createAsyncThunk('order/create', async (data) => {
     throw new Error(error);
   }
 });
+
+// pay for an order
+export const payCreateOrder = createAsyncThunk(
+  'order/pay',
+  async (id, data) => {
+    try {
+      const response = await axios({
+        method: 'PUT',
+        url: `${baseURL}/api/orders/${id}/paid`,
+        headers: {
+          contentType: 'application/json',
+        },
+        withCredentials: true,
+        data: data,
+      });
+      const result = await response.data;
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
 
 // get user's orders
 export const getUserOrder = createAsyncThunk('order/userOrder', async () => {
@@ -296,7 +321,7 @@ const productsSlice = createSlice({
     builder.addCase(createOrder.fulfilled, (state, action) => {
       state.isLoading = false;
       state.message = action.payload.message;
-      state.orderID = action.payload.order._id;
+      state.orderItems = action.payload.order;
     });
     builder.addCase(createOrder.pending, (state) => {
       state.isLoading = true;
@@ -322,6 +347,19 @@ const productsSlice = createSlice({
     builder.addCase(getAllUsersOrder.fulfilled, (state, action) => {
       state.isLoading = false;
       state.usersOders = action.payload;
+    });
+    builder.addCase(getAllUsersOrder.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getAllUsersOrder.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    // paid orders
+    builder.addCase(getAllUsersOrder.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.paidOrder = action.payload;
+      localStorage.setItem('paidOrder', JSON.stringify(action.payload));
     });
     builder.addCase(getAllUsersOrder.pending, (state) => {
       state.isLoading = true;
