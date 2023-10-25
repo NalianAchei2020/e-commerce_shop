@@ -31,6 +31,7 @@ import Message from './Components/wishlist/message';
 import Profile from './Pages/profile';
 import { getPaypalClientID } from './hooks/getpaypal';
 import { getAllUsersOrder } from './redux/productSlice';
+import Paypal from './Components/checkout/paypal';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function App() {
     localStorage.getItem('wishListState') || false
   );
   const [wishMessage, setWishMessage] = useState('');
-  const { orderID } = useSelector((state) => state.product);
+  //const { orderID } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchProduct());
@@ -99,12 +100,12 @@ function App() {
     dispatch(getAllUsersOrder);
   }, [dispatch]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (orderID !== null && orderID !== undefined) {
       // Perform actions with the newly created order ID
       localStorage.setItem('orderID', JSON.stringify(orderID));
     }
-  }, [orderID]);
+  }, [orderID]);*/
 
   return (
     <div className="App">
@@ -151,6 +152,7 @@ function App() {
             }
           />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/payment" element={<Paypal />} />
         </Routes>
         {!hideHeaderFooter && <Footer />}
         <ShoppingCart
