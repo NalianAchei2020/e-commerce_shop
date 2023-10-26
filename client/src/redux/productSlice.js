@@ -356,15 +356,15 @@ const productsSlice = createSlice({
       state.error = action.error.message;
     });
     // paid orders
-    builder.addCase(getAllUsersOrder.fulfilled, (state, action) => {
+    builder.addCase(payCreateOrder.fulfilled, (state, action) => {
       state.isLoading = false;
       state.paidOrder = action.payload;
       localStorage.setItem('paidOrder', JSON.stringify(action.payload));
     });
-    builder.addCase(getAllUsersOrder.pending, (state) => {
+    builder.addCase(payCreateOrder.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getAllUsersOrder.rejected, (state, action) => {
+    builder.addCase(payCreateOrder.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });

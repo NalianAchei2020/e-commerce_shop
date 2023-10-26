@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { PayPalButtons } from '@paypal/react-paypal-js';
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Tooltip } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { IconButton } from '@mui/material';
 import axios from 'axios';
 
 function Paypal({ total, shippingPrice }) {
@@ -10,7 +13,7 @@ function Paypal({ total, shippingPrice }) {
   const [isPaid, setIsPaid] = useState(false);
   const [Message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [paypalBtn, setPaypalBtn] = useState(false);
+  // const [paypalBtn, setPaypalBtn] = useState(false);
   // const [orderId, setOrderId] = useState('');
   //console.log(orderId);
 
@@ -20,6 +23,7 @@ function Paypal({ total, shippingPrice }) {
   //  : null;
 
   console.log(orderItems._id);
+  console.log(orderItems);
   const paidOrder = async (data) => {
     try {
       if (orderItems._id === null || orderItems._id === undefined) {
@@ -43,12 +47,7 @@ function Paypal({ total, shippingPrice }) {
       throw new Error(error);
     }
   };
-  useEffect(() => {
-    if (paypalBtn) {
-      handleApprove();
-      console.log(paypalBtn); // Log the order ID from Redux state
-    }
-  }, [paypalBtn]);
+
   const handleApprove = async (data) => {
     const payment = await paidOrder(data);
     if (payment) {
@@ -67,7 +66,25 @@ function Paypal({ total, shippingPrice }) {
   };
 
   return (
-    <div>
+    <section>
+      <div className="checkout-header d-flex flex-row justify-content-between">
+        <Link to="/" style={{ textDecoration: 'none', color: '#000' }}>
+          {' '}
+          <h2>SHOPEE</h2>
+        </Link>
+        <Link to="/cart" className="icon-link">
+          <Tooltip title="Cart">
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+              sx={{ color: '#000' }}
+            >
+              <ShoppingCartIcon />
+            </IconButton>
+          </Tooltip>
+        </Link>
+      </div>
       <button
         onClick={() =>
           handleApprove({
@@ -83,7 +100,6 @@ function Paypal({ total, shippingPrice }) {
       <br />
       <div>
         <PayPalButtons
-          onClick={() => setPaypalBtn(true)}
           style={{ color: 'blue', layout: 'horizontal', tagline: false }}
           createOrder={(data, actions) => {
             return actions.order.create({
@@ -119,7 +135,7 @@ function Paypal({ total, shippingPrice }) {
           }}
         />
       </div>
-    </div>
+    </section>
   );
 }
 

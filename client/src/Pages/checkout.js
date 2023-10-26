@@ -44,7 +44,7 @@ function Checkout() {
       setShippingprice('free').toString();
     }
   };
-  const { cart, orderID } = useSelector((state) => state.product);
+  const { cart, error } = useSelector((state) => state.product);
   const form = useForm();
   const {
     register,
@@ -124,20 +124,19 @@ function Checkout() {
       totalPrice: shippingprice + total,
     };
     if (orderData) {
-      const placeOrder = dispatch(createOrder(orderData));
-      if (!placeOrder) {
+      dispatch(createOrder(orderData));
+      if (error) {
         setError('Something went wrong');
+      }
+      if (paymentValue === 'paypal') {
+        setTimeout(() => {
+          navigate('/payment');
+        }, 2000);
       } else {
-        console.log(errror);
+        console.log(orderData);
       }
     } else {
       setError('No data inserted');
-    }
-    if (paymentValue === 'paypal') {
-      //setShowPaypalBtn(true);
-      navigate('/payment');
-    } else {
-      console.log(orderData);
     }
   };
 
@@ -464,9 +463,6 @@ function Checkout() {
                     </li>
                   </ul>
                 </div>
-              )}
-              {showPaypalBtn && (
-                <Paypal total={total} shippingPrice={shippingprice} />
               )}
             </section>
             <Cfooter />

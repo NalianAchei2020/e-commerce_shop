@@ -37,7 +37,10 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const hideHeaderFooter = location.pathname.includes('/checkout');
+  const hideHeaderFooter =
+    location.pathname.includes('/checkout') ||
+    location.pathname.includes('/payment');
+
   const [popup, setPopup] = useState(false);
   const [wishlist, setWishlist] = useState(
     localStorage.getItem('wishListState') || false
