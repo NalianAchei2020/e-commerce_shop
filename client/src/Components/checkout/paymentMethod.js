@@ -20,11 +20,13 @@ function PaymentMethod({ handlePaymentValue, paymentValue }) {
           >
             <article
               className={`d-flex flex-row justify-content-between ${
-                paymentValue === 'cod' ? 'active-method' : 'payment'
+                paymentValue === 'Cash on Delivery'
+                  ? 'active-method'
+                  : 'payment'
               }`}
             >
               <FormControlLabel
-                value="cod"
+                value="Cash on Delivery"
                 control={<Radio />}
                 label="Cash on Delivery (COD)"
               />
