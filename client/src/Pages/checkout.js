@@ -89,24 +89,26 @@ function Checkout() {
   const currentValue = cart.reduce((a, c) => a + c.price * c.quantity, 0);
   //order
   //const [orderItems, setOrderItems] = useState([]);
-  const [shipping, setShipping] = useState({});
-  const [payment, setPayment] = useState({});
+  //const [shipping, setShipping] = useState({});
+  // const [payment, setPayment] = useState({});
 
   const handleOder = (data) => {
     const cartItems = localStorage.getItem('cart')
       ? JSON.parse(localStorage.getItem('cart'))
       : [];
-    setShipping({
+
+    const shipping = {
       address: data.address,
       city: data.city,
       postalCode: data.postalCode,
       country: selectedCountry,
       method: selectedValue,
-    });
+    };
 
-    setPayment({
+    const payment = {
       paymentMethod: paymentValue,
-    });
+    };
+
     const orderItems = cartItems.map((item) => ({
       name: item.name,
       image: item.image,
@@ -131,7 +133,7 @@ function Checkout() {
       if (paymentValue === 'paypal') {
         setTimeout(() => {
           navigate('/payment');
-        }, 2000);
+        }, 1000);
       } else {
         console.log(orderData);
       }

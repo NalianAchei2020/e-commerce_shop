@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton } from '@mui/material';
 import axios from 'axios';
+import { Image } from 'cloudinary-react';
 
 function Paypal({ total, shippingPrice }) {
   const { orderItems } = useSelector((state) => state.product);
@@ -17,10 +18,8 @@ function Paypal({ total, shippingPrice }) {
   // const [orderId, setOrderId] = useState('');
   //console.log(orderId);
 
-  //const orderId = localStorage.getItem('orderID')
-  //  ? JSON.parse(localStorage.getItem('orderID'))
-
-  //  : null;
+  const orderItem = localStorage.getItem('orderItems');
+  console.log(orderItem);
 
   console.log(orderItems._id);
   console.log(orderItems);
@@ -85,56 +84,131 @@ function Paypal({ total, shippingPrice }) {
           </Tooltip>
         </Link>
       </div>
-      <button
-        onClick={() =>
-          handleApprove({
-            orderID: '7X129950C7671193E',
-            payerID: 'JZYTUZCTH54DE',
-            paymentID: '4FU05979X8614812R',
-          })
-        }
-      >
-        Pay
-      </button>
-      <br />
-      <br />
-      <div>
-        <PayPalButtons
-          style={{ color: 'blue', layout: 'horizontal', tagline: false }}
-          createOrder={(data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  description: 'test',
-                  amount: {
-                    currency_code: 'USD',
-                    //value: (total + shippingPrice).toFixed(2),
-                    value: 10,
-                  },
-                },
-              ],
-            });
-          }}
-          onApprove={async (data, actions) => {
-            const order = await actions.order.capture();
-            console.log('order:', order);
+      <section className="checkout-container2">
+        <div className="checkout-form">
+          <div className="info">
+            <ul>
+              <h5>Order</h5>
+              <li className="d-flex flex-row gap-2">
+                <h6>OrderID:</h6>
+                <h6>{orderItems._id}</h6>
+              </li>
+            </ul>
 
-            handleApprove({
-              orderID: data.orderID,
-              payerID: data.payerID,
-              paymentID: data.paymentID,
-            });
-          }}
-          onCancel={() => {
-            setMessage('Do want really want to cancel?');
-            navigate('/cart');
-          }}
-          onError={(err) => {
-            setError(err);
-            console.log(err);
-          }}
-        />
-      </div>
+            <ul lassName="d-flex flex-row gap-2">
+              <h5>Shipping</h5>
+              <li className="d-flex flex-row gap-2">
+                <h6>Address:</h6>
+                <h6 className="mt-1">{orderItems?.shipping?.address}</h6>
+              </li>
+              <li className="d-flex flex-row gap-2">
+                <h6>City:</h6>
+                <h6 className="mt-1">{orderItems?.shipping?.city}</h6>
+              </li>
+              <li className="d-flex flex-row gap-2">
+                <h6>Country:</h6>
+                <h6 className="mt-1">{orderItems?.shipping?.country}</h6>
+              </li>
+              <li className="d-flex flex-row gap-2">
+                <h6>Postal Code:</h6>
+                <h6 className="mt-1">{orderItems?.shipping?.postalCode}</h6>
+              </li>
+            </ul>
+            <ul>
+              <h5>Payment</h5>
+
+              <li className="d-flex flex-row gap-2">
+                <h6>Payment Method:</h6>
+                <h6>{orderItems?.payment?.paymentMethod}</h6>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="checkout-cart-wrapper">
+          <div className="checkout-cart ">
+            <h4 className="mb-3">Order summary</h4>
+            {orderItems?.orderItems?.map((item) => (
+              <ul key={item.id}>
+                <li>
+                  <div className="d-flex flex-row gap-4 check-items">
+                    <div className="check-imageContainer">
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                        className="check-image"
+                      />
+                    </div>
+                    <span>{item.name}</span>
+                    <span className="check-qty">{item.quantity}</span>
+                  </div>
+                  <div>
+                    <span>${item.price}</span>
+                  </div>
+                </li>
+                <li>
+                  <h6>Shipping</h6>
+                  {orderItems.shippingPrice === 0
+                    ? 'Free'
+                    : orderItems.shippingPrice}
+                </li>
+                <li>
+                  <h6>Total</h6>
+                  <h6>${orderItems?.totalPrice}</h6>
+                </li>
+                <li>
+                  <h5>Click the button below to complete your payment</h5>
+                </li>
+              </ul>
+            ))}
+            <div>
+              <PayPalButtons
+                style={{
+                  size: 'small',
+                  height: 48,
+                  borderRadius: 10,
+                  label: 'pay',
+                  shape: 'rect',
+                  color: 'blue',
+                  layout: 'horizontal',
+                  tagline: false,
+                }}
+                createOrder={(data, actions) => {
+                  return actions.order.create({
+                    purchase_units: [
+                      {
+                        description: 'test',
+                        amount: {
+                          currency_code: 'USD',
+                          //value: (total + shippingPrice).toFixed(2),
+                          value: 10,
+                        },
+                      },
+                    ],
+                  });
+                }}
+                onApprove={async (data, actions) => {
+                  const order = await actions.order.capture();
+                  console.log('order:', order);
+
+                  handleApprove({
+                    orderID: data.orderID,
+                    payerID: data.payerID,
+                    paymentID: data.paymentID,
+                  });
+                }}
+                onCancel={() => {
+                  setMessage('Do want really want to cancel?');
+                  navigate('/cart');
+                }}
+                onError={(err) => {
+                  setError(err);
+                  console.log(err);
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
   );
 }
