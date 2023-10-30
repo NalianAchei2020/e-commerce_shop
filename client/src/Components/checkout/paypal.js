@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import { useSelector } from 'react-redux';
 import { Tooltip } from '@mui/material';
@@ -14,19 +14,11 @@ function Paypal({ total, shippingPrice }) {
   const [isPaid, setIsPaid] = useState(false);
   const [Message, setMessage] = useState('');
   const [error, setError] = useState('');
-  // const [paypalBtn, setPaypalBtn] = useState(false);
-  // const [orderId, setOrderId] = useState('');
-  //console.log(orderId);
 
-  const orderItem = localStorage.getItem('orderItems');
-  console.log(orderItem);
-
-  console.log(orderItems._id);
-  console.log(orderItems);
   const paidOrder = async (data) => {
     try {
       if (orderItems._id === null || orderItems._id === undefined) {
-        console.log('No order ID found');
+        setError('No order ID found');
         return;
       } else {
         const response = await axios({
@@ -39,8 +31,7 @@ function Paypal({ total, shippingPrice }) {
           data: data,
         });
 
-        //return response.data;
-        console.log(response.data);
+        return response.data;
       }
     } catch (error) {
       throw new Error(error);
@@ -55,12 +46,13 @@ function Paypal({ total, shippingPrice }) {
       setError(
         'Your payment was processed successfully. However, we are unable to fulfill your purchase. Please contact us at support.example@gmail.com for asssistance'
       );
-      console.log(error);
     }
 
     if (isPaid) {
       setMessage('Payment successful');
-      console.log(Message);
+      setTimeout(() => {
+        navigate('/profile');
+      }, 1500);
     }
   };
 
@@ -179,8 +171,7 @@ function Paypal({ total, shippingPrice }) {
                         description: 'test',
                         amount: {
                           currency_code: 'USD',
-                          //value: (total + shippingPrice).toFixed(2),
-                          value: 10,
+                          value: (total + shippingPrice).toFixed(2),
                         },
                       },
                     ],
@@ -202,7 +193,6 @@ function Paypal({ total, shippingPrice }) {
                 }}
                 onError={(err) => {
                   setError(err);
-                  console.log(err);
                 }}
               />
             </div>

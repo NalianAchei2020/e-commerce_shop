@@ -17,14 +17,12 @@ function Profile() {
     formState: { errors },
   } = form;
   const { orders, username } = useSelector((state) => state.product);
-  console.log(orders);
+
   useEffect(() => {
     dispatch(getUserOrder());
   }, [dispatch]);
 
-  const handleUpdate = (data) => {
-    console.log(data);
-  };
+  const handleUpdate = (data) => {};
   return (
     <section className="container-fluid ">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -121,16 +119,16 @@ function Profile() {
             <tbody>
               {orders.length === 0 ? (
                 <tr>
-                  <td colspan="6">No Order Found.</td>
+                  <td colSpan="6">No Order Found.</td>
                 </tr>
               ) : (
                 orders.map((order) => (
                   <tr>
                     <td>{order._id}</td>
                     <td>{order.createdAt}</td>
-                    <td>{order.totalPrice}</td>
-                    <td>{order.paidAt || 'No'}</td>
-                    <td>{order.deliveryAt || 'No'}</td>
+                    <td>$ {order.totalPrice}</td>
+                    <td>{order.paidAt ? 'YES' : 'No'}</td>
+                    <td>{order.deliveryAt ? 'YES' : 'No'}</td>
                     <td>
                       <a href="/#/order/${order._id}">DETIALS</a>{' '}
                     </td>

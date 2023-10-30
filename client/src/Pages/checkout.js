@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Tooltip } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -18,7 +18,6 @@ import PaymentMethod from '../Components/checkout/paymentMethod';
 import Summary from '../Components/checkout/summary';
 import Cfooter from '../Components/checkout/Cfooter';
 import { createOrder } from '../redux/productSlice';
-import Paypal from '../Components/checkout/paypal';
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -27,8 +26,6 @@ function Checkout() {
   const [selectedValue, setSelectedValue] = useState('usps');
   const [shippingprice, setShippingprice] = useState(0);
   const [errror, setError] = useState(null);
-  const [showPaypalBtn, setShowPaypalBtn] = useState(false);
-  //const [id, setId] = useState(null);
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -88,9 +85,6 @@ function Checkout() {
   const freeShippingValue = 200000;
   const currentValue = cart.reduce((a, c) => a + c.price * c.quantity, 0);
   //order
-  //const [orderItems, setOrderItems] = useState([]);
-  //const [shipping, setShipping] = useState({});
-  // const [payment, setPayment] = useState({});
 
   const handleOder = (data) => {
     const cartItems = localStorage.getItem('cart')
@@ -135,24 +129,13 @@ function Checkout() {
           navigate('/payment');
         }, 1000);
       } else {
-        console.log(orderData);
+        navigate('/profile');
       }
     } else {
       setError('No data inserted');
     }
   };
 
-  /* useEffect(() => {
-    if (showPaypalBtn) {
-      // Perform actions with the newly created order ID
-      setId(orderID);
-      console.log(orderID);
-    }
-  }, [orderID]);
-
-  if (cart.length === 0) {
-    navigate('/');
-  }*/
   return (
     <section className="container-checkout">
       <section className="checkout-container">
