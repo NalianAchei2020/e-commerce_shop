@@ -18,7 +18,9 @@ const initialState = {
     : [],
   orders: [],
   usersOders: [],
-  orderItems: [],
+  orderItems: localStorage.getItem('orderItems')
+    ? JSON.parse(localStorage.getItem('orderItems'))
+    : [],
   paidOrder: localStorage.getItem('paidOrder')
     ? JSON.parse(localStorage.getItem('paidOrder'))
     : [],
@@ -322,6 +324,7 @@ const productsSlice = createSlice({
       state.isLoading = false;
       state.message = action.payload.message;
       state.orderItems = action.payload.order;
+      localStorage.setItem('orderItems', JSON.stringify(action.payload.order));
     });
     builder.addCase(createOrder.pending, (state) => {
       state.isLoading = true;
