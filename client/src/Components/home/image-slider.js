@@ -9,12 +9,12 @@ const images = [
     text: 'Men Footwear shoes',
   },
   {
-    url: 'Images/banner/banner-1.png',
+    url: 'Images/banner/ban2.png',
     text: 'Women Fashion. High Heels Closeup',
   },
   {
-    url: 'Images/banner/banner-2.png',
-    text: 'Best Shoes For Kids',
+    url: 'Images/banner/ban3.png',
+    text: 'Best Shoes to enjoy your summer',
   },
 ];
 

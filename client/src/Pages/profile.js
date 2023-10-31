@@ -17,7 +17,7 @@ function Profile() {
     formState: { errors },
   } = form;
   const { orders, username } = useSelector((state) => state.product);
-
+  console.log(orders);
   useEffect(() => {
     dispatch(getUserOrder());
   }, [dispatch]);

@@ -1,127 +1,161 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
 import { getUserOrder } from '../redux/productSlice';
 
 function OrderDetail() {
   const { id } = useParams();
-  console.log(id);
   const dispatch = useDispatch();
-  const { orders, username } = useSelector((state) => state.product);
-
+  const navigate = useNavigate();
+  console.log(id);
   useEffect(() => {
     dispatch(getUserOrder());
+    console.log(dispatch(getUserOrder()));
+    console.log('useEffect');
   }, [dispatch]);
+  const { orders, username } = useSelector((state) => state.product);
+  console.log(orders);
+
   const selectedOrder = orders.find((order) => order._id === id);
   console.log(selectedOrder);
-  const {
-    shipping,
-    payment,
-    itemsPrice,
-    shippingPrice,
-    taxPrice,
-    totalPrice,
-    orderItems,
-    isDelivered,
-    deliveredAt,
-    isPaid,
-    paidAt,
-  } = selectedOrder;
+
   const isAdmin = username.isAdmin;
 
   return (
     <section>
-      <div class="order">
-        <div class="order-info">
-          <div>
-            <h2>Shipping</h2>
-            <div>
-              ${shipping.address}, ${shipping.city}, ${shipping.postalCode}, $
-              {shipping.country}
-            </div>
-            $
-            {isDelivered ? (
-              `<div class="success">
-        Delivered at ${deliveredAt}</div>`
-            ) : (
-              <div class="error">Not Delivered</div>
-            )}
-            ;
-          </div>
+      <section className="checkout-container2">
+        <div className="checkout-form">
+          <div className="info">
+            <ul>
+              <h5>Order</h5>
+              <li className="d-flex flex-row gap-2">
+                <h6>OrderID:</h6>
+                <h6>{selectedOrder?._id}</h6>
+              </li>
+            </ul>
 
-          <div>
-            <h2>Payment</h2>
-            <div>Payment Method: ${payment.paymentMethod}</div>$
-            {isPaid
-              ? `<div class="success">
-        Paid at ${paidAt}</div>`
-              : `<div class="error">Not Paid</div>`}
-            ;
-          </div>
+            <ul lassName="d-flex flex-row gap-2">
+              <h5>Shipping</h5>
+              <li className="d-flex flex-row gap-2">
+                <h6>Address:</h6>
+                <h6 className="mt-1">{selectedOrder?.shipping?.address}</h6>
+              </li>
+              <li className="d-flex flex-row gap-2">
+                <h6>City:</h6>
+                <h6 className="mt-1">{selectedOrder?.shipping?.city}</h6>
+              </li>
+              <li className="d-flex flex-row gap-2">
+                <h6>Country:</h6>
+                <h6 className="mt-1">{selectedOrder?.shipping?.country}</h6>
+              </li>
+              <li className="d-flex flex-row gap-2">
+                <h6>Postal Code:</h6>
+                <h6 className="mt-1">{selectedOrder?.shipping?.postalCode}</h6>
+              </li>
+            </ul>
+            <ul>
+              <h5>Payment</h5>
 
-          <div>
-            <div>
-              <ul class="cart-list-container">
-                <li>
-                  <h2>Shopping Cart</h2>
-                  <div>Price</div>
-                </li>
-                {orderItems.map((item) => (
-                  <li key={item.id}>
-                    <div class="cart-image">
-                      <img src={item.image} alt={item.name} />
-                    </div>
-                    <div class="cart-name">
-                      <div>
-                        <a href={`/product/${item.product}`}>{item.name}</a>
+              <li className="d-flex flex-row gap-2">
+                <h6>Payment Method:</h6>
+                <h6>{selectedOrder?.payment?.paymentMethod}</h6>
+              </li>
+              <li className="d-flex flex-row gap-2">
+                <h6>Payment Status: </h6>
+                <h6>{selectedOrder?.isPaid ? 'Paid' : 'Not paid'}</h6>
+              </li>
+              <li className="d-flex flex-row gap-2">
+                <h6>Delivered:</h6>
+                <h6>{selectedOrder.isDelivered ? 'Yes' : 'No'}</h6>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="checkout-cart-wrapper">
+          <div className="checkout-cart ">
+            <h4 className="mb-3">Order summary</h4>
+            {Array.isArray(selectedOrder?.orderItems) &&
+            selectedOrder?.orderItems.length > 0 ? (
+              <div>
+                {selectedOrder?.orderItems?.map((item) => (
+                  <ul key={item.id}>
+                    <li>
+                      <div className="d-flex flex-row gap-4 check-items">
+                        <div className="check-imageContainer">
+                          <Image
+                            cloudName="sali-touch"
+                            publicId={item.image.public_id}
+                            className="check-image"
+                          />
+                        </div>
+                        <span>{item.name}</span>
+                        <span className="check-qty">{item.quantity}</span>
                       </div>
-                      <div>Qty: {item.qty}</div>
-                    </div>
-                    <div class="cart-price">${item.price}</div>
-                  </li>
+                      <div>
+                        <span>${item.price}</span>
+                      </div>
+                    </li>
+                    <li>
+                      <h6>Shipping</h6>
+                      {selectedOrder.shippingPrice === 0
+                        ? 'Free'
+                        : selectedOrder.shippingPrice}
+                    </li>
+                    <li>
+                      <h6>Total</h6>
+                      <h6>${selectedOrder?.totalPrice}</h6>
+                    </li>
+                    <li></li>
+                  </ul>
                 ))}
-              </ul>
-            </div>
+                <div>
+                  {selectedOrder.isDelivered &&
+                  selectedOrder.isPaid &&
+                  username.isAdmin ? (
+                    <button
+                      className="checkout-btn"
+                      type="button"
+                      onClick={() => {
+                        navigate('/admin');
+                      }}
+                    >
+                      Deliver
+                    </button>
+                  ) : (
+                    <div>
+                      {selectedOrder.isPaid ? (
+                        <button
+                          className="checkout-btn"
+                          type="button"
+                          onClick={() => {
+                            navigate('/');
+                          }}
+                        >
+                          Go Shopping
+                        </button>
+                      ) : (
+                        <button
+                          className="checkout-btn"
+                          type="button"
+                          onClick={() => {
+                            navigate('/payment');
+                          }}
+                        >
+                          Complete Payment
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <p>No data found</p>
+            )}
+            <div></div>
           </div>
         </div>
-
-        <div class="order-action">
-          <ul>
-            <li>
-              <h2>Order Summary</h2>
-            </li>
-            <li>
-              <div>Items</div>
-              <div>${itemsPrice}</div>
-            </li>
-            <li>
-              <div>Shipping</div>
-              <div>${shippingPrice}</div>
-            </li>
-            <li>
-              <div>Tax</div>
-              <div>$${taxPrice}</div>
-            </li>
-            <li class="total">
-              <div>Order Total</div>
-              <div>$${totalPrice}</div>
-            </li>
-            <li>
-              <div class="fw" id="paypal-button"></div>
-            </li>
-            <li>
-              $
-              {isPaid && !isDelivered && isAdmin ? (
-                <button id="deliver-order-button" class="primary fw">
-                  Deliver Order
-                </button>
-              ) : (
-                ''
-              )}
-            </li>
-          </ul>
-        </div>
-      </div>
+      </section>
     </section>
   );
 }

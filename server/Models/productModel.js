@@ -18,7 +18,6 @@ const reviewSchema = new mongoose.Schema(
 
 const productSchema = new mongoose.Schema(
   {
-    _id: { type: String },
     name: { type: String, required: [true, 'Please add product name'] },
     description: {
       type: String,
