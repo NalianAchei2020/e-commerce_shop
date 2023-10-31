@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserOrder } from '../redux/productSlice';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
+import { getUserOrder } from '../redux/productSlice';
 
 function Profile() {
   const dispatch = useDispatch();
@@ -130,7 +130,7 @@ function Profile() {
                     <td>{order.paidAt ? 'YES' : 'No'}</td>
                     <td>{order.deliveryAt ? 'YES' : 'No'}</td>
                     <td>
-                      <a href="/#/order/${order._id}">DETIALS</a>{' '}
+                      <a href={`/order/${order._id}`}>DETIALS</a>{' '}
                     </td>
                   </tr>
                 ))
