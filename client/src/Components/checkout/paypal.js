@@ -7,12 +7,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton } from '@mui/material';
 import axios from 'axios';
 import { Image } from 'cloudinary-react';
-
+import Message from '../checkout/message';
+import Error from '../checkout/error';
 function Paypal({ total, shippingPrice }) {
   const { orderItems } = useSelector((state) => state.product);
   const navigate = useNavigate();
   const [isPaid, setIsPaid] = useState(false);
-  const [Message, setMessage] = useState('');
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
   const paidOrder = async (data) => {
@@ -76,6 +77,8 @@ function Paypal({ total, shippingPrice }) {
           </Tooltip>
         </Link>
       </div>
+      <Message message={message} setMessage={setMessage} />
+      <Error setError={setError} error={error} />
       <section className="checkout-container2">
         <div className="checkout-form">
           <div className="info">
@@ -119,39 +122,46 @@ function Paypal({ total, shippingPrice }) {
         <div className="checkout-cart-wrapper">
           <div className="checkout-cart ">
             <h4 className="mb-3">Order summary</h4>
-            {orderItems?.orderItems?.map((item) => (
-              <ul key={item.id}>
-                <li>
-                  <div className="d-flex flex-row gap-4 check-items">
-                    <div className="check-imageContainer">
-                      <Image
-                        cloudName="sali-touch"
-                        publicId={item.image.public_id}
-                        className="check-image"
-                      />
-                    </div>
-                    <span>{item.name}</span>
-                    <span className="check-qty">{item.quantity}</span>
-                  </div>
-                  <div>
-                    <span>${item.price}</span>
-                  </div>
-                </li>
-                <li>
-                  <h6>Shipping</h6>
-                  {orderItems.shippingPrice === 0
-                    ? 'Free'
-                    : orderItems.shippingPrice}
-                </li>
-                <li>
-                  <h6>Total</h6>
-                  <h6>${orderItems?.totalPrice}</h6>
-                </li>
-                <li>
-                  <h5>Click the button below to complete your payment</h5>
-                </li>
-              </ul>
-            ))}
+            {Array.isArray(orderItems.orderItems) &&
+            orderItems.orderItems.length > 0 ? (
+              <div>
+                {orderItems?.orderItems?.map((item) => (
+                  <ul key={item.id}>
+                    <li>
+                      <div className="d-flex flex-row gap-4 check-items">
+                        <div className="check-imageContainer">
+                          <Image
+                            cloudName="sali-touch"
+                            publicId={item.image.public_id}
+                            className="check-image"
+                          />
+                        </div>
+                        <span>{item.name}</span>
+                        <span className="check-qty">{item.quantity}</span>
+                      </div>
+                      <div>
+                        <span>${item.price}</span>
+                      </div>
+                    </li>
+                    <li>
+                      <h6>Shipping</h6>
+                      {orderItems.shippingPrice === 0
+                        ? 'Free'
+                        : orderItems.shippingPrice}
+                    </li>
+                    <li>
+                      <h6>Total</h6>
+                      <h6>${orderItems?.totalPrice}</h6>
+                    </li>
+                    <li>
+                      <h5>Click the button below to complete your payment</h5>
+                    </li>
+                  </ul>
+                ))}
+              </div>
+            ) : (
+              <p>No data found</p>
+            )}
             <div>
               <PayPalButtons
                 style={{
@@ -192,7 +202,7 @@ function Paypal({ total, shippingPrice }) {
                   navigate('/cart');
                 }}
                 onError={(err) => {
-                  setError(err);
+                  setError('Something went wrong, please try again later');
                 }}
               />
             </div>
