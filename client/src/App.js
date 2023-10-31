@@ -32,6 +32,7 @@ import Profile from './Pages/profile';
 import { getPaypalClientID } from './hooks/getpaypal';
 import { getAllUsersOrder } from './redux/productSlice';
 import Paypal from './Components/checkout/paypal';
+import OrderDetail from './Pages/orderDetail';
 
 function App() {
   const dispatch = useDispatch();
@@ -156,6 +157,7 @@ function App() {
           />
           <Route path="/upload" element={<Upload />} />
           <Route path="/payment" element={<Paypal />} />
+          <Route path="/order/:id" element={<OrderDetail />} />
         </Routes>
         {!hideHeaderFooter && <Footer />}
         <ShoppingCart
