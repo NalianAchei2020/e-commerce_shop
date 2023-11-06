@@ -7,6 +7,7 @@ import { addToCart, removeFromCart, removeItem } from '../redux/productSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { Image } from 'cloudinary-react';
 import SelectCountry from '../Components/home/select';
 function Cart() {
   const { cart } = useSelector((state) => state.product);
@@ -67,9 +68,9 @@ function Cart() {
                           to={`/product/${item.name}`}
                           className="cart-link"
                         >
-                          <img
-                            src={item.image}
-                            alt="cartImage"
+                          <Image
+                            cloudName="sali-touch"
+                            publicId={item.image.public_id}
                             className="cartImage"
                           />
                         </Link>

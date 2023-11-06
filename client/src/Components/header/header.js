@@ -173,9 +173,6 @@ function Header({ handlePopup }) {
                 </Link>
               )}
             </li>
-            <li>
-              <Link to="/upload">Upload</Link>
-            </li>
           </ul>
 
           <Searchbar hideSearch={hideSearch} showSearchbar={showSearchbar} />

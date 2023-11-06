@@ -34,7 +34,7 @@ function Home({ setPopup, handleWishlist, wishList }) {
         </div>
         <div className="best-card card">
           <div className="hero-beastSeller">
-            <img src="Images/banner/images.png" alt="best-seller2" />
+            <img src="Images/banner/best-seller2.png" alt="best-seller2" />
             <div className="best-text">
               <h1>New Arrivals</h1>
               <button className="btn-best">Shop Now</button>
