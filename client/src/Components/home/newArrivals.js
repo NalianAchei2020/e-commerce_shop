@@ -5,13 +5,14 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Image } from 'cloudinary-react';
 
 function NewArrivals({ handleAddToCart }) {
   const { product } = useSelector((state) => state.product);
   const newArrival = product.filter((item) => item.newArrival === true);
+  const navigate = useNavigate();
   return (
     <section className="container-fluid mt-5">
       <h1 className="text-center fw-bold mt-5 mb-4">New Arrivals</h1>
@@ -75,6 +76,10 @@ function NewArrivals({ handleAddToCart }) {
           variant="contained"
           color="primary"
           className="btn-slider see-more"
+          onClick={() => {
+            navigate('/shop');
+          }}
+        
         >
           SEE MORE
         </Button>

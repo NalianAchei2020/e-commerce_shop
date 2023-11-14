@@ -8,6 +8,7 @@ import FeaturedProducts from '../Components/home/featuredProducts';
 import NewArrivals from '../Components/home/newArrivals';
 import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
+import { useNavigate } from 'react-router-dom';
 
 function Home({ setPopup, handleWishlist, wishList }) {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function Home({ setPopup, handleWishlist, wishList }) {
     setPopup(true);
   };
 
+  const navigate = useNavigate();
   return (
     <section className="slider-container">
       <section>
@@ -28,7 +30,14 @@ function Home({ setPopup, handleWishlist, wishList }) {
             <img src="Images/banner/best-img.png" alt="best-seller" />
             <div className="best-text">
               <h1>Best Seller</h1>
-              <button className="btn-best">Shop Now</button>
+              <button
+                className="btn-best"
+                onClick={() => {
+                  navigate('/shop');
+                }}
+              >
+                Shop Now
+              </button>
             </div>
           </div>
         </div>
@@ -37,7 +46,14 @@ function Home({ setPopup, handleWishlist, wishList }) {
             <img src="Images/banner/best-seller2.png" alt="best-seller2" />
             <div className="best-text">
               <h1>New Arrivals</h1>
-              <button className="btn-best">Shop Now</button>
+              <button
+                className="btn-best"
+                onClick={() => {
+                  navigate('/shop');
+                }}
+              >
+                Shop Now
+              </button>
             </div>
           </div>
         </div>

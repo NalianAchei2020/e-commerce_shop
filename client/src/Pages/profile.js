@@ -99,7 +99,10 @@ function Profile() {
               {errors.password && (
                 <Alert severity="error">{errors.password.message}</Alert>
               )}
-              <button className="btn-login">Update</button>
+              <div className="d-flex flex-row flex-sm-column">
+                <button className="btn-login">Update</button>
+                <button className="btn-login">Logout</button>
+              </div>
             </form>
           </div>
         </div>
