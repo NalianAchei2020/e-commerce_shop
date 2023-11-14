@@ -5,11 +5,12 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Image } from 'cloudinary-react';
 
 function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
+  const navigate = useNavigate();
   const [section, setSection] = useState('bestSeller-men');
   const { product } = useSelector((state) => state.product);
 
@@ -117,6 +118,9 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
               variant="contained"
               color="primary"
               className="btn-slider see-more"
+              onClick={() => {
+                navigate('/shop');
+              }}
             >
               SEE MORE
             </Button>
@@ -189,6 +193,9 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
               variant="contained"
               color="primary"
               className="btn-slider see-more"
+              onClick={() => {
+                navigate('/shop');
+              }}
             >
               SEE MORE
             </Button>
@@ -261,6 +268,9 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
               variant="contained"
               color="primary"
               className="btn-slider see-more"
+              onClick={() => {
+                navigate('/shop');
+              }}
             >
               SEE MORE
             </Button>
