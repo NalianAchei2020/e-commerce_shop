@@ -6,9 +6,11 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import { getUserOrder } from '../redux/productSlice';
+import { clearUser } from '../hooks/localstorage';
 
 function Profile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const form = useForm();
   const {
     register,
@@ -17,12 +19,16 @@ function Profile() {
     formState: { errors },
   } = form;
   const { orders, username } = useSelector((state) => state.product);
-  console.log(orders);
+
   useEffect(() => {
     dispatch(getUserOrder());
   }, [dispatch]);
 
   const handleUpdate = (data) => {};
+  const handleLogout = () => {
+    clearUser();
+    navigate('/');
+  };
   return (
     <section className="container-fluid ">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -101,7 +107,6 @@ function Profile() {
               )}
               <div className="d-flex flex-row flex-sm-column">
                 <button className="btn-login">Update</button>
-                <button className="btn-login">Logout</button>
               </div>
             </form>
           </div>
@@ -141,6 +146,9 @@ function Profile() {
             </tbody>
           </table>
         </div>
+        <button className="btn-login" onClick={handleLogout}>
+          Logout
+        </button>
       </section>
     </section>
   );
