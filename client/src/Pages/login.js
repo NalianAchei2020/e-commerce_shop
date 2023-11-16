@@ -13,7 +13,6 @@ function Login() {
     (state) => state.product
   );
 
-  console.log(username);
   const navigate = useNavigate();
   const form = useForm();
   const {
