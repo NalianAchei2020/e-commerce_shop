@@ -1,7 +1,7 @@
-const clearUser = () => {
+export const clearUser = () => {
   localStorage.removeItem('username');
 };
 
-const clearCart = () => {
+export const clearCart = () => {
   localStorage.removeItem('cart');
 };
