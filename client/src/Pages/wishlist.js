@@ -10,7 +10,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useSelector } from 'react-redux';
 import { Image } from 'cloudinary-react';
 
-function Wishlist({ handleAddToCart, handleWishlist, wishList }) {
+function Wishlist({ handleAddToCart, handleWishlist }) {
   const { wishlist } = useSelector((state) => state.product);
 
   return (
@@ -45,7 +45,7 @@ function Wishlist({ handleAddToCart, handleWishlist, wishList }) {
                   <div className="card-body">
                     <span>{item.brand}</span>
                     <h5 className="card-title">{item.name}</h5>
-                    <span className="text-center">{item.price} FCFA</span>
+                    <span className="text-center">$ {item.price} </span>
                     <Stack spacing={2}>
                       <div className="rating">
                         <Rating
