@@ -76,10 +76,11 @@ function App() {
     localStorage.setItem('wishListState', JSON.stringify(wishlist));
   }, [wishlist]);
 
+  const Wishlist = localStorage.getItem('wishList');
   const handleWishlist = (item) => {
     setWishlist(!wishlist);
     dispatch(addToWishlist(item));
-    if (item && wishlist) {
+    if (Wishlist === 0) {
       setWishMessage('Removed from wishlist');
     } else {
       setWishMessage('Added to wishlist');
