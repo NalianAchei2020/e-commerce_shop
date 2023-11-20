@@ -67,7 +67,7 @@ function OrderDetail() {
               </li>
               <li className="d-flex flex-row gap-2">
                 <h6>Delivered:</h6>
-                <h6>{selectedOrder.isDelivered ? 'Yes' : 'No'}</h6>
+                <h6>{selectedOrder?.isDelivered ? 'Yes' : 'No'}</h6>
               </li>
             </ul>
           </div>
