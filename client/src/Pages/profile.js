@@ -5,6 +5,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
+import {
+  CTable,
+  CTableBody,
+  CTableHeaderCell,
+  CTableHead,
+  CTableRow,
+  CTableDataCell,
+} from '@coreui/react';
 import { getUserOrder } from '../redux/productSlice';
 import { clearUser } from '../hooks/localstorage';
 
@@ -51,7 +59,6 @@ function Profile() {
               <TextField
                 label="username"
                 variant="outlined"
-                value={username.name}
                 type="text"
                 name="name"
                 {...register('name', {
@@ -105,50 +112,54 @@ function Profile() {
               {errors.password && (
                 <Alert severity="error">{errors.password.message}</Alert>
               )}
-              <div className="d-flex flex-row flex-sm-column">
+              <div className="d-flex flex-row  gap-2">
                 <button className="btn-login">Update</button>
+                <button className="btn-login" onClick={handleLogout}>
+                  Logout
+                </button>
               </div>
             </form>
           </div>
         </div>
         <div className="profile-orders">
           <h2>Order History</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>ORDER ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
+          <CTable responsive="md">
+            <CTableHead>
+              <CTableRow>
+                <CTableHeaderCell scope="col">ORDER ID</CTableHeaderCell>
+                <CTableHeaderCell scope="col">DATE</CTableHeaderCell>
+                <CTableHeaderCell scope="col">TOTAL</CTableHeaderCell>
+                <CTableHeaderCell scope="col">PAID</CTableHeaderCell>
+                <CTableHeaderCell scope="col">DELIVERED</CTableHeaderCell>
+                <CTableHeaderCell scope="col">ACTIONS</CTableHeaderCell>
+              </CTableRow>
+            </CTableHead>
+            <CTableBody>
               {orders.length === 0 ? (
-                <tr>
-                  <td colSpan="6">No Order Found.</td>
-                </tr>
+                <CTableRow>
+                  <CTableDataCell>No data found</CTableDataCell>
+                </CTableRow>
               ) : (
                 orders.map((order) => (
-                  <tr>
-                    <td>{order._id}</td>
-                    <td>{order.createdAt}</td>
-                    <td>$ {order.totalPrice}</td>
-                    <td>{order.paidAt ? 'YES' : 'No'}</td>
-                    <td>{order.deliveryAt ? 'YES' : 'No'}</td>
-                    <td>
+                  <CTableRow>
+                    <CTableDataCell>{order._id}</CTableDataCell>
+                    <CTableDataCell>{order.createdAt}</CTableDataCell>
+                    <CTableDataCell>$ {order.totalPrice}</CTableDataCell>
+                    <CTableDataCell>
+                      {order.paidAt ? 'YES' : 'No'}
+                    </CTableDataCell>
+                    <CTableDataCell>
+                      {order.deliveryAt ? 'YES' : 'No'}
+                    </CTableDataCell>
+                    <CTableDataCell>
                       <a href={`/order/${order._id}`}>DETIALS</a>{' '}
-                    </td>
-                  </tr>
+                    </CTableDataCell>
+                  </CTableRow>
                 ))
               )}
-            </tbody>
-          </table>
+            </CTableBody>
+          </CTable>
         </div>
-        <button className="btn-login" onClick={handleLogout}>
-          Logout
-        </button>
       </section>
     </section>
   );
