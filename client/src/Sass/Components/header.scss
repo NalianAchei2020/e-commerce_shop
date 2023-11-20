@@ -291,3 +291,9 @@ li {
   padding: 0.2em 2em;
   border-bottom: 2px solid #b4b4b4;
 }
+
+@media (max-width: 320px) {
+  .ave-item {
+    display: none;
+  }
+}

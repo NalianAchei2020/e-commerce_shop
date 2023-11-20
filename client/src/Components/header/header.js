@@ -158,7 +158,7 @@ function Header({ handlePopup }) {
                 </Tooltip>
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item ave-item">
               {username.name ? (
                 <Link to="/profile">
                   <Avater />

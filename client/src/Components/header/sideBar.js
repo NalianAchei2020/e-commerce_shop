@@ -3,8 +3,10 @@ import { Box, Drawer } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useSelector } from 'react-redux';
 
 function SideBar({ handleClose, isClicked }) {
+  const { username } = useSelector((state) => state.product);
   return (
     <Drawer anchor="left" open={isClicked} onClose={handleClose}>
       <Box spacing={2} role="presentation" width={200}>
@@ -45,16 +47,35 @@ function SideBar({ handleClose, isClicked }) {
           </li>
         </ul>
         <ul className="list-2">
-          <li onClick={handleClose}>
-            <Link className="nav-link" to="/login">
-              SignIn
-            </Link>
-          </li>
-          <li onClick={handleClose}>
-            <Link className="nav-link" to="/register">
-              Register
-            </Link>
-          </li>
+          {username ? (
+            <li>
+              <li onClick={handleClose}>
+                <Link className="nav-link" to="/login">
+                  SignIn
+                </Link>
+              </li>
+              <br />
+              <li onClick={handleClose}>
+                <Link className="nav-link" to="/register">
+                  Register
+                </Link>
+              </li>
+            </li>
+          ) : (
+            <li>
+              <li onClick={handleClose}>
+                <Link className="nav-link" to="/profile">
+                  Profile
+                </Link>
+              </li>
+              <li onClick={handleClose}>
+                <Link className="nav-link" to="/profile">
+                  Logout
+                </Link>
+              </li>
+            </li>
+          )}
+
           <li onClick={handleClose}>
             <Link className="nav-link" to="/cart">
               View Cart
