@@ -1,12 +1,9 @@
 import React from 'react';
-import { Button, IconButton } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
-import { Tooltip } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Image } from 'cloudinary-react';
 
 const BestSeller = () => {
   const { product } = useSelector((state) => state.product);
@@ -16,13 +13,13 @@ const BestSeller = () => {
     <div>
       <div className="product-bestSeller">
         {bestTwo.map((item) => (
-          <div className="card-container" key={item.id}>
+          <div className="card-container" key={item._id}>
             <div className="card">
               <div className="card-image">
                 <Link to={`/product/${item.name}`} className="product-link">
-                  <img
-                    src={item.image}
-                    alt={item.name}
+                  <Image
+                    cloudName="sali-touch"
+                    publicId={item.image.public_id}
                     className="desbest-imgae"
                   />
                 </Link>

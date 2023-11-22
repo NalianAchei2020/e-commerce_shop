@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink, useMatch, useLocation } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -6,14 +6,14 @@ import { Badge, IconButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
-import ClearIcon from '@mui/icons-material/Clear';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Searchbar from './search';
+import SideBar from './sideBar';
+import Avater from './avater';
 
 function Header({ handlePopup }) {
-  const { cart } = useSelector((state) => state.product);
+  const { cart, wishlist, username } = useSelector((state) => state.product);
 
   const location = useLocation();
   const hideCartIcon = location.pathname.includes('/cart');
@@ -21,16 +21,12 @@ function Header({ handlePopup }) {
   // State variables
   const [showSearchbar, setShowSearchbar] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  const [pages, setPages] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   // Event handlers
   const handleSearch = () => {
     setShowSearchbar(true);
   };
-  const checkMobileScreen = () => {
-    setIsMobile(window.innerWidth <= 920);
-  };
+
   const hideSearch = () => {
     setShowSearchbar(false);
   };
@@ -43,18 +39,6 @@ function Header({ handlePopup }) {
     setIsClicked(false);
   };
 
-  const showPages = () => {
-    if (isMobile) {
-      setPages(!pages);
-    }
-  };
-  useEffect(() => {
-    window.addEventListener('resize', checkMobileScreen);
-    checkMobileScreen(); // Check the initial screen width
-    return () => {
-      window.removeEventListener('resize', checkMobileScreen);
-    };
-  }, []);
   // Check if current route is active
   const isActive = useMatch({
     path: '/',
@@ -85,7 +69,7 @@ function Header({ handlePopup }) {
             </li>
           </ul>
         </div>
-        <nav className="nav">
+        <nav className="nav container-fluid">
           <div className="menu-icons">
             <div className="menu-icon-one">
               <IconButton color="inherit" onClick={handleClicked}>
@@ -98,14 +82,8 @@ function Header({ handlePopup }) {
               </Link>{' '}
             </h1>
           </div>
-          <ul className={isClicked ? 'no-list' : 'list'}>
-            <li className="btn-clear" onClick={handleClose}>
-              <IconButton color="inherit" className="menu">
-                <ClearIcon className="clear" />
-              </IconButton>
-              <span>Close</span>
-            </li>
-            <li className="nav-item active">
+          <ul className="list">
+            <li className="nav-item">
               <NavLink className={isActive ? 'active-link' : 'nav-link'} to="/">
                 HOME
               </NavLink>
@@ -120,78 +98,28 @@ function Header({ handlePopup }) {
             </li>
             <li className="nav-item">
               <NavLink
-                className={useMatch('/Women') ? 'active-link' : 'nav-link'}
-                to="/Women"
+                className={useMatch('/about') ? 'active-link' : 'nav-link'}
+                to="/about"
               >
-                WOMEN
+                ABOUT
               </NavLink>
             </li>
             <li>
               <NavLink
-                className={useMatch('/men') ? 'active-link' : 'nav-link'}
-                to="/men"
+                className={useMatch('/contact') ? 'active-link' : 'nav-link'}
+                to="/contact"
               >
-                MEN
+                CONTACT
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
-              <div className="pages" onClick={showPages}>
-                <NavLink
-                  className={useMatch('/pages') ? 'active-link' : 'nav-link'}
-                  to="/pages"
-                >
-                  PAGES
-                </NavLink>
-                <IconButton color="inherit" className="menu">
-                  <ExpandMoreIcon className="cheron" />
-                </IconButton>
-              </div>
-              <div
-                className={
-                  isMobile && pages ? 'no-content' : 'dropdown-content'
-                }
+            <li>
+              <NavLink
+                className={useMatch('/blog') ? 'active-link' : 'nav-link'}
+                to="/blog"
               >
-                <ul className="nav-item">
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/pages/about">
-                      About
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/pages/contact">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/pages/blog">
-                      Blog
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+                BLOG
+              </NavLink>
             </li>
-            <ul className="list-2">
-              <li>
-                <Link className="nav-link" to="/login">
-                  SignIn
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link" to="/register">
-                  Register
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link" to="/cart">
-                  View Cart
-                </Link>
-              </li>
-              <li>
-                <Link className="nav-link" to="/wishlist">
-                  Wishlist
-                </Link>
-              </li>
-            </ul>
           </ul>
           <ul className="icons">
             <li className="nav-item">
@@ -223,26 +151,34 @@ function Header({ handlePopup }) {
                     aria-label="show 4 new mails"
                     color="inherit"
                   >
-                    <Badge color="primary" badgeContent="cart">
+                    <Badge color="primary" badgeContent={wishlist.length}>
                       <FavoriteIcon />
                     </Badge>
                   </IconButton>
                 </Tooltip>
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/login" className="icon-link none">
-                <Tooltip title="Login/Register" placement="bottom">
-                  <IconButton color="inherit">
-                    <AccountCircleIcon />
-                  </IconButton>
-                </Tooltip>
-              </Link>
+            <li className="nav-item ave-item">
+              {username.name ? (
+                <Link to="/profile">
+                  <Avater />
+                </Link>
+              ) : (
+                <Link to="/login" className="icon-link none">
+                  <Tooltip title="Login/Register" placement="bottom">
+                    <IconButton color="inherit">
+                      <AccountCircleIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Link>
+              )}
             </li>
           </ul>
-          {showSearchbar && <Searchbar hideSearch={hideSearch} />}
+
+          <Searchbar hideSearch={hideSearch} showSearchbar={showSearchbar} />
         </nav>
       </header>
+      <SideBar handleClose={handleClose} isClicked={isClicked} />
     </section>
   );
 }

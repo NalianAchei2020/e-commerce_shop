@@ -8,15 +8,16 @@ import {
   getUserOrders,
   deleteOrder,
 } from '../Controller/order.js';
+import { verifiedToken, verifyUser } from '../utils/verifyToken.js';
 
 const orderRouter = express.Router();
 
-orderRouter.post('/', createOrder);
+orderRouter.post('/', verifiedToken, verifyUser, createOrder);
 orderRouter.put('/:id/deliver', isDelivered);
 orderRouter.put('/:id/paid', paidOrder);
 orderRouter.delete('/:id', deleteOrder);
-orderRouter.get('/:id', getUserOder);
-orderRouter.get('/userOders', getUserOrders);
-orderRouter.get('/sunnary', orderSummary);
+orderRouter.get('/mine', verifiedToken, verifyUser, getUserOder);
+orderRouter.get('/:id', verifiedToken, verifyUser, getUserOrders);
+orderRouter.get('/summary', orderSummary);
 
 export default orderRouter;

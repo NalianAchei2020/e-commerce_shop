@@ -2,8 +2,10 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Box, IconButton } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { useNavigate } from 'react-router-dom';
 
 function CallToAction() {
+  const navigate = useNavigate();
   const windowWidth = window.innerWidth;
   const images = [
     {
@@ -106,7 +108,14 @@ function CallToAction() {
                   <span>Sec</span>
                 </li>
               </ul>
-              <button className="btn-best">Shop Now</button>
+              <button
+                className="btn-best"
+                onClick={() => {
+                  navigate('/shop');
+                }}
+              >
+                Shop Now
+              </button>
             </div>
           </div>
         </Box>

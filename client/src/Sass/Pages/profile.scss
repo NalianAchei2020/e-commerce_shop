@@ -1,0 +1,31 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+  gap: 0.3rem;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+.profile-info {
+  flex: 1 1 20rem;
+  border: 2px solid #f0f0f0;
+  padding: 1rem;
+}
+.profile-orders {
+  flex: 3 1 60rem;
+  margin-left: 1rem;
+
+  table {
+    width: 100%;
+  }
+  th {
+    text-align: left;
+  }
+  tbody > tr:nth-child(odd) {
+    background-color: #f0f0f0;
+  }
+  td {
+    padding: 0.5rem;
+  }
+}

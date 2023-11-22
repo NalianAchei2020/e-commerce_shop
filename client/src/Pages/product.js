@@ -26,6 +26,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Dialog, DialogContent, DialogContentText } from '@mui/material';
+import { Image } from 'cloudinary-react';
 import Review from '../Components/product/review';
 import BestSeller from '../Components/product/bestSeller';
 import MayLikeProduct from '../Components/product/mayLikeProduct';
@@ -191,7 +192,10 @@ function Product({ handleAddToCart }) {
       </div>
       <section className="description-container ">
         <div className="description-image container-fluid">
-          <img src={selectedProduct.image} alt="product" />
+          <Image
+            cloudName="sali-touch"
+            publicId={selectedProduct.image.public_id}
+          />
         </div>
         <div className="des-text container-fluid">
           <h3>{selectedProduct.name}</h3>
@@ -326,9 +330,9 @@ function Product({ handleAddToCart }) {
                         to="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com"
                         className="link"
                       >
-                        <img
-                          src={selectedProduct.image}
-                          alt="product"
+                        <Image
+                          cloudName="sali-touch"
+                          publicId={selectedProduct.image.public_id}
                           className="d-none"
                         />
                         <Tooltip title="Facebook" placement="top">
@@ -371,6 +375,7 @@ function Product({ handleAddToCart }) {
                           alt="product"
                           className="d-none"
                         />
+
                         <Tooltip title="Instagram" placement="top">
                           <div>
                             <IconButton>

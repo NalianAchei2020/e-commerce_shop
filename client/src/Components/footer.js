@@ -172,8 +172,9 @@ function Footer() {
               <img
                 src="/Images/icons/applePay.png"
                 alt="apple"
-                height={50}
-                width={80}
+                height={60}
+                width={60}
+                loading="lazy"
               />
             </Tooltip>
           </li>
@@ -183,7 +184,7 @@ function Footer() {
                 src="/Images/icons/google.png"
                 alt="apple"
                 height={50}
-                width={80}
+                width={50}
               />
             </Tooltip>
           </li>
@@ -192,8 +193,8 @@ function Footer() {
               <img
                 src="/Images/icons/discover.png"
                 alt="apple"
-                height={50}
-                width={80}
+                height={40}
+                width={40}
               />
             </Tooltip>
           </li>
@@ -202,8 +203,8 @@ function Footer() {
               <img
                 src="/Images/icons/meta.jpeg"
                 alt="apple"
-                height={50}
-                width={80}
+                height={40}
+                width={40}
               />
             </Tooltip>
           </li>
@@ -212,8 +213,8 @@ function Footer() {
               <img
                 src="/Images/icons/paypal.png"
                 alt="apple"
-                height={50}
-                width={80}
+                height={40}
+                width={40}
               />
             </Tooltip>
           </li>
@@ -222,8 +223,8 @@ function Footer() {
               <img
                 src="/Images/icons/visa.png"
                 alt="apple"
-                height={50}
-                width={80}
+                height={40}
+                width={40}
               />
             </Tooltip>
           </li>

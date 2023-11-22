@@ -181,12 +181,7 @@ const countries = [
   'Tanzania',
 ];
 
-function SelectCountry() {
-  const [selectedValue, setSelectedValue] = useState('');
-
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+function SelectCountry({ selectedCountry, handleSelectedCountry }) {
   return (
     <div>
       <Box sx={{ minWidth: 120 }}>
@@ -197,9 +192,9 @@ function SelectCountry() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={selectedValue}
+            value={selectedCountry}
             label="Select a country"
-            onChange={handleChange}
+            onChange={handleSelectedCountry}
           >
             {countries.map((country, index) => (
               <MenuItem key={index} value={country}>

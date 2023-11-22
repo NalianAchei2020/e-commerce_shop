@@ -32,6 +32,14 @@ app.use(
 app.use(cookieParser());
 //other
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(
+  bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
 app.use(express.json());
 //error middleware handler
 app.use((err, req, res, next) => {
@@ -53,6 +61,9 @@ app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/products', productRouter);
 app.use('/api/views', viewsRouter);
+app.get('/api/paypal/clientId', (req, res) => {
+  res.send({ clientId: config.PAYPAL_CLIENT_ID });
+});
 
 app.listen(config.PORT, () => {
   console.log(`Server is running on port ${config.PORT}`);

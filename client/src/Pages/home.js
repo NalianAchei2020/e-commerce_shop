@@ -8,17 +8,17 @@ import FeaturedProducts from '../Components/home/featuredProducts';
 import NewArrivals from '../Components/home/newArrivals';
 import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
+import { useNavigate } from 'react-router-dom';
 
-//import Header from '../Components/header/header';
-function Home({ setPopup }) {
+function Home({ setPopup, handleWishlist, wishList }) {
   const dispatch = useDispatch();
-
-  //const [popup, setPopup] = useState(false);
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
     setPopup(true);
   };
+
+  const navigate = useNavigate();
   return (
     <section className="slider-container">
       <section>
@@ -30,22 +30,40 @@ function Home({ setPopup }) {
             <img src="Images/banner/best-img.png" alt="best-seller" />
             <div className="best-text">
               <h1>Best Seller</h1>
-              <button className="btn-best">Shop Now</button>
+              <button
+                className="btn-best"
+                onClick={() => {
+                  navigate('/shop');
+                }}
+              >
+                Shop Now
+              </button>
             </div>
           </div>
         </div>
         <div className="best-card card">
           <div className="hero-beastSeller">
-            <img src="Images/banner/images.png" alt="best-seller2" />
+            <img src="Images/banner/best-seller2.png" alt="best-seller2" />
             <div className="best-text">
               <h1>New Arrivals</h1>
-              <button className="btn-best">Shop Now</button>
+              <button
+                className="btn-best"
+                onClick={() => {
+                  navigate('/shop');
+                }}
+              >
+                Shop Now
+              </button>
             </div>
           </div>
         </div>
       </section>
       {/*beastSeller */}
-      <BestSeller handleAddToCart={handleAddToCart} />
+      <BestSeller
+        handleAddToCart={handleAddToCart}
+        handleWishlist={handleWishlist}
+        wishList={wishList}
+      />
       {/* call to action */}
       <CallToAction />
       {/* featured products */}

@@ -5,10 +5,12 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Image } from 'cloudinary-react';
 
-function BestSeller({ handleAddToCart }) {
+function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
+  const navigate = useNavigate();
   const [section, setSection] = useState('bestSeller-men');
   const { product } = useSelector((state) => state.product);
 
@@ -54,17 +56,20 @@ function BestSeller({ handleAddToCart }) {
         <section className="women">
           <div className="row-container">
             {bestSeller.map((item) => (
-              <div className="card-container" key={item.id}>
+              <div className="card-container" key={item._id}>
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">
-                      <img src={item.image} alt={item.name} />
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                      />
                     </Link>
                   </div>
                   <div className="card-body">
                     <span>{item.brand}</span>
                     <h5 className="card-title">{item.name}</h5>
-                    <span className="text-center">{item.price} FCFA</span>
+                    <span className="text-center">${item.price}</span>
                     <Stack spacing={2}>
                       <div className="rating">
                         <Rating
@@ -86,8 +91,14 @@ function BestSeller({ handleAddToCart }) {
                         ADD TO CARD
                       </Button>
                       <Tooltip title="Wishlist" placement="bottom">
-                        <IconButton className="whistlist">
-                          <FavoriteIcon className="whistlist" />
+                        <IconButton
+                          className="whistlist"
+                          onClick={() => handleWishlist(item)}
+                        >
+                          <FavoriteIcon
+                            className="whistlist"
+                            sx={{ color: wishList ? 'red' : null }}
+                          />
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Quick View" placement="bottom">
@@ -107,6 +118,9 @@ function BestSeller({ handleAddToCart }) {
               variant="contained"
               color="primary"
               className="btn-slider see-more"
+              onClick={() => {
+                navigate('/shop');
+              }}
             >
               SEE MORE
             </Button>
@@ -121,13 +135,16 @@ function BestSeller({ handleAddToCart }) {
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">
-                      <img src={item.image} alt={item.name} />
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                      />
                     </Link>
                   </div>
                   <div className="card-body">
                     <span>{item.brand}</span>
                     <h5 className="card-title">{item.name}</h5>
-                    <span className="text-center">{item.price} FCFA</span>
+                    <span className="text-center">${item.price}</span>
                     <Stack spacing={2}>
                       <div className="rating">
                         <Rating
@@ -149,8 +166,14 @@ function BestSeller({ handleAddToCart }) {
                         ADD TO CARD
                       </Button>
                       <Tooltip title="Wishlist" placement="bottom">
-                        <IconButton className="whistlist">
-                          <FavoriteIcon className="whistlist" />
+                        <IconButton
+                          className="whistlist"
+                          onClick={() => handleWishlist(item)}
+                        >
+                          <FavoriteIcon
+                            className="whistlist"
+                            sx={{ color: wishList ? 'red' : null }}
+                          />
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Quick View" placement="bottom">
@@ -170,6 +193,9 @@ function BestSeller({ handleAddToCart }) {
               variant="contained"
               color="primary"
               className="btn-slider see-more"
+              onClick={() => {
+                navigate('/shop');
+              }}
             >
               SEE MORE
             </Button>
@@ -184,13 +210,16 @@ function BestSeller({ handleAddToCart }) {
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">
-                      <img src={item.image} alt={item.name} />
+                      <Image
+                        cloudName="sali-touch"
+                        publicId={item.image.public_id}
+                      />
                     </Link>
                   </div>
                   <div className="card-body">
                     <span>{item.brand}</span>
                     <h5 className="card-title">{item.name}</h5>
-                    <span className="text-center">{item.price} FCFA</span>
+                    <span className="text-center">${item.price}</span>
                     <Stack spacing={2}>
                       <div className="rating">
                         <Rating
@@ -212,8 +241,14 @@ function BestSeller({ handleAddToCart }) {
                         ADD TO CARD
                       </Button>
                       <Tooltip title="Wishlist" placement="bottom">
-                        <IconButton className="whistlist">
-                          <FavoriteIcon className="whistlist" />
+                        <IconButton
+                          className="whistlist"
+                          onClick={() => handleWishlist(item)}
+                        >
+                          <FavoriteIcon
+                            className="whistlist"
+                            sx={{ color: wishList ? 'red' : null }}
+                          />
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Quick View" placement="bottom">
@@ -233,6 +268,9 @@ function BestSeller({ handleAddToCart }) {
               variant="contained"
               color="primary"
               className="btn-slider see-more"
+              onClick={() => {
+                navigate('/shop');
+              }}
             >
               SEE MORE
             </Button>

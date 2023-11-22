@@ -31,6 +31,7 @@ const productSchema = new mongoose.Schema(
     bestSeller: { type: Boolean, default: false },
     newArrival: { type: Boolean, default: false },
     trending: { type: Boolean, default: false },
+    featured: { type: Boolean, default: false },
     brand: { type: String, required: true },
     image: {
       public_id: { type: String, required: [true, 'Image is required'] },

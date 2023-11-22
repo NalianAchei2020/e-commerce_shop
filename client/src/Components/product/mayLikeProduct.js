@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import { Tooltip } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/productSlice';
 
@@ -30,7 +31,10 @@ function MayLikeProduct() {
             <a href={`/product/${item.name}`} className="product-link">
               <div className="card">
                 <div className="card-image">
-                  <img src={item.image} alt={item.name} />
+                  <Image
+                    cloudName="sali-touch"
+                    publicId={item.image.public_id}
+                  />
                 </div>
                 <div className="card-body">
                   <span>{item.brand}</span>

@@ -325,6 +325,7 @@
 .previewCart-image {
   width: 180px;
   padding-top: 8px;
+  cursor: pointer;
 }
 .previewCart-image image {
   height: 350px;
@@ -454,7 +455,12 @@
 .cart-link {
   color: #000;
   text-decoration: none;
+  cursor: pointer;
 }
 .cart-link:hover {
   color: #1976d2;
+}
+
+.paypal {
+  display: none;
 }

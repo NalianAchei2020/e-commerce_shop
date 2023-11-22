@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, IconButton, Button } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { useNavigate } from 'react-router-dom';
 
 const images = [
   {
@@ -9,16 +10,17 @@ const images = [
     text: 'Men Footwear shoes',
   },
   {
-    url: 'Images/banner/banner-1.png',
+    url: 'Images/banner/ban2.png',
     text: 'Women Fashion. High Heels Closeup',
   },
   {
-    url: 'Images/banner/banner-2.png',
-    text: 'Best Shoes For Kids',
+    url: 'Images/banner/ban3.png',
+    text: 'Best Shoes to enjoy your summer',
   },
 ];
 
 const Slider = () => {
+  const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrevImage = () => {
@@ -92,7 +94,10 @@ const Slider = () => {
           <h2 className="slider-heading">{images[currentImageIndex].text}</h2>
           <br />
           <br />
-          <Button variant="contained" color="primary" className="btn-slider">
+          <Button variant="contained" color="primary" className="btn-slider"  onClick={() => {
+                  navigate('/shop');
+                }}
+              >
             Shop Now
           </Button>
         </div>

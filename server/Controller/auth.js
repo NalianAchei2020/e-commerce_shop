@@ -1,11 +1,17 @@
 import bcrypt from 'bcrypt';
-import Jwt from 'jsonwebtoken';
 import User from '../Models/userModel.js';
 import { createError } from '../utils/error.js';
-import config from '../config.js';
+import { generateToken } from '../utils/verifyToken.js';
 
 export const register = async (req, res, next) => {
   try {
+    const { name, email } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).send({ message: 'User already exists' });
+    }
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
     const user = new User({
@@ -15,10 +21,29 @@ export const register = async (req, res, next) => {
       isAdmin: false,
     });
 
-    await user.save();
-    res.status(200).send({ message: 'User Created' });
+    const savedUser = await user.save();
+
+    const { password, isAdmin, ...otherDatails } = user._doc;
+    res
+      .cookie('access_token', generateToken(savedUser), {
+        httpOnly: true,
+        /*
+          secure: true,
+          sameSite: 'none',
+          maxAge: 24 * 60 * 60 * 1000,
+          path: '/',
+         signed:true
+          */
+      })
+      .status(200)
+      .json({
+        ...otherDatails,
+        auth: true,
+        isAdmin: isAdmin,
+        message: 'User created',
+      });
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({ message: 'Server error' });
     next(err);
   }
 };
@@ -34,14 +59,10 @@ export const login = async (req, res, next) => {
     );
     if (!isPasswordCurrent)
       return next(createError(400, 'Wrong username or password!'));
-    const token = Jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin },
-      config.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
+
     const { password, isAdmin, ...otherDatails } = user._doc;
     res
-      .cookie('access_token', token, {
+      .cookie('access_token', generateToken(user), {
         httpOnly: true,
         /*
           secure: true,

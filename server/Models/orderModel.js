@@ -5,9 +5,12 @@ const orderSchema = new mongoose.Schema(
     orderItems: [
       {
         name: { type: String, required: true },
-        image: { type: String, required: true },
+        image: {
+          public_id: { type: String, required: [true, 'Image is required'] },
+          url: { type: String, required: true },
+        },
         price: { type: Number, required: true },
-        qty: { type: String, required: true },
+        quantity: { type: String, required: true },
         product: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Product',
@@ -15,12 +18,17 @@ const orderSchema = new mongoose.Schema(
         },
       },
     ],
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     shipping: {
       address: String,
       city: String,
       postalCode: String,
       country: String,
+      method: String,
     },
     payment: {
       paymentMethod: String,

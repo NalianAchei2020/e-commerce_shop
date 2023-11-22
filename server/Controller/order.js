@@ -51,8 +51,8 @@ export const orderSummary = async (req, res, next) => {
   }
 };
 
-//get all user's orders
-export const getUserOrders = async (req, res, next) => {
+//get user's orders
+export const getUserOder = async (req, res, next) => {
   try {
     const orders = await Order.find({ user: req.user._id });
     res.send(orders);
@@ -62,8 +62,8 @@ export const getUserOrders = async (req, res, next) => {
   }
 };
 
-//get user's order
-export const getUserOder = async (req, res, next) => {
+//get ll user order
+export const getUserOrders = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id);
     if (order) {
