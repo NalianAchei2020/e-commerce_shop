@@ -5,9 +5,7 @@ const initialState = {
   cart: localStorage.getItem('cart')
     ? JSON.parse(localStorage.getItem('cart'))
     : [],
-  wishlist: localStorage.getItem('wishList')
-    ? JSON.parse(localStorage.getItem('wishList'))
-    : [],
+  wishlist: localStorage.getItem('wishList'),
   product: [],
   isLoading: false,
   error: null,
