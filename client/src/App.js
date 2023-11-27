@@ -25,7 +25,6 @@ import Shop from './Pages/shop';
 import About from './Pages/about';
 import Contact from './Pages/contact';
 import Blog from './Pages/blog';
-import Wishlist from './Pages/wishlist';
 import { addToWishlist, removeFromWishlist } from './redux/productSlice';
 import Message from './Components/wishlist/message';
 import Profile from './Pages/profile';
@@ -33,6 +32,8 @@ import { getPaypalClientID } from './hooks/getpaypal';
 import { getAllUsersOrder } from './redux/productSlice';
 import Paypal from './Components/checkout/paypal';
 import OrderDetail from './Pages/orderDetail';
+import Wishlist from './Pages/wishlist';
+import PageNotFound from './Pages/pageNotFound';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,11 +44,11 @@ function App() {
     location.pathname.includes('/payment');
 
   const [popup, setPopup] = useState(false);
-  const [wishlist, setWishlist] = useState(
+  const [wishList, setWishlist] = useState(
     localStorage.getItem('wishListState') || false
   );
   const [wishMessage, setWishMessage] = useState('');
-  //const { orderID } = useSelector((state) => state.product);
+  const { addedToWishList } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchProduct());
@@ -73,18 +74,13 @@ function App() {
   };
 
   useEffect(() => {
-    localStorage.setItem('wishListState', JSON.stringify(wishlist));
-  }, [wishlist]);
+    localStorage.setItem('wishListState', JSON.stringify(wishList));
+  }, [wishList]);
 
-  const Wishlist = localStorage.getItem('wishList');
+  const WishList = localStorage.getItem('wishList');
   const handleWishlist = (item) => {
-    setWishlist(!wishlist);
+    setWishlist(!wishList);
     dispatch(addToWishlist(item));
-    if (Wishlist === 0) {
-      setWishMessage('Removed from wishlist');
-    } else {
-      setWishMessage('Added to wishlist');
-    }
   };
 
   const [paypalClientID, setPaypalClientID] = useState(null);
@@ -124,7 +120,7 @@ function App() {
                 popup={popup}
                 setPopup={setPopup}
                 handleWishlist={handleWishlist}
-                wishList={wishlist}
+                wishList={wishList}
               />
             }
           />
@@ -151,7 +147,7 @@ function App() {
             element={
               <Wishlist
                 handleAddToCart={handleAddToCart}
-                wishList={wishlist}
+                wishList={wishList}
                 handleWishlist={handleWishlist}
               />
             }
@@ -159,6 +155,7 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="/payment" element={<Paypal />} />
           <Route path="/order/:id" element={<OrderDetail />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
         {!hideHeaderFooter && <Footer />}
         <ShoppingCart
@@ -169,7 +166,7 @@ function App() {
         />
         <Message
           wishMessage={wishMessage}
-          wishlist={wishlist}
+          wishlist={wishList}
           setWishlist={setWishlist}
         />
       </PayPalScriptProvider>
