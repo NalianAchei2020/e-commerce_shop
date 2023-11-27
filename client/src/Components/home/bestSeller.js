@@ -131,7 +131,7 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
         <section className="men">
           <div className="row-container">
             {bestSellermen.map((item) => (
-              <div className="card-container" key={item.id}>
+              <div className="card-container" key={item._id}>
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">
@@ -206,7 +206,7 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
         <section className="trending">
           <div className="row-container">
             {trending.map((item) => (
-              <div className="card-container" key={item.id}>
+              <div className="card-container" key={item._id}>
                 <div className="card">
                   <div className="card-image">
                     <Link to={`/product/${item.name}`} className="product-link">

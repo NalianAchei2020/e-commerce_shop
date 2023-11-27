@@ -5,7 +5,10 @@ const initialState = {
   cart: localStorage.getItem('cart')
     ? JSON.parse(localStorage.getItem('cart'))
     : [],
-  wishlist: localStorage.getItem('wishList'),
+  wishlist: localStorage.getItem('wishList')
+    ? JSON.parse(localStorage.getItem('wishList'))
+    : [],
+  addedToWishList: false,
   product: [],
   isLoading: false,
   error: null,
@@ -253,19 +256,19 @@ const productsSlice = createSlice({
     },
     //wishlist
     addToWishlist: (state, action) => {
-      const { id } = action.payload;
+      const { id } = action.payload._id;
       const existed = state.wishlist.find((product) => product.id === id);
 
       if (!existed) {
         const updatedWishlist = [...state.wishlist, action.payload];
         localStorage.setItem('wishList', JSON.stringify(updatedWishlist));
-        return { ...state, wishlist: updatedWishlist };
+        return { ...state, wishlist: updatedWishlist, addedToWishList: true };
       } else {
         const updatedWishlist = state.wishlist.filter(
           (product) => product.id !== id
         );
         localStorage.setItem('wishList', JSON.stringify(updatedWishlist));
-        return { ...state, wishlist: updatedWishlist };
+        return { ...state, wishlist: updatedWishlist, addedToWishList: false };
       }
     },
     removeFromWishlist: (state, action) => {
