@@ -5,7 +5,7 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import Home from './Pages/home';
@@ -25,7 +25,7 @@ import Shop from './Pages/shop';
 import About from './Pages/about';
 import Contact from './Pages/contact';
 import Blog from './Pages/blog';
-import { addToWishlist, removeFromWishlist } from './redux/productSlice';
+import { addToWishlist } from './redux/productSlice';
 import Message from './Components/wishlist/message';
 import Profile from './Pages/profile';
 import { getPaypalClientID } from './hooks/getpaypal';
@@ -48,7 +48,6 @@ function App() {
     localStorage.getItem('wishListState') || false
   );
   const [wishMessage, setWishMessage] = useState('');
-  const { addedToWishList } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchProduct());
@@ -77,7 +76,6 @@ function App() {
     localStorage.setItem('wishListState', JSON.stringify(wishList));
   }, [wishList]);
 
-  const WishList = localStorage.getItem('wishList');
   const handleWishlist = (item) => {
     setWishlist(!wishList);
     dispatch(addToWishlist(item));
@@ -100,13 +98,6 @@ function App() {
   useEffect(() => {
     dispatch(getAllUsersOrder);
   }, [dispatch]);
-
-  /*useEffect(() => {
-    if (orderID !== null && orderID !== undefined) {
-      // Perform actions with the newly created order ID
-      localStorage.setItem('orderID', JSON.stringify(orderID));
-    }
-  }, [orderID]);*/
 
   return (
     <div className="App">
@@ -167,6 +158,7 @@ function App() {
         <Message
           wishMessage={wishMessage}
           wishlist={wishList}
+          setWishMessage={setWishMessage}
           setWishlist={setWishlist}
         />
       </PayPalScriptProvider>

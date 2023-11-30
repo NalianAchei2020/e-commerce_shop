@@ -29,7 +29,7 @@ function FeaturedProducts({ handleAddToCart }) {
   };
 
   const products = featuredProducts.map((item) => (
-    <div key={item.id}>
+    <div key={item._id}>
       <CarouselProduct
         image={item.image}
         brand={item.brand}

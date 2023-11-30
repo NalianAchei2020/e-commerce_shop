@@ -28,8 +28,8 @@ const initialState = {
   message: '',
 };
 
-//const baseURL = 'http://localhost:8000';
-const baseURL = 'http://44.211.210.50:8000/';
+const baseURL = 'http://localhost:8000';
+//const baseURL = 'http://44.211.210.50:8000/';
 
 export const fetchProduct = createAsyncThunk(
   'products/fetchProduct',

@@ -18,7 +18,7 @@ function NewArrivals({ handleAddToCart }) {
       <h1 className="text-center fw-bold mt-5 mb-4">New Arrivals</h1>
       <div className="row-container">
         {newArrival.map((item) => (
-          <div className="card-container" key={item.id}>
+          <div className="card-container" key={item._id}>
             <Link to="/" className="product-link">
               <div className="card">
                 <div className="card-image">
@@ -79,7 +79,6 @@ function NewArrivals({ handleAddToCart }) {
           onClick={() => {
             navigate('/shop');
           }}
-        
         >
           SEE MORE
         </Button>
