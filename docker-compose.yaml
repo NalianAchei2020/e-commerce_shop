@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  client:
+    image: shopee_client:latest
+    build: ./client
+    #dockerfile: Dockerfile
+    container_name: shopee_client_container
+    restart: always
+    volumes:
+      - ./client:/client
+      - node_modules:/client/node_modules/
+    ports:
+      - 8080:80
+    stdin_open: true

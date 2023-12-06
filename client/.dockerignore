@@ -1,0 +1,11 @@
+.vscode
+.github
+.env
+.dockerignore
+.gitignore
+.git
+.stylelintrc.json
+node_module
+README.md
+build
+Makefile
