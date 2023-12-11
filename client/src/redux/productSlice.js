@@ -28,8 +28,8 @@ const initialState = {
   message: '',
 };
 
-//const baseURL = 'http://localhost:8000';
-const baseURL = 'http://52.91.24.60:8000';
+const baseURL = 'http://localhost:8000';
+//const baseURL = 'http://52.91.24.60:8000';
 
 export const fetchProduct = createAsyncThunk(
   'products/fetchProduct',
@@ -257,26 +257,29 @@ const productsSlice = createSlice({
     },
     //wishlist
     addToWishlist: (state, action) => {
-      const { id } = action.payload._id;
-      const existed = state.wishlist.find((product) => product.id === id);
+      const { _id } = action.payload;
+      const existed = state.wishlist.find((product) => product._id === _id);
 
       if (!existed) {
         const updatedWishlist = [...state.wishlist, action.payload];
         localStorage.setItem('wishList', JSON.stringify(updatedWishlist));
         return { ...state, wishlist: updatedWishlist, addedToWishList: true };
-      } else {
-        const updatedWishlist = state.wishlist.filter(
-          (product) => product.id !== id
-        );
-        localStorage.setItem('wishList', JSON.stringify(updatedWishlist));
-        return { ...state, wishlist: updatedWishlist, addedToWishList: false };
       }
     },
     removeFromWishlist: (state, action) => {
-      state.wishlist = state.wishlist.filter(
-        (product) => product.id !== action.payload.id
-      );
-      localStorage.setItem('wishList', JSON.stringify(state.wishlist));
+      const { _id } = action.payload;
+      const existed = state.wishlist.find((product) => product._id === _id);
+      if (existed) {
+        const updatedWishlist = state.wishlist.filter(
+          (product) => product._id !== _id
+        );
+        localStorage.setItem('wishList', JSON.stringify(updatedWishlist));
+        return {
+          ...state,
+          wishlist: updatedWishlist,
+          addedToWishList: false,
+        };
+      }
     },
   },
   extraReducers: (builder) => {
