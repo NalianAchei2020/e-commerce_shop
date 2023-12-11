@@ -5,7 +5,7 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import Home from './Pages/home';
@@ -25,7 +25,7 @@ import Shop from './Pages/shop';
 import About from './Pages/about';
 import Contact from './Pages/contact';
 import Blog from './Pages/blog';
-import { addToWishlist } from './redux/productSlice';
+import { addToWishlist, removeFromWishlist } from './redux/productSlice';
 import Message from './Components/wishlist/message';
 import Profile from './Pages/profile';
 import { getPaypalClientID } from './hooks/getpaypal';
@@ -76,9 +76,19 @@ function App() {
     localStorage.setItem('wishListState', JSON.stringify(wishList));
   }, [wishList]);
 
+  const { wishlist } = useSelector((state) => state.product);
+  const isItemInWishlist = (productId) =>
+    wishlist.some((product) => product._id === productId);
   const handleWishlist = (item) => {
-    setWishlist(!wishList);
-    dispatch(addToWishlist(item));
+    if (isItemInWishlist(item._id)) {
+      setWishMessage('Removed from wishlist');
+      dispatch(removeFromWishlist(item));
+      console.log('rmoved');
+    } else {
+      setWishMessage('Add from wishlist');
+      dispatch(addToWishlist(item));
+      console.log('add');
+    }
   };
 
   const [paypalClientID, setPaypalClientID] = useState(null);
