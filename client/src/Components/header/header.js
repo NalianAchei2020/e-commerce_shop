@@ -62,8 +62,8 @@ function Header({ handlePopup }) {
             </li>
             <li>
               <select className="language-dropdown">
-                <option value="franc">FRANC CFA</option>
-                <option value="usd">USD</option>
+                <option value="franc">USD</option>
+                <option value="usd">FRANC CFA</option>
                 <option value="euro">EURO</option>
               </select>
             </li>

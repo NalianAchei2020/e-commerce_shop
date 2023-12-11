@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Image } from 'cloudinary-react';
 
-function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
+function BestSeller({ handleAddToCart, handleWishlist, isItemInWishlist }) {
   const navigate = useNavigate();
   const [section, setSection] = useState('bestSeller-men');
   const { product } = useSelector((state) => state.product);
@@ -97,7 +97,9 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
                         >
                           <FavoriteIcon
                             className="whistlist"
-                            sx={{ color: wishList ? 'red' : null }}
+                            sx={{
+                              color: isItemInWishlist(item._id) ? 'red' : null,
+                            }}
                           />
                         </IconButton>
                       </Tooltip>
@@ -172,7 +174,9 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
                         >
                           <FavoriteIcon
                             className="whistlist"
-                            sx={{ color: wishList ? 'red' : null }}
+                            sx={{
+                              color: isItemInWishlist(item._id) ? 'red' : null,
+                            }}
                           />
                         </IconButton>
                       </Tooltip>
@@ -247,7 +251,9 @@ function BestSeller({ handleAddToCart, handleWishlist, wishList }) {
                         >
                           <FavoriteIcon
                             className="whistlist"
-                            sx={{ color: wishList ? 'red' : null }}
+                            sx={{
+                              color: isItemInWishlist(item._id) ? 'red' : null,
+                            }}
                           />
                         </IconButton>
                       </Tooltip>

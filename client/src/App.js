@@ -80,12 +80,13 @@ function App() {
   const isItemInWishlist = (productId) =>
     wishlist.some((product) => product._id === productId);
   const handleWishlist = (item) => {
+    setWishlist(true);
     if (isItemInWishlist(item._id)) {
       setWishMessage('Removed from wishlist');
       dispatch(removeFromWishlist(item));
       console.log('rmoved');
     } else {
-      setWishMessage('Add from wishlist');
+      setWishMessage('Add to wishlist');
       dispatch(addToWishlist(item));
       console.log('add');
     }
@@ -121,7 +122,7 @@ function App() {
                 popup={popup}
                 setPopup={setPopup}
                 handleWishlist={handleWishlist}
-                wishList={wishList}
+                isItemInWishlist={isItemInWishlist}
               />
             }
           />

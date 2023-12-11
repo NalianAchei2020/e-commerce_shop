@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Image } from 'cloudinary-react';
 
-function NewArrivals({ handleAddToCart }) {
+function NewArrivals({ handleAddToCart, handleWishlist, isItemInWishlist }) {
   const { product } = useSelector((state) => state.product);
   const newArrival = product.filter((item) => item.newArrival === true);
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function NewArrivals({ handleAddToCart }) {
                 <div className="card-body">
                   <span>{item.brand}</span>
                   <h5 className="card-title">{item.name}</h5>
-                  <span className="text-center">{item.price} FCFA</span>
+                  <span className="text-center">${item.price}</span>
                   <Stack spacing={2}>
                     <div className="rating">
                       <Rating
@@ -54,8 +54,18 @@ function NewArrivals({ handleAddToCart }) {
                       ADD TO CARD
                     </Button>
                     <Tooltip title="Wishlist" placement="bottom">
-                      <IconButton className="whistlist">
-                        <FavoriteIcon className="whistlist" />
+                      <IconButton
+                        className="whistlist"
+                        onClick={() => {
+                          handleWishlist(item);
+                        }}
+                      >
+                        <FavoriteIcon
+                          className="whistlist"
+                          sx={{
+                            color: isItemInWishlist(item._id) ? 'red' : null,
+                          }}
+                        />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Quick View" placement="bottom">

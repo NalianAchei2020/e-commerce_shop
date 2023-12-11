@@ -18,6 +18,8 @@ function CarouselProduct({
   rating,
   item,
   handleAddToCart,
+  handleWishlist,
+  isItemInWishlist,
 }) {
   return (
     <div className="card-container">
@@ -30,7 +32,7 @@ function CarouselProduct({
         <div className="card-body">
           <span>{brand}</span>
           <h5 className="card-title">{name}</h5>
-          <span className="text-center">{price} FCFA</span>
+          <span className="text-center">${price}</span>
           <Stack spacing={2}>
             <div className="rating">
               <Rating
@@ -52,8 +54,18 @@ function CarouselProduct({
               ADD TO CARD
             </Button>
             <Tooltip title="Wishlist" placement="bottom">
-              <IconButton className="whistlist">
-                <FavoriteIcon className="whistlist" />
+              <IconButton
+                className="whistlist"
+                onClick={() => {
+                  handleWishlist(item);
+                }}
+              >
+                <FavoriteIcon
+                  className="whistlist"
+                  sx={{
+                    color: isItemInWishlist(item._id) ? 'red' : null,
+                  }}
+                />
               </IconButton>
             </Tooltip>
             <Tooltip title="Quick View" placement="bottom">

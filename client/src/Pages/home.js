@@ -10,7 +10,7 @@ import FashionNews from '../Components/home/fashionNews';
 import Instagram from '../Components/home/instagram';
 import { useNavigate } from 'react-router-dom';
 
-function Home({ setPopup, handleWishlist, wishList }) {
+function Home({ setPopup, handleWishlist, isItemInWishlist }) {
   const dispatch = useDispatch();
 
   const handleAddToCart = (item) => {
@@ -62,14 +62,22 @@ function Home({ setPopup, handleWishlist, wishList }) {
       <BestSeller
         handleAddToCart={handleAddToCart}
         handleWishlist={handleWishlist}
-        wishList={wishList}
+        isItemInWishlist={isItemInWishlist}
       />
       {/* call to action */}
       <CallToAction />
       {/* featured products */}
-      <FeaturedProducts handleAddToCart={handleAddToCart} />
+      <FeaturedProducts
+        handleAddToCart={handleAddToCart}
+        handleWishlist={handleWishlist}
+        isItemInWishlist={isItemInWishlist}
+      />
       {/* New arrivals products */}
-      <NewArrivals handleAddToCart={handleAddToCart} />
+      <NewArrivals
+        handleAddToCart={handleAddToCart}
+        handleWishlist={handleWishlist}
+        isItemInWishlist={isItemInWishlist}
+      />
       {/* Fashion news */}
       <FashionNews />
       {/* Instagram post */}
