@@ -26,6 +26,7 @@ const initialState = {
     ? JSON.parse(localStorage.getItem('paidOrder'))
     : [],
   message: '',
+  searchQuery: '',
 };
 
 const baseURL = 'http://localhost:8000';
@@ -281,6 +282,9 @@ const productsSlice = createSlice({
         };
       }
     },
+    handleQuery: (state, action) => {
+      state.searchQuery = action.payload;
+    },
   },
   extraReducers: (builder) => {
     //fetch products
@@ -385,5 +389,6 @@ export const {
   removeItem,
   addToWishlist,
   removeFromWishlist,
+  handleQuery,
 } = productsSlice.actions;
 export default productsSlice.reducer;
