@@ -34,6 +34,7 @@ import Paypal from './Components/checkout/paypal';
 import OrderDetail from './Pages/orderDetail';
 import Wishlist from './Pages/wishlist';
 import PageNotFound from './Pages/pageNotFound';
+import Search from './Pages/search';
 
 function App() {
   const dispatch = useDispatch();
@@ -158,6 +159,16 @@ function App() {
           <Route path="/payment" element={<Paypal />} />
           <Route path="/order/:id" element={<OrderDetail />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route
+            path="/search"
+            element={
+              <Search
+                handleAddToCart={handleAddToCart}
+                handleWishlist={handleWishlist}
+                isItemInWishlist={isItemInWishlist}
+              />
+            }
+          />
         </Routes>
         {!hideHeaderFooter && <Footer />}
         <ShoppingCart
