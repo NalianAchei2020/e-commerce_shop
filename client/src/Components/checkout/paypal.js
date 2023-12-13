@@ -9,12 +9,16 @@ import axios from 'axios';
 import { Image } from 'cloudinary-react';
 import Message from '../checkout/message';
 import Error from '../checkout/error';
-function Paypal({ total, shippingPrice }) {
+function Paypal() {
   const { orderItems } = useSelector((state) => state.product);
   const navigate = useNavigate();
   const [isPaid, setIsPaid] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+
+  const total = orderItems?.totalPrice;
+  const shippingPrice = orderItems?.shippingPrice;
+  console.log((total + shippingPrice).toFixed(2));
 
   const paidOrder = async (data) => {
     try {
@@ -181,7 +185,9 @@ function Paypal({ total, shippingPrice }) {
                         description: 'test',
                         amount: {
                           currency_code: 'USD',
-                          value: (total + shippingPrice).toFixed(2),
+                          value: (
+                            Number(total) + Number(shippingPrice)
+                          ).toFixed(2),
                         },
                       },
                     ],

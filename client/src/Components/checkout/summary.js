@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
+import { Image } from 'cloudinary-react';
 
 function Summary() {
   const [show, setShow] = useState(false);
@@ -42,9 +43,9 @@ function Summary() {
                   <li>
                     <div className="d-flex flex-row gap-4 check-items">
                       <div className="check-imageContainer">
-                        <img
-                          src={item.image}
-                          alt={item.name}
+                        <Image
+                          cloudName="sali-touch"
+                          publicId={item.image.public_id}
                           className="check-image"
                         />
                       </div>

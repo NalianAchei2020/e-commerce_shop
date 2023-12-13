@@ -35,6 +35,7 @@ import OrderDetail from './Pages/orderDetail';
 import Wishlist from './Pages/wishlist';
 import PageNotFound from './Pages/pageNotFound';
 import Search from './Pages/search';
+import ScrollToTopButton from './Components/scrollTop';
 
 function App() {
   const dispatch = useDispatch();
@@ -183,6 +184,7 @@ function App() {
           setWishMessage={setWishMessage}
           setWishlist={setWishlist}
         />
+        <ScrollToTopButton />
       </PayPalScriptProvider>
     </div>
   );
