@@ -76,9 +76,12 @@ function Product({ handleAddToCart }) {
     // Send a request to view the product
     const viewProduct = async () => {
       try {
-        await axios.post('http://localhost:8000/api/views/product/view', {
-          id: productID,
-        });
+        await axios.post(
+          'https://e-commerce-backend-thjf.onrender.com/api/views/product/view',
+          {
+            id: productID,
+          }
+        );
       } catch (error) {
         console.log(error);
       }
