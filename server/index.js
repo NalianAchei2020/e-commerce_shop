@@ -23,7 +23,10 @@ mongoose
 //cors middleware
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: [
+      'http://localhost:3000',
+      'https://vocal-crumble-ad776b.netlify.app/',
+    ],
     methods: ['PUT', 'POST', 'GET', 'DELETE', 'PATCH'],
     credentials: true,
   })
