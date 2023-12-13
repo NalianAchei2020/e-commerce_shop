@@ -447,6 +447,7 @@ function Checkout() {
                       </div>
                     </li>
                   </ul>
+                  <p>{errror}</p>
                 </div>
               )}
             </section>

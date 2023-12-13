@@ -15,7 +15,7 @@ import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import { Tooltip } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import SelectCountry from './home/select';
 import { addToCart, removeFromCart, removeItem } from '../redux/productSlice';

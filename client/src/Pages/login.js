@@ -33,7 +33,7 @@ function Login() {
     if (username.name) {
       navigate('/');
     }
-  }, [username]);
+  }, [username, navigate]);
   return (
     <section className="container-fluid container-login">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">

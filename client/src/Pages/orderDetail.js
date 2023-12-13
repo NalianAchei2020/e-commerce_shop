@@ -20,8 +20,6 @@ function OrderDetail() {
   const selectedOrder = orders.find((order) => order._id === id);
   console.log(selectedOrder);
 
-  const isAdmin = username.isAdmin;
-
   return (
     <section>
       <section className="checkout-container2">

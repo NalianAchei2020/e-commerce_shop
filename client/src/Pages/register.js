@@ -30,7 +30,7 @@ function Register() {
     if (username.name) {
       navigate('/');
     }
-  }, [message]);
+  }, [navigate, username, message]);
 
   const handleNavigateToLogin = () => {
     navigate('/login');
