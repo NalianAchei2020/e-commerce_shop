@@ -24,7 +24,7 @@ function Paypal({ total, shippingPrice }) {
       } else {
         const response = await axios({
           method: 'PUT',
-          url: `http://localhost:8000/api/orders/${orderItems._id}/paid`,
+          url: `https://e-commerce-backend-thjf.onrender.com/api/orders/${orderItems._id}/paid`,
           headers: {
             contentType: 'application/json',
           },

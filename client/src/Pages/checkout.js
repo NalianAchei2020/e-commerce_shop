@@ -129,7 +129,9 @@ function Checkout() {
           navigate('/payment');
         }, 1000);
       } else {
-        navigate('/profile');
+        setTimeout(() => {
+          navigate('/profile');
+        }, 1000);
       }
     } else {
       setError('No data inserted');

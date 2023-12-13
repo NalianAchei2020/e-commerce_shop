@@ -303,6 +303,10 @@
 .instagram-container {
   display: flex;
   padding-inline: 2em;
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 //preview shopping card

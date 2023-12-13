@@ -161,7 +161,7 @@ function Header({ handlePopup }) {
             <li className="nav-item ave-item">
               {username.name ? (
                 <Link to="/profile">
-                  <Avater />
+                  <Avater sx={{ width: 14, height: 14 }} />
                 </Link>
               ) : (
                 <Link to="/login" className="icon-link none">
