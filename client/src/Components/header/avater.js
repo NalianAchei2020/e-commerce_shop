@@ -13,6 +13,9 @@ function Avater() {
             sx={{
               backgroundColor: 'primary.light',
               fontSize: '1.2rem',
+              width: 30,
+              height: 30,
+              marginTop: '2rem',
             }}
           >
             {name}

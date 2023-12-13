@@ -18,6 +18,7 @@ import PaymentMethod from '../Components/checkout/paymentMethod';
 import Summary from '../Components/checkout/summary';
 import Cfooter from '../Components/checkout/Cfooter';
 import { createOrder } from '../redux/productSlice';
+import { clearCart } from '../hooks/localstorage';
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -117,7 +118,7 @@ function Checkout() {
       itemPrice: total,
       taxPrice: 0,
       shippingPrice: shippingprice,
-      totalPrice: shippingprice + total,
+      totalPrice: (shippingprice + total).toFixed(2),
     };
     if (orderData) {
       dispatch(createOrder(orderData));
@@ -128,10 +129,12 @@ function Checkout() {
         setTimeout(() => {
           navigate('/payment');
         }, 1000);
+        clearCart();
       } else {
         setTimeout(() => {
           navigate('/profile');
         }, 1000);
+        clearCart();
       }
     } else {
       setError('No data inserted');

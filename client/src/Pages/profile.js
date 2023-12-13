@@ -123,7 +123,7 @@ function Profile() {
         </div>
         <div className="profile-orders">
           <h2>Order History</h2>
-          <CTable responsive="md">
+          <CTable responsive>
             <CTableHead>
               <CTableRow>
                 <CTableHeaderCell scope="col">ORDER ID</CTableHeaderCell>
