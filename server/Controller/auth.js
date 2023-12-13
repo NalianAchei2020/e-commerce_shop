@@ -27,13 +27,11 @@ export const register = async (req, res, next) => {
     res
       .cookie('access_token', generateToken(savedUser), {
         httpOnly: true,
-        /*
-          secure: true,
-          sameSite: 'none',
-          maxAge: 24 * 60 * 60 * 1000,
-          path: '/',
-         signed:true
-          */
+        secure: true,
+        sameSite: 'none',
+        maxAge: 24 * 60 * 60 * 1000,
+        path: '/',
+        signed: true,
       })
       .status(200)
       .json({
@@ -64,13 +62,11 @@ export const login = async (req, res, next) => {
     res
       .cookie('access_token', generateToken(user), {
         httpOnly: true,
-        /*
-          secure: true,
-          sameSite: 'none',
-          maxAge: 24 * 60 * 60 * 1000,
-          path: '/',
-         signed:true
-          */
+        secure: true,
+        sameSite: 'none',
+        maxAge: 24 * 60 * 60 * 1000,
+        path: '/',
+        signed: true,
       })
       .status(200)
       .json({ ...otherDatails, auth: true, isAdmin: isAdmin });
