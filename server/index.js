@@ -26,8 +26,7 @@ app.use(
     origin: [
       'https://vocal-crumble-ad776b.netlify.app',
       'http://localhost:3000',
-      'https://vocal-crumble-ad776b.netlify.app/',
-      '*',
+      'https://shopee-shop.netlify.app',
     ],
     methods: ['PUT', 'POST', 'GET', 'DELETE', 'PATCH'],
     credentials: true,
