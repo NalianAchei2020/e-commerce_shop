@@ -184,7 +184,6 @@ function App() {
           setWishlist={setWishlist}
         />
       </PayPalScriptProvider>
-      <Router></Router>
     </div>
   );
 }

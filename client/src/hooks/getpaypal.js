@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8000';
+const baseURL = 'https://e-commerce-backend-thjf.onrender.com';
 export const getPaypalClientID = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/paypal/clientId`);
