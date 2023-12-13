@@ -36,7 +36,7 @@ app.use(
 app.use(cookieParser());
 //other
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser('secret'));
+app.use(cookieParser(config.JWT_SECRET));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(
   bodyParser.urlencoded({

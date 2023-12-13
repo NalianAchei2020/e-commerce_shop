@@ -31,7 +31,6 @@ export const register = async (req, res, next) => {
         sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000,
         path: '/',
-        signed: true,
       })
       .status(200)
       .json({
@@ -66,7 +65,6 @@ export const login = async (req, res, next) => {
         sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000,
         path: '/',
-        signed: true,
       })
       .status(200)
       .json({ ...otherDatails, auth: true, isAdmin: isAdmin });
