@@ -29,8 +29,7 @@ const initialState = {
   searchQuery: '',
 };
 
-const baseURL = 'http://localhost:8000';
-//const baseURL = 'http://52.91.24.60:8000';
+const baseURL = 'https://e-commerce-backend-thjf.onrender.com';
 
 export const fetchProduct = createAsyncThunk(
   'products/fetchProduct',
