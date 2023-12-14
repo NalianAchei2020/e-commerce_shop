@@ -29,23 +29,11 @@ export const updateUser = async (req, res, next) => {
         message: 'User Not Found',
       });
     } else {
-      const { name, email, password } = req.body;
-      console.log(req);
-
-      console.log(name, email, password);
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.password = req.body.password || user.password;
       const updateUser = await user.save();
-      console.log(updateUser);
       res.send({
-        _id: updateUser._id,
-        name: updateUser.name,
-        email: updateUser.email,
-        isAdmin: updateUser.isAdmin,
-        token: generateToken(updateUser),
-      });
-      console.log({
         _id: updateUser._id,
         name: updateUser.name,
         email: updateUser.email,

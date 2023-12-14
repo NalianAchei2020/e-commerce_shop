@@ -23,11 +23,7 @@ mongoose
 //cors middleware
 app.use(
   cors({
-    origin: [
-      'https://vocal-crumble-ad776b.netlify.app',
-      'http://localhost:3000',
-      'https://shopee-shop.netlify.app',
-    ],
+    origin: ['http://localhost:3000', 'https://shopee-store.netlify.app'],
     methods: ['PUT', 'POST', 'GET', 'DELETE', 'PATCH'],
     credentials: true,
   })
