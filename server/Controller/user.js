@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from '../Models/userModel.js';
+import { generateToken } from '../utils/verifyToken.js';
 import config from '../config.js';
 export const createAdmin = async (req, res, next) => {
   try {
