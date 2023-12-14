@@ -117,6 +117,23 @@ export const login = createAsyncThunk(
     }
   }
 );
+// update user
+export const update = createAsyncThunk('user/update', async (id, data) => {
+  try {
+    const response = await axios({
+      method: 'PUT',
+      url: `${baseURL}/api/users/${id}`,
+      headers: {
+        contentType: 'application/json',
+      },
+      withCredentials: true,
+      data: data,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Something went wrong');
+  }
+});
 // create order
 export const createOrder = createAsyncThunk('order/create', async (data) => {
   try {
@@ -310,7 +327,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;
-      state.registerError = action.payload.message;
+      state.registerError = action.error.message;
     });
     //login in to system
     builder.addCase(login.fulfilled, (state, action) => {
@@ -325,7 +342,19 @@ const productsSlice = createSlice({
     });
     builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
-      state.loginError = action.payload.message;
+      state.loginError = action.error.message;
+    });
+    // update user
+    builder.addCase(update.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.message = action.payload;
+    });
+    builder.addCase(update.pending, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(update.rejected, (state, action) => {
+      state.isLoading = false;
+      state.loginError = action.error.message;
     });
     //create order
     builder.addCase(createOrder.fulfilled, (state, action) => {

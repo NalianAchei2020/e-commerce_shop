@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,12 +23,13 @@ function Profile() {
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = form;
   const { orders, loginError, username, message } = useSelector(
     (state) => state.product
   );
+  const [closeAlert, setCloseAlert] = useState(false);
 
   useEffect(() => {
     dispatch(getUserOrder());
@@ -36,8 +37,8 @@ function Profile() {
 
   const handleUpdate = (data) => {
     dispatch(update(username._id, data));
-    console.log(dispatch(update(username._id, data)));
-    console.log(data);
+    setCloseAlert(true);
+    reset();
   };
   const handleLogout = () => {
     clearUser();
@@ -54,8 +55,30 @@ function Profile() {
         </div>
         <span>Profile</span>
       </div>
-      <div>{loginError && <Alert severity="error">{loginError}</Alert>}</div>
-      <div>{loginError && <Alert severity="success">{message}</Alert>}</div>
+      <div>
+        {loginError && closeAlert && (
+          <Alert
+            severity="error"
+            onClose={() => {
+              setCloseAlert(false);
+            }}
+          >
+            {loginError}
+          </Alert>
+        )}
+      </div>
+      <div>
+        {message && closeAlert && (
+          <Alert
+            severity="success"
+            onClose={() => {
+              setCloseAlert(false);
+            }}
+          >
+            Profile updated successfully
+          </Alert>
+        )}
+      </div>
       <section className="content profile">
         <div className="profile-info">
           <div className="form-container">
