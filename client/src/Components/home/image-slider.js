@@ -88,16 +88,26 @@ const Slider = () => {
           transform: 'translateX(-50%)',
           textAlign: 'center',
           color: 'white',
+          '@media (max-width: 768px)': {
+            left: 0,
+            transform: 'none',
+            marginInline: '0.5em',
+            bottom: '80px',
+          },
         }}
       >
         <div className="text-btn">
           <h2 className="slider-heading">{images[currentImageIndex].text}</h2>
           <br />
           <br />
-          <Button variant="contained" color="primary" className="btn-slider"  onClick={() => {
-                  navigate('/shop');
-                }}
-              >
+          <Button
+            variant="contained"
+            color="primary"
+            className="btn-slider"
+            onClick={() => {
+              navigate('/shop');
+            }}
+          >
             Shop Now
           </Button>
         </div>

@@ -5,6 +5,9 @@
 .slider-heading {
   font-size: 2.5rem;
   font-weight: 900;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 }
 .btn-slider {
   height: 50px;
