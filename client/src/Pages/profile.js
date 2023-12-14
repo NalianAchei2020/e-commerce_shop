@@ -13,7 +13,7 @@ import {
   CTableRow,
   CTableDataCell,
 } from '@coreui/react';
-import { getUserOrder } from '../redux/productSlice';
+import { getUserOrder, update } from '../redux/productSlice';
 import { clearUser } from '../hooks/localstorage';
 
 function Profile() {
@@ -26,13 +26,19 @@ function Profile() {
 
     formState: { errors },
   } = form;
-  const { orders } = useSelector((state) => state.product);
+  const { orders, loginError, username, message } = useSelector(
+    (state) => state.product
+  );
 
   useEffect(() => {
     dispatch(getUserOrder());
   }, [dispatch]);
 
-  const handleUpdate = (data) => {};
+  const handleUpdate = (data) => {
+    dispatch(update(username._id, data));
+    console.log(dispatch(update(username._id, data)));
+    console.log(data);
+  };
   const handleLogout = () => {
     clearUser();
     navigate('/');
@@ -48,6 +54,8 @@ function Profile() {
         </div>
         <span>Profile</span>
       </div>
+      <div>{loginError && <Alert severity="error">{loginError}</Alert>}</div>
+      <div>{loginError && <Alert severity="success">{message}</Alert>}</div>
       <section className="content profile">
         <div className="profile-info">
           <div className="form-container">
@@ -141,7 +149,7 @@ function Profile() {
                 </CTableRow>
               ) : (
                 orders.map((order) => (
-                  <CTableRow>
+                  <CTableRow key={order._id}>
                     <CTableDataCell>{order._id}</CTableDataCell>
                     <CTableDataCell>{order.createdAt}</CTableDataCell>
                     <CTableDataCell>$ {order.totalPrice}</CTableDataCell>

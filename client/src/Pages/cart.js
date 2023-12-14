@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart, removeItem } from '../redux/productSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Image } from 'cloudinary-react';
 import SelectCountry from '../Components/home/select';
@@ -13,6 +14,10 @@ function Cart() {
   const { cart } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [coupon, setCoupon] = useState('');
+  const [isCoupon, setIsCoupon] = useState(false);
+  const [discount, setDiscount] = useState('');
+  const [msg, setMsg] = useState('');
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
@@ -27,6 +32,16 @@ function Cart() {
   const handleBuy = () => {
     navigate('/checkout');
   };
+
+  const handleDiscountCodeApplied = () => {
+    if (discount === '') {
+      setMsg('Please enter a discount code');
+    } else {
+      setCoupon('Discount code applied successfully. Thank you!');
+      setIsCoupon(true);
+    }
+  };
+
   return (
     <section className="container-fluid cart-container">
       <div className="cart-heading3 d-flex flex-row gap-4 mb-3">
@@ -151,13 +166,30 @@ function Cart() {
               sx={{ width: '100%' }}
             />
             <h5 className="cart-text">Discount Code</h5>
-            <TextField
-              type="text"
-              label="Enter discount code"
-              sx={{ width: '100%' }}
-              name="discount"
-            />
-            <button className="btn-best btn-apply">Apply</button>
+            <div>
+              {isCoupon ? (
+                <Alert severity="success">{coupon}</Alert>
+              ) : (
+                <div>
+                  <TextField
+                    type="text"
+                    label="Enter discount code"
+                    sx={{ width: '100%' }}
+                    name="discount"
+                    onChange={(e) => setDiscount(e.target.value)}
+                  />
+                  <br />
+                  <br />
+                  {msg && <Alert severity="error">{msg}</Alert>}
+                </div>
+              )}
+            </div>
+            <button
+              className="btn-best btn-apply"
+              onClick={handleDiscountCodeApplied}
+            >
+              Apply
+            </button>
             <ul className="d-flex flex-row justify-content-between mt-4 cart-price-border">
               <li>
                 {' '}

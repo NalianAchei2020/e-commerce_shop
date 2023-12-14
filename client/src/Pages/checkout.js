@@ -27,6 +27,10 @@ function Checkout() {
   const [selectedValue, setSelectedValue] = useState('usps');
   const [shippingprice, setShippingprice] = useState(0);
   const [errror, setError] = useState(null);
+  const [coupon, setCoupon] = useState('');
+  const [isCoupon, setIsCoupon] = useState(false);
+  const [discount, setDiscount] = useState('');
+  const [msg, setMsg] = useState('');
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -42,7 +46,7 @@ function Checkout() {
       setShippingprice('free').toString();
     }
   };
-  const { cart, error } = useSelector((state) => state.product);
+  const { cart, error, username } = useSelector((state) => state.product);
   const form = useForm();
   const {
     register,
@@ -120,7 +124,7 @@ function Checkout() {
       shippingPrice: shippingprice,
       totalPrice: (shippingprice + total).toFixed(2),
     };
-    if (orderData) {
+    if (orderData && username.name) {
       dispatch(createOrder(orderData));
       if (error) {
         setError('Something went wrong');
@@ -137,10 +141,17 @@ function Checkout() {
         clearCart();
       }
     } else {
-      setError('No data inserted');
+      setError('Something went wrong! Make sure you are logged in');
     }
   };
-
+  const handleDiscountCodeApplied = () => {
+    if (discount === '') {
+      setMsg('Please enter a discount code');
+    } else {
+      setCoupon('Discount code applied successfully. Thank you!');
+      setIsCoupon(true);
+    }
+  };
   return (
     <section className="container-checkout">
       <section className="checkout-container">
@@ -385,13 +396,30 @@ function Checkout() {
                   ))}
                   <ul>
                     <li>
-                      <TextField
-                        type="text"
-                        label="Enter discount code"
-                        sx={{ width: '100%' }}
-                        name="discount"
-                      />
-                      <button className="btn-best btn-apply">Apply</button>
+                      <div>
+                        {isCoupon ? (
+                          <Alert severity="success">{coupon}</Alert>
+                        ) : (
+                          <div>
+                            <TextField
+                              type="text"
+                              label="Enter discount code"
+                              sx={{ width: '100%' }}
+                              name="discount"
+                              onChange={(e) => setDiscount(e.target.value)}
+                            />
+                            <br />
+                            <br />
+                            {msg && <Alert severity="error">{msg}</Alert>}
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        className="btn-best btn-apply"
+                        onClick={handleDiscountCodeApplied}
+                      >
+                        Apply
+                      </button>
                     </li>
                     <li>
                       <span>Subtotal</span>

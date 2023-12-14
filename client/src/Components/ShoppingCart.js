@@ -223,7 +223,10 @@ function ShoppingCart({
                           sx={{ width: '100%' }}
                         />
                         <div className="d-flex flex-row justify-content-between mb-5">
-                          <button className="save-btn checkout-btn">
+                          <button
+                            className="save-btn checkout-btn"
+                            onClick={handleCloseTab}
+                          >
                             Save
                           </button>
                           <button
@@ -246,7 +249,10 @@ function ShoppingCart({
                           {...register('description')}
                         />
                         <div className="d-flex flex-row justify-content-between mb-5">
-                          <button className="save-btn checkout-btn">
+                          <button
+                            className="save-btn checkout-btn"
+                            onClick={handleCloseTab}
+                          >
                             Save
                           </button>
                           <button
@@ -279,7 +285,10 @@ function ShoppingCart({
                           />
                         </div>
                         <div className="d-flex flex-row justify-content-between mb-5">
-                          <button className="save-btn checkout-btn">
+                          <button
+                            className="save-btn checkout-btn"
+                            onClick={handleCloseTab}
+                          >
                             Save
                           </button>
                           <button
