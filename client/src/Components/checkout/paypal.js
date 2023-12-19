@@ -18,7 +18,6 @@ function Paypal() {
 
   const total = orderItems?.totalPrice;
   const shippingPrice = orderItems?.shippingPrice;
-  console.log((total + shippingPrice).toFixed(2));
 
   const paidOrder = async (data) => {
     try {
