@@ -221,7 +221,7 @@ function Product({ handleAddToCart }) {
             </IconButton>
             <h6 className="mt-3">{usersCount} views</h6>
           </div>
-          <h5>{selectedProduct.price} FCFA</h5>
+          <h5>$ {selectedProduct.price}</h5>
           <div className="d-flex flex-row gap-4 desIcons-container">
             <ul className="d-flex flex-row gap-3 justify-content-center align-center previewCart-list">
               <li>
@@ -481,7 +481,7 @@ function Product({ handleAddToCart }) {
               <li>
                 <LocalShippingIcon />
               </li>
-              <li>Free Shipping & Returns: On all orders over 200 FCFA</li>
+              <li>Free Shipping & Returns: On all orders over $2000</li>
             </ul>
             <ul className="d-flex flex-row gap-2 p-0">
               <li>
