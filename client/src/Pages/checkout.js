@@ -19,6 +19,7 @@ import Summary from '../Components/checkout/summary';
 import Cfooter from '../Components/checkout/Cfooter';
 import { createOrder } from '../redux/productSlice';
 import { clearCart } from '../hooks/localstorage';
+import Errormessage from '../Components/checkout/errormessage';
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function Checkout() {
   const [isCoupon, setIsCoupon] = useState(false);
   const [discount, setDiscount] = useState('');
   const [msg, setMsg] = useState('');
+  const [alertError, setAlertError] = useState(false);
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -128,6 +130,7 @@ function Checkout() {
       dispatch(createOrder(orderData));
       if (error) {
         setError('Something went wrong');
+        setAlertError(true);
       }
       if (paymentValue === 'paypal') {
         setTimeout(() => {
@@ -142,6 +145,7 @@ function Checkout() {
       }
     } else {
       setError('Something went wrong! Make sure you are logged in');
+      setAlertError(true);
     }
   };
   const handleDiscountCodeApplied = () => {
@@ -173,6 +177,11 @@ function Checkout() {
             </Tooltip>
           </Link>
         </div>
+        <Errormessage
+          alertError={alertError}
+          error={errror}
+          setAlertError={setAlertError}
+        />
         <section className="checkout-container2">
           <Summary />
           <section className="checkout-form">
@@ -480,7 +489,6 @@ function Checkout() {
                       </div>
                     </li>
                   </ul>
-                  <p>{errror}</p>
                 </div>
               )}
             </section>
