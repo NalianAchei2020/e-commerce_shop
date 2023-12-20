@@ -83,7 +83,7 @@ function Product({ handleAddToCart }) {
           }
         );
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     };
 
@@ -94,7 +94,7 @@ function Product({ handleAddToCart }) {
           id: productID,
         });
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     };
 
@@ -106,7 +106,7 @@ function Product({ handleAddToCart }) {
         );
         setUsersCount(response.data.count);
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     };
 
