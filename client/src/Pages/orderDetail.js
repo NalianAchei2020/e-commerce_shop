@@ -8,17 +8,13 @@ function OrderDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(id);
+
   useEffect(() => {
     dispatch(getUserOrder());
-    console.log(dispatch(getUserOrder()));
-    console.log('useEffect');
   }, [dispatch]);
   const { orders, username } = useSelector((state) => state.product);
-  console.log(orders);
 
   const selectedOrder = orders.find((order) => order._id === id);
-  console.log(selectedOrder);
 
   return (
     <section>
