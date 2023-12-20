@@ -86,11 +86,10 @@ function App() {
     if (isItemInWishlist(item._id)) {
       setWishMessage('Removed from wishlist');
       dispatch(removeFromWishlist(item));
-      console.log('rmoved');
     } else {
       setWishMessage('Add to wishlist');
       dispatch(addToWishlist(item));
-      console.log('add');
+    
     }
   };
 
