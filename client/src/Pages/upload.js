@@ -35,12 +35,9 @@ function Upload() {
         formData
       );
       const result = response.data;
-      console.log(result);
-      console.log(formData);
     } catch (error) {
       throw new Error(error);
     }
-    console.log(imageString);
   };
   const formData = watch(); // Get all form data
   const bestSellerChecked = formData.bestSeller; // Get the value of the 'bestSeller' checkbox
