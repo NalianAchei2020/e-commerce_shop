@@ -129,10 +129,9 @@ function Checkout() {
     if (orderData && username.name) {
       dispatch(createOrder(orderData));
       if (error) {
-        setError('Something went wrong');
+        setError('Something went wrong! Make sure you are logged in');
         setAlertError(true);
-      }
-      if (paymentValue === 'paypal') {
+      } else if (paymentValue === 'paypal') {
         setTimeout(() => {
           navigate('/payment');
         }, 1000);
