@@ -51,7 +51,7 @@ function Men({ handleAddToCart }) {
                 <div className="card-body">
                   <span>{item.brand}</span>
                   <h5 className="card-title">{item.name}</h5>
-                  <span className="text-center">{item.price} FCFA</span>
+                  <span className="text-center">${item.price}</span>
                   <Stack spacing={2}>
                     <div className="rating">
                       <Rating
