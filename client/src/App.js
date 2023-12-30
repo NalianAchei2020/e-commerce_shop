@@ -51,6 +51,11 @@ function App() {
   );
   const [wishMessage, setWishMessage] = useState('');
 
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
+
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
