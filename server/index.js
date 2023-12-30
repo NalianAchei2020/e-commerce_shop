@@ -23,7 +23,7 @@ mongoose
 //cors middleware
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://shopee-store.netlify.app'],
+    origin: ['http://localhost:3000', 'https://shopee-shop.netlify.app'],
     methods: ['PUT', 'POST', 'GET', 'DELETE', 'PATCH'],
     credentials: true,
   })
