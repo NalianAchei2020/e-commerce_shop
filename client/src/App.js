@@ -89,7 +89,6 @@ function App() {
     } else {
       setWishMessage('Add to wishlist');
       dispatch(addToWishlist(item));
-    
     }
   };
 
