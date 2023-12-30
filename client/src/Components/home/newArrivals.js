@@ -19,7 +19,7 @@ function NewArrivals({ handleAddToCart, handleWishlist, isItemInWishlist }) {
       <div className="row-container">
         {newArrival.map((item) => (
           <div className="card-container" key={item._id}>
-            <Link to="/" className="product-link">
+            <Link to={`/product/${item.name}`} className="product-link">
               <div className="card">
                 <div className="card-image">
                   <Image
