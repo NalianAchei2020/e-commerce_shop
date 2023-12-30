@@ -51,7 +51,7 @@ _[E-COMMERCE SHOP]_ is React project
 
 ## 🚀 Live Demo
 
-- Coming Soon
+- https://shopee-shop.netlify.app
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
