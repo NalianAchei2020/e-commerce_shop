@@ -95,9 +95,8 @@ On your terminal, cd to the current folder and run
 
 You can deploy this project using:
 
-- Heroku
+- Render
 - netlify
-- vercel
 
 ## 👥 Authors <a name="authors"></a>
 

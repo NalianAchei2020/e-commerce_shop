@@ -186,9 +186,6 @@ function Paypal() {
                         View Orders
                       </button>
                     </li>
-                    <li>
-                      <h5>Click the button below to complete your payment</h5>
-                    </li>
                   </ul>
                 ))}
               </div>
