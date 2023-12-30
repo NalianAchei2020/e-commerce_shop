@@ -5,6 +5,7 @@ import { Tooltip } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton } from '@mui/material';
+import Alert from '@mui/material/Alert';
 import axios from 'axios';
 import { Image } from 'cloudinary-react';
 import Message from '../checkout/message';
@@ -87,6 +88,15 @@ function Paypal() {
           <div className="info">
             <ul>
               <h5>Order</h5>
+              <li>
+                <Alert severity="info">
+                  Thank you! <br />
+                  You’ll receive a confirmation email with your order number
+                  shortly.
+                </Alert>
+              </li>
+              <br />
+              <br />
               <li className="d-flex flex-row gap-2">
                 <h6>OrderID:</h6>
                 <h6>{orderItems._id}</h6>
@@ -118,6 +128,17 @@ function Paypal() {
               <li className="d-flex flex-row gap-2">
                 <h6>Payment Method:</h6>
                 <h6>{orderItems?.payment?.paymentMethod}</h6>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <button
+                  className="checkout-btn"
+                  type="button"
+                  onClick={() => navigate('/')}
+                >
+                  Continue Shopping
+                </button>
               </li>
             </ul>
           </div>
@@ -155,6 +176,15 @@ function Paypal() {
                     <li>
                       <h6>Total</h6>
                       <h6>${orderItems?.totalPrice}</h6>
+                    </li>
+                    <li>
+                      <button
+                        className="checkout-btn"
+                        type="button"
+                        onClick={() => navigate('/profile')}
+                      >
+                        View Orders
+                      </button>
                     </li>
                     <li>
                       <h5>Click the button below to complete your payment</h5>

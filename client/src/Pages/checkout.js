@@ -138,7 +138,7 @@ function Checkout() {
         clearCart();
       } else {
         setTimeout(() => {
-          navigate('/profile');
+          navigate('/payment');
         }, 1000);
         clearCart();
       }
