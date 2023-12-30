@@ -12,7 +12,7 @@ function Instagram() {
             src="Images/banner/insta1.jpeg"
             alt="instagram"
             height={200}
-            width={300}
+            width={200}
           />
         </Link>
         <Link to="instagram.com">
@@ -20,7 +20,7 @@ function Instagram() {
             src="Images/banner/insta2.jpeg"
             alt="instagram"
             height={200}
-            width={300}
+            width={200}
           />
         </Link>
         <Link to="instagram.com">
@@ -28,7 +28,7 @@ function Instagram() {
             src="Images/banner/insta3.jpeg"
             alt="instagram"
             height={200}
-            width={300}
+            width={200}
           />
         </Link>
         <Link to="instagram.com">
@@ -36,7 +36,7 @@ function Instagram() {
             src="Images/banner/insta6.jpeg"
             alt="instagram"
             height={200}
-            width={300}
+            width={200}
           />
         </Link>
         <Link to="instagram.com">
@@ -44,7 +44,7 @@ function Instagram() {
             src="Images/banner/insta4.jpg"
             alt="instagram"
             height={200}
-            width={300}
+            width={200}
           />
         </Link>
         <Link to="instagram.com">
@@ -52,7 +52,7 @@ function Instagram() {
             src="Images/banner/insta5.jpg"
             alt="instagram"
             height={200}
-            width={300}
+            width={200}
           />
         </Link>
       </section>

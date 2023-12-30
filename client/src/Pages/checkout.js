@@ -155,6 +155,13 @@ function Checkout() {
       setIsCoupon(true);
     }
   };
+  const redirectToLogin = () => {
+    navigate('/login', {
+      state: {
+        previousUrl: '/checkout',
+      },
+    });
+  };
   return (
     <section className="container-checkout">
       <section className="checkout-container">
@@ -190,7 +197,9 @@ function Checkout() {
               </li>
               <li className="d-flex flex-row gap-2">
                 <span>Have an account?</span>
-                <Link to="/login">Login</Link>
+                <span onClick={redirectToLogin} className="redirectLogin">
+                  Login
+                </span>
               </li>
             </ul>
             <form className="d-flex flex-column gap-2">

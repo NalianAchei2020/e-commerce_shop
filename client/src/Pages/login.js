@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
@@ -14,6 +14,9 @@ function Login() {
   );
 
   const navigate = useNavigate();
+  const location = useLocation();
+  // redirect to checkout page
+
   const form = useForm();
   const {
     register,
@@ -30,7 +33,9 @@ function Login() {
     dispatch(login(data));
   };
   useEffect(() => {
-    if (username.name) {
+    if (username.name && location.state.previousUrl === '/checkout') {
+      navigate('/checkout');
+    } else if (username.name) {
       navigate('/');
     }
   }, [username, navigate]);

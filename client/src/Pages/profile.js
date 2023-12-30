@@ -41,6 +41,9 @@ function Profile() {
     reset();
   };
   const handleLogout = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 30);
     clearUser();
     navigate('/');
   };

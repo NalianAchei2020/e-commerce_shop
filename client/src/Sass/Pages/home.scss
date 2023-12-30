@@ -302,6 +302,8 @@
 }
 .instagram-container {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   padding-inline: 2em;
   @media (max-width: 768px) {
     display: grid;
